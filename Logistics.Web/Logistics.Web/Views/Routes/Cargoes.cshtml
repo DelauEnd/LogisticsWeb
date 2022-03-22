@@ -1,0 +1,67 @@
+﻿@model IEnumerable<CargoDto>
+
+@{
+    ViewData["Title"] = "Cargoes";
+}
+
+@section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
+
+<h1>Cargoes</h1>
+
+<p>
+    <a class="nav-link" href="@Url.Action("AssignCargoes", new { id = ViewBag.RouteToEdit})">Assign cargoes</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Weight)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartureDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    @if (request.HttpClient.UserRoles.Contains("Manager"))
+                        @Html.ActionLink("Unassign", "UnassignCargo", new { cargoId = item.Id, routeId = ViewBag.RouteToEdit })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

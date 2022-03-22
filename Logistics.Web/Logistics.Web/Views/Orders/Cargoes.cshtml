@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CargoDto>
+
+@{
+    ViewData["Title"] = "Cargoes";
+}
+@section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
+
+<h1>Cargoes</h1>
+@if (request.HttpClient.UserRoles.Contains("Manager"))
+{
+    @Html.ActionLink("Add", "CreateCargo", "Cargoes", new { orderId = ViewBag.OrderToEdit })
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Weight)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartureDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Cargoes", new { id = item.Id })
+                    @if (request.HttpClient.UserRoles.Contains("Manager"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", "Cargoes", new { id = item.Id })
+                        <a href="#" onclick="SubmitRedirect('Cargoes', 'Delete', '@item.Id', 'Are you sure you want to delete?')"> Delete </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

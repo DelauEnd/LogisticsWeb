@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CargoDto>
+
+@{
+    ViewData["Title"] = "AssignCargoes";
+}
+
+@section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
+
+<h1>AssignCargoes</h1>
+
+<form asp-action="AssignCargoes">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DepartureDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArrivalDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Weight)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" name="ids" class="form-check" value="@item.Id">
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartureDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArrivalDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Weight)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <input type="submit" value="Assign" class="btn btn-primary" />
+</form>

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="Logistics.Models" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Logistics.Entities\Logistics.Entities.csproj" />
+    <ProjectReference Include="..\Logistics.Repository\Logistics.Repository.csproj" />
+  </ItemGroup>
+</Project>

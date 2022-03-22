@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# CS8032: Экземпляр анализатора Microsoft.EntityFrameworkCore.InternalUsageDiagnosticAnalyzer невозможно создать из C:\Users\User\.nuget\packages\microsoft.entityframeworkcore.analyzers\5.0.11\analyzers\dotnet\cs\Microsoft.EntityFrameworkCore.Analyzers.dll : Не удалось загрузить файл или сборку "Microsoft.CodeAnalysis, Version=3.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" либо одну из их зависимостей. Не удается найти указанный файл."
+dotnet_diagnostic.CS8032.severity = none
+
+# IDE0060: Удалите неиспользуемый параметр
+dotnet_code_quality_unused_parameters = all:silent

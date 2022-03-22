@@ -1,0 +1,60 @@
+﻿@model IEnumerable<OrderDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
+
+<h1>Orders</h1>
+@if (request.HttpClient.UserRoles.Contains("Manager"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Destination)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Destination)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Cargoes", "Cargoes", new { id = item.Id })
+                        @if (request.HttpClient.UserRoles.Contains("Manager"))
+                        {
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                            <a href="#" onclick="SubmitRedirect('Orders', 'Delete', '@item.Id', 'Are you sure you want to delete?')"> Delete </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
