@@ -10,7 +10,7 @@ namespace Logistics.Repository.Repositories
 {
     public class CustomerRepository : RepositoryBase<Customer>, ICustomerRepository
     {
-        public CustomerRepository(RepositoryContext repositoryContext)
+        public CustomerRepository(LogisticsDbContext repositoryContext)
             : base(repositoryContext)
         {
 

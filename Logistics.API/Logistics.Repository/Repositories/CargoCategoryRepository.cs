@@ -10,7 +10,7 @@ namespace Logistics.Repository.Repositories
 {
     public class CargoCategoryRepository : RepositoryBase<CargoCategory>, ICargoCategoryRepository
     {
-        public CargoCategoryRepository(RepositoryContext repositoryContext)
+        public CargoCategoryRepository(LogisticsDbContext repositoryContext)
             : base(repositoryContext)
         {
 

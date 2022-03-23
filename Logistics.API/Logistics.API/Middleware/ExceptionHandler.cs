@@ -1,4 +1,4 @@
-﻿using Logistics.Entities.ErrorModel;
+﻿using Logistics.Models.ErrorModels;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;

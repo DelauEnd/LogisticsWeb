@@ -9,7 +9,7 @@ namespace Logistics.Repository.Repositories
 {
     public class RouteRepository : RepositoryBase<Route>, IRouteRepository
     {
-        public RouteRepository(RepositoryContext repositoryContext)
+        public RouteRepository(LogisticsDbContext repositoryContext)
             : base(repositoryContext)
         {
 

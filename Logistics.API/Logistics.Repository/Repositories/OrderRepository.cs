@@ -9,7 +9,7 @@ namespace Logistics.Repository.Repositories
 {
     public class OrderRepository : RepositoryBase<Order>, IOrderRepository
     {
-        public OrderRepository(RepositoryContext repositoryContext)
+        public OrderRepository(LogisticsDbContext repositoryContext)
             : base(repositoryContext)
         {
 

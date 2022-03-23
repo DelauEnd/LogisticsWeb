@@ -15,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,9 +39,8 @@ namespace Logistics.API.Extensions
             {
             });
 
-
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
-            => services.AddDbContext<RepositoryContext>(options =>
+            => services.AddDbContext<LogisticsDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
 
         public static void ConfigureRepositoryManager(this IServiceCollection services)
@@ -59,7 +57,7 @@ namespace Logistics.API.Extensions
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
 
-            .AddJwtBearer(options =>
+            .AddJwtBearer("Bearer",options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -74,9 +72,6 @@ namespace Logistics.API.Extensions
             });
         }
 
-        public static void ConfigureAuthenticationManager(this IServiceCollection services)
-            => services.AddScoped<IAuthenticationManager, AuthenticationManager>();
-
         public static void ConfigureVersioning(this IServiceCollection services)
         {
             services.AddApiVersioning(options =>
@@ -85,22 +80,6 @@ namespace Logistics.API.Extensions
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.DefaultApiVersion = new ApiVersion(1, 0);
             });
-        }
-
-        public static void ConfigureIdentity(this IServiceCollection services)
-        {
-            var builder = services.AddIdentityCore<User>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequiredLength = 8;
-                options.User.RequireUniqueEmail = true;
-            }).AddRoles<IdentityRole>();
-
-            builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
-            builder.AddEntityFrameworkStores<RepositoryContext>().AddDefaultTokenProviders();
         }
 
         public static void ConfigureFormatters(this IMvcBuilder builder)
@@ -158,7 +137,6 @@ namespace Logistics.API.Extensions
 
         public static void ConfigureServices(this IServiceCollection services)
         {
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<ICargoCategoryService, CargoCategoryService>();
             services.AddScoped<ICargoService, CargoService>();
             services.AddScoped<IOrderService, OrderService>();

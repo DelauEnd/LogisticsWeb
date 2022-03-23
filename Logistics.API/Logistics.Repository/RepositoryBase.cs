@@ -10,9 +10,9 @@ namespace Logistics.Repository
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected RepositoryContext RepositoryContext;
+        protected LogisticsDbContext RepositoryContext;
 
-        public RepositoryBase(RepositoryContext repositoryContext)
+        public RepositoryBase(LogisticsDbContext repositoryContext)
         {
             RepositoryContext = repositoryContext;
         }

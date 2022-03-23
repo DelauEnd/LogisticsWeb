@@ -1,6 +1,7 @@
 using Logistics.API.Extensions;
 using Logistics.API.Middleware;
 using Logistics.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -37,11 +38,8 @@ namespace Logistics
             services.ConfigureServices();
             services.ConfigureVersioning();
             services.ConfigureSwagger();
-
-            services.AddAuthentication();
-            services.ConfigureIdentity();
+      
             services.ConfigureJWT(configuration);
-            services.ConfigureAuthenticationManager();
 
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddControllers(config =>

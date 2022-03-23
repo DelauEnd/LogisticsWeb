@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Logistics.Entities.Migrations
 {
-    [DbContext(typeof(RepositoryContext))]
+    [DbContext(typeof(LogisticsDbContext))]
     [Migration("20220316130639_Initial")]
     partial class Initial
     {

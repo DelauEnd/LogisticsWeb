@@ -7,7 +7,7 @@ namespace Logistics.Repository
 {
     public class RepositoryManager : IRepositoryManager
     {
-        private readonly RepositoryContext repositoryContext;
+        private readonly LogisticsDbContext repositoryContext;
         private ICargoCategoryRepository cargoCategoryRepository;
         private ICargoRepository cargoRepository;
         private ICustomerRepository customerRepository;
@@ -15,7 +15,7 @@ namespace Logistics.Repository
         private IRouteRepository routeRepository;
         private ITransportRepository transportRepository;
 
-        public RepositoryManager(RepositoryContext repositoryContext)
+        public RepositoryManager(LogisticsDbContext repositoryContext)
         {
             this.repositoryContext = repositoryContext;
         }
