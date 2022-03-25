@@ -19,6 +19,7 @@ namespace CargoTransportation.Controllers
                 Password = password,
                 UserName = login
             };
+
             return View(user);
         }
 
@@ -36,7 +37,7 @@ namespace CargoTransportation.Controllers
 
                 var responseContent = JsonSerializer.Deserialize<AuthenticatedUserInfo>(await response.Content.ReadAsStringAsync());
 
-                request.AuthenticationRequestHandler.InitUser(responseContent.AuthToken, responseContent.UserRoles);
+                request.AuthenticationRequestHandler.InitUser(responseContent.AccessToken, responseContent.UserRoles);
 
                 return RedirectToAction(nameof(Index), "Home");
             }

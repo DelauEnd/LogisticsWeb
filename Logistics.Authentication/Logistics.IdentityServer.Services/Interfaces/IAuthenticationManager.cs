@@ -7,6 +7,6 @@ namespace Logistics.IdentityServer.Services.Interfaces
     public interface IAuthenticationManager
     {
         Task<User> ReturnUserIfValid(UserForAuthenticationDto userForAuthentication);
-        Task<string> CreateToken(UserForAuthenticationDto user);
+        Task<(string accessToken, string refreshToken)> GetTokens(UserForAuthenticationDto user);
     }
 }

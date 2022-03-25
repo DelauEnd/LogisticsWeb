@@ -2,11 +2,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Logistics.Models</id>
-    <version>1.0.0</version>
-    <authors>Logistics.Models</authors>
-    <owners>Logistics.Models</owners>
+    <version>1.0.1</version>
+    <authors>Savitski Dzmitry</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Package Description</description>
+    <description>Models</description>
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
         <dependency id="Microsoft.AspNetCore.Identity.EntityFrameworkCore" version="5.0.15" exclude="Build,Analyzers" />
@@ -15,6 +14,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Users\User\source\repos\Logistics.Models\bin\Debug\netcoreapp3.1\Logistics.Models.dll" target="lib\netcoreapp3.1\Logistics.Models.dll" />
+    <file src=".\bin\Debug\netcoreapp3.1\Logistics.Models.dll" target="lib\netcoreapp3.1\Logistics.Models.dll" />
   </files>
 </package>

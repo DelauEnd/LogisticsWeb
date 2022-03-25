@@ -46,9 +46,12 @@ namespace Logistics.IdentityServer.Services.Services
                 throw new Exception("Unauthorized");
             }
 
+            var tokens = await _authManager.GetTokens(user);
+
             return new AuthenticatedUserInfo
-            {
-                AuthToken = await _authManager.CreateToken(user),
+            {  
+                AccessToken = tokens.accessToken,
+                RefreshToken = tokens.refreshToken,
                 UserRoles = await _userManager.GetRolesAsync(validUser)
             };
         }

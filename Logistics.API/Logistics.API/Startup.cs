@@ -4,7 +4,6 @@ using Logistics.Entities;
 using Logistics.Repository;
 using Logistics.Repository.Interfaces;
 using Logistics.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
