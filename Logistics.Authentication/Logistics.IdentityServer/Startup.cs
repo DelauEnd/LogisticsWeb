@@ -29,38 +29,15 @@ namespace IdentityServer
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddDbContext<AuthenticationDbContext>(options =>
-                options.UseSqlServer(_configuration.GetConnectionString("sqlConnection")));
+                options.UseSqlServer(_configuration.GetConnectionString("identityServerConnection")));
 
-            services.ConfigureSwagger();
-
-            services.AddIdentity<User, IdentityRole>(config =>
-            {
-
-                config.Password.RequireNonAlphanumeric = false;
-                config.Password.RequireDigit = false;
-                config.Password.RequireUppercase = false;
-
-            }).AddEntityFrameworkStores<AuthenticationDbContext>()
-            .AddDefaultTokenProviders();
-
-            services.AddIdentityServer()
-                .AddAspNetIdentity<User>()
-                .AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
-                .AddInMemoryClients(IdentityConfiguration.Clients)
-                .AddInMemoryApiScopes(IdentityConfiguration.ApiScopes)
-                .AddInMemoryApiResources(IdentityConfiguration.ApiResources)
-                .AddDeveloperSigningCredential();
-
-            services.ConfigureApplicationCookie(config =>
-            {
-                config.Cookie.Name = "Logistics.Identity.Cookie";
-                config.LoginPath = "/Auth/Login";
-                config.LogoutPath = "/Auth/Logout";
-            });
+            services.ConfigureAuthentication();
 
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+
             services.AddControllers();
+            services.ConfigureSwagger();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -86,6 +63,7 @@ namespace IdentityServer
             app.UseRouting();
 
             app.UseIdentityServer();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

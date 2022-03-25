@@ -12,24 +12,20 @@ namespace IdentityServer
             {
                 new Client
                 {
-                    ClientId = "Logistics.Web",
-                    AllowedGrantTypes = GrantTypes.Code,
+                    ClientId = "APIUser",
                     RequireClientSecret = false,
-                    RequirePkce = false,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     AllowedScopes =
                     {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
                         "Logistics.API"
                     },
-                    AllowAccessTokensViaBrowser = true,
                 }
             };
 
         public static IEnumerable<ApiResource> ApiResources
             => new List<ApiResource>
             {
-                new ApiResource("Logistics.API", new []{JwtClaimTypes.Name})
+                new ApiResource("Logistics.API", new []{JwtClaimTypes.Name,  JwtClaimTypes.Role})
                 {
                     Scopes = {"Logistics.API" }
                 }

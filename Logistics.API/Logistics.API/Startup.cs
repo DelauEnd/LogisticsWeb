@@ -1,10 +1,14 @@
 using Logistics.API.Extensions;
 using Logistics.API.Middleware;
+using Logistics.Entities;
+using Logistics.Repository;
+using Logistics.Repository.Interfaces;
 using Logistics.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,21 +31,24 @@ namespace Logistics
         private string GetNlogConfigPath()
             => Directory.GetCurrentDirectory() + "/nLog.config";
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureCors();
-            services.ConfigureIISIntegration();
-            services.ConfigureSqlContext(configuration);
-            services.ConfigureRepositoryManager();
+            services.Configure<IISOptions>(options =>
+            { });
+
+            services.AddDbContext<LogisticsDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
+
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.ConfigureServices();
+            services.AddAutoMapper(typeof(MappingProfile));
+
             services.ConfigureVersioning();
-            services.ConfigureSwagger();
-      
+            services.ConfigureSwagger();     
+
             services.ConfigureJWT(configuration);
 
-            services.AddAutoMapper(typeof(MappingProfile));
             services.AddControllers(config =>
             {
                 config.RespectBrowserAcceptHeader = true;
@@ -76,8 +83,7 @@ namespace Logistics
 
             app.UseCors("CorsPolicy");
 
-            app.UseForwardedHeaders(new
-            ForwardedHeadersOptions
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.All
             });

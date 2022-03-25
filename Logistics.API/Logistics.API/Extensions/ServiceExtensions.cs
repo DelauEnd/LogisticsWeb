@@ -34,18 +34,6 @@ namespace Logistics.API.Extensions
                     .AllowAnyHeader());
             });
 
-        public static void ConfigureIISIntegration(this IServiceCollection services)
-            => services.Configure<IISOptions>(options =>
-            {
-            });
-
-        public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
-            => services.AddDbContext<LogisticsDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
-
-        public static void ConfigureRepositoryManager(this IServiceCollection services)
-            => services.AddScoped<IRepositoryManager, RepositoryManager>();
-
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSettings = configuration.GetSection("JwtSettings");
@@ -54,21 +42,13 @@ namespace Logistics.API.Extensions
             services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;    
             })
 
             .AddJwtBearer("Bearer",options =>
             {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtSettings.GetSection("validIssuer").Value,
-                    ValidAudience = jwtSettings.GetSection("validAudience").Value,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
-                };
+                options.Authority = configuration.GetSection("IdentityServer").GetSection("serverUrl").Value;
+                options.Audience = "Logistics.API";
             });
         }
 

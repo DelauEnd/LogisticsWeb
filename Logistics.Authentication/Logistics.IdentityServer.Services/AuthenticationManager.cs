@@ -13,6 +13,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using IdentityModel;
 
 namespace Logistics.IdentityServer.Services
 {
@@ -21,7 +22,6 @@ namespace Logistics.IdentityServer.Services
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
         private readonly SignInManager<User> _signInManager;
-        private readonly IIdentityServerInteractionService _interactionService;
         private readonly IHttpClientFactory _httpClientFactory;
 
         public AuthenticationManager(UserManager<User> userManager, IConfiguration configuration, SignInManager<User> signInManager, IIdentityServerInteractionService interactionService, IHttpClientFactory httpClientFactory)
@@ -46,13 +46,20 @@ namespace Logistics.IdentityServer.Services
             return null;
         }
 
-        public async Task<string> CreateToken(User user)
+        public async Task<string> CreateToken(UserForAuthenticationDto user)
         {
-            var signingCredentials = GetSigningCredentials();
-            var claims = await GetClaims(user);
-            var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
+            var client = _httpClientFactory.CreateClient();
+            PasswordTokenRequest tokenRequest = new PasswordTokenRequest()
+            {
+                Address = "https://localhost:44320/connect/token",
+                ClientId = "APIUser",
+                Scope = "Logistics.API",
+                UserName = user.UserName,
+                  Password = user.Password,
+            };
+            var tokenResponse = await client.RequestPasswordTokenAsync(tokenRequest);
 
-            return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            return tokenResponse.AccessToken;
         }
 
         private SigningCredentials GetSigningCredentials()

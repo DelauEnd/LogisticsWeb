@@ -48,7 +48,7 @@ namespace Logistics.IdentityServer.Services.Services
 
             return new AuthenticatedUserInfo
             {
-                AuthToken = await _authManager.CreateToken(validUser),
+                AuthToken = await _authManager.CreateToken(user),
                 UserRoles = await _userManager.GetRolesAsync(validUser)
             };
         }

@@ -8,7 +8,7 @@ namespace Logistics.IdentityServer.Entities
 {
     public class AuthenticationDbContext : IdentityDbContext<User>
     {
-        public AuthenticationDbContext(DbContextOptions options)
+        public AuthenticationDbContext(DbContextOptions<AuthenticationDbContext> options)
             : base(options)
         {
         }

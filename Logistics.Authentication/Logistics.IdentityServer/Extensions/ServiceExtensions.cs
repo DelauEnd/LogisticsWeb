@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IdentityServer;
+using Logistics.IdentityServer.Entities;
+using Logistics.IdentityServer.Entities.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -50,5 +54,31 @@ namespace Logistics.IdentityServer.Extensions
                 });
             });
 
+        public static void ConfigureAuthentication(this IServiceCollection services)
+        {
+            services.AddIdentity<User, IdentityRole>(config =>
+            {
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireDigit = false;
+                config.Password.RequireUppercase = false;
+
+            }).AddEntityFrameworkStores<AuthenticationDbContext>()
+            .AddDefaultTokenProviders();
+
+            services.AddIdentityServer()
+                .AddAspNetIdentity<User>()
+                .AddInMemoryApiResources(IdentityConfiguration.ApiResources)
+                .AddInMemoryClients(IdentityConfiguration.Clients)
+                .AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
+                .AddInMemoryApiScopes(IdentityConfiguration.ApiScopes)
+                .AddDeveloperSigningCredential();
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "Logistics.Identity.Cookie";
+                config.LoginPath = "/Auth/Login";
+                config.LogoutPath = "/Auth/Logout";
+            });
+        }
     }
 }
