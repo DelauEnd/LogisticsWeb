@@ -1,26 +1,27 @@
-﻿using System.Net.Http;
+﻿using Microsoft.Extensions.Configuration;
+using RequestHandler.Interfaces;
+using RequestHandler.Utils;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace RequestHandler.ModelHandlers
 {
-    public class CargoCategoriesRequestHandler : RequestHandlerBase
+    public class CargoCategoriesRequestHandler : ICargoCategoriesRequestHandler
     {
         private readonly string controllerUrl = "/api/Categories";
 
-        public CargoCategoriesRequestHandler(IHttpClientService client) : base(client)
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
+        public CargoCategoriesRequestHandler(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
 
         public async Task<HttpResponseMessage> GetAllCategories()
-            => await HttpClient.Client.GetAsync(controllerUrl);
-
-        public async Task<HttpResponseMessage> CreateCategory(HttpContent content)
-            => await HttpClient.Client.PostAsync(controllerUrl, content);
-
-        public async Task<HttpResponseMessage> DeleteCategoryById(int categoryId)
-            => await HttpClient.Client.DeleteAsync(controllerUrl + $"/{categoryId}");
-
-        public async Task<HttpResponseMessage> PutCategoryById(int categoryId, HttpContent content)
-            => await HttpClient.Client.PutAsync(controllerUrl + $"/{categoryId}", content);
+        {
+            using HttpClient client = await HttpClientFactoryHandler.BuildClient(_httpClientFactory, _configuration);
+            return await client.GetAsync(controllerUrl);
+        }
     }
 }

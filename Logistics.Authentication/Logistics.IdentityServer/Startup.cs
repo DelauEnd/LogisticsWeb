@@ -1,13 +1,8 @@
 using Logistics.IdentityServer.Entities;
-using Logistics.IdentityServer.Entities.Models;
 using Logistics.IdentityServer.Extensions;
-using Logistics.IdentityServer.Services;
-using Logistics.IdentityServer.Services.Interfaces;
-using Logistics.IdentityServer.Services.Services;
 using Logistics.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,12 +26,11 @@ namespace IdentityServer
             services.AddDbContext<AuthenticationDbContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString("identityServerConnection")));
 
-            services.ConfigureAuthentication();
+            services.ConfigureAuthentication(_configuration);
 
-            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.ConfigureServices();
 
-            services.AddControllers();
+            services.AddControllersWithViews();
             services.ConfigureSwagger();
         }
 
@@ -50,6 +44,9 @@ namespace IdentityServer
             {
                 app.UseHsts();
             }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseSwagger();
             app.UseSwaggerUI(setup =>
@@ -67,7 +64,7 @@ namespace IdentityServer
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
             });
         }
     }

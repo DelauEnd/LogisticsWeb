@@ -67,7 +67,7 @@ namespace Logistics.Repository.Repositories
             cargo.Id == cargoId, true)
                 .FirstOrDefaultAsync();
 
-            cargo.RouteId = routeId;        
+            cargo.RouteId = routeId;
         }
 
         public async Task<IEnumerable<Cargo>> GetUnassignedCargoesAsync(bool trackChanges)

@@ -1,33 +1,66 @@
 ﻿using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Models;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
 namespace IdentityServer
 {
     public static class IdentityConfiguration
     {
-        public static IEnumerable<Client> Clients
-            => new List<Client>
+        public static string ScopeAPI
+            => "Logistics.API";
+
+        public static IEnumerable<Client> BuildClients(IConfiguration configuration)
+        {
+            var toReturn = new List<Client>
             {
                 new Client
                 {
-                    ClientId = "APIUser",
-                    RequireClientSecret = false,
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    ClientId = "APIClient",
+                    ClientSecrets = {
+                        new Secret("API_super_secert".ToSha256())
+                    },
+
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                     AllowedScopes =
                     {
-                        "Logistics.API"
+                        ScopeAPI,
                     },
+                },
+                new Client
+                {
+                    ClientId = "MVCClient",
+                    ClientSecrets =
+                    {
+                        new Secret("MVC_super_secert".ToSha256())
+                    },
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedScopes =
+                    {
+                        ScopeAPI,
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    },
+                    RedirectUris = { configuration.GetSection("MVCBaseUrl").Value + "/signin-oidc"},
+                    RequireConsent = false,
                 }
             };
+            return toReturn;
+        }
 
         public static IEnumerable<ApiResource> ApiResources
             => new List<ApiResource>
             {
                 new ApiResource("Logistics.API", new []{JwtClaimTypes.Name,  JwtClaimTypes.Role})
                 {
-                    Scopes = {"Logistics.API" }
+                    Scopes =
+                    {
+                        "Logistics.API",
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile
+                    },
+
                 }
             };
 

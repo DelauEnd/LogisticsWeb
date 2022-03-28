@@ -44,7 +44,7 @@ namespace Logistics
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.ConfigureVersioning();
-            services.ConfigureSwagger();     
+            services.ConfigureSwagger();
 
             services.ConfigureJWT(configuration);
 

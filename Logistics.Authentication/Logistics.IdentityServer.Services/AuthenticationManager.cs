@@ -1,19 +1,11 @@
-﻿using IdentityServer4.Services;
+﻿using IdentityModel.Client;
 using Logistics.IdentityServer.Entities.Models;
 using Logistics.IdentityServer.Services.Interfaces;
 using Logistics.Models.ResponseDTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using IdentityModel.Client;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Http;
-using IdentityModel;
+using System.Threading.Tasks;
 
 namespace Logistics.IdentityServer.Services
 {
@@ -51,14 +43,14 @@ namespace Logistics.IdentityServer.Services
             PasswordTokenRequest tokenRequest = new PasswordTokenRequest()
             {
                 Address = "https://localhost:44320/connect/token",
-                ClientId = "APIUser",
+                ClientId = "APIClient",
                 Scope = "Logistics.API",
                 UserName = user.UserName,
                 Password = user.Password,
             };
             var tokenResponse = await client.RequestPasswordTokenAsync(tokenRequest);
 
-            return (tokenResponse.AccessToken, tokenResponse.RefreshToken) ;
+            return (tokenResponse.AccessToken, tokenResponse.RefreshToken);
         }
     }
 }

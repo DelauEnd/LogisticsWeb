@@ -10,7 +10,7 @@ namespace Logistics.Services
         {
             CreateUserMaps();
         }
-     
+
         private void CreateUserMaps()
         {
             CreateMap<UserForCreationDto, User>();

@@ -1,29 +1,28 @@
-﻿using System.Net.Http;
+﻿using Microsoft.Extensions.Configuration;
+using RequestHandler.Interfaces;
+using RequestHandler.Utils;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace RequestHandler.ModelHandlers
 {
-    public class CargoRequestHandler : RequestHandlerBase
+    public class CargoRequestHandler : ICargoRequestHandler
     {
         private readonly string controllerUrl = "/api/Cargoes";
 
-        public CargoRequestHandler(IHttpClientService client) : base(client)
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
+        public CargoRequestHandler(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
 
         public async Task<HttpResponseMessage> GetAllCargoes()
-            => await HttpClient.Client.GetAsync(controllerUrl);
-
-        public async Task<HttpResponseMessage> GetUnassignedCargoes()
-            => await HttpClient.Client.GetAsync(controllerUrl + "/Unassigned");
-
-        public async Task<HttpResponseMessage> GetCargoById(int cargoId)
-            => await HttpClient.Client.GetAsync(controllerUrl + $"/{cargoId}");
-
-        public async Task<HttpResponseMessage> DeleteCargoById(int cargoId)
-            => await HttpClient.Client.DeleteAsync(controllerUrl + $"/{cargoId}");
-
-        public async Task<HttpResponseMessage> PatchCargoById(int cargoId, HttpContent content)
-            => await HttpClient.Client.PatchAsync(controllerUrl + $"/{cargoId}", content);
+        {
+            
+            using HttpClient client = await HttpClientFactoryHandler.BuildClient(_httpClientFactory, _configuration);
+            return await client.GetAsync(controllerUrl);
+        }
     }
 }

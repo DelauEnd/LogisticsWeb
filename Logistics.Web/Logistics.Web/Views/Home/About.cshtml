@@ -3,11 +3,6 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-@if (request.HttpClient.Authenticated)
-{
-    @section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
-}
-
 <p>
     Developer: Savitskiy Dmitriy<br>
     Mail: 2sabba322@gmail.com

@@ -1,25 +1,15 @@
-﻿using Logistics.Entities;
-using Logistics.Entities.Models;
-using Logistics.Repository;
-using Logistics.Repository.Interfaces;
-using Logistics.Services;
-using Logistics.Services.Interfaces;
+﻿using Logistics.Services.Interfaces;
 using Logistics.Services.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
 
 namespace Logistics.API.Extensions
 {
@@ -36,20 +26,17 @@ namespace Logistics.API.Extensions
 
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
         {
-            var jwtSettings = configuration.GetSection("JwtSettings");
-            var secretKey = jwtSettings.GetSection("secretKey").Value;
-
             services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;    
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
 
-            .AddJwtBearer("Bearer",options =>
-            {
-                options.Authority = configuration.GetSection("IdentityServer").GetSection("serverUrl").Value;
-                options.Audience = "Logistics.API";
-            });
+            .AddJwtBearer("Bearer", options =>
+             {
+                 options.Authority = configuration.GetSection("IdentityServerBaseUrl").Value;
+                 options.Audience = "Logistics.API";
+             });
         }
 
         public static void ConfigureVersioning(this IServiceCollection services)

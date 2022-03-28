@@ -56,12 +56,6 @@
                 </td>
                 <td>
                     @Html.ActionLink("Details", "Details", new { item.Id })
-                    @if (request.HttpClient.UserRoles.Contains("Manager"))
-                    {
-
-                        @Html.ActionLink("Edit", "Edit", new { item.Id })
-                        <a href="#" onclick="SubmitRedirect('Cargoes', 'Delete', '@item.Id', 'Are you sure you want to delete?')"> Delete </a>
-                    }
                 </td>
             </tr>
         }

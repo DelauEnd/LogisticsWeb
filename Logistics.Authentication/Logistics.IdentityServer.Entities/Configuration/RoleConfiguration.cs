@@ -1,4 +1,4 @@
-﻿using Logistics.IdentityServer.Entities.Enums;
+﻿using Logistics.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

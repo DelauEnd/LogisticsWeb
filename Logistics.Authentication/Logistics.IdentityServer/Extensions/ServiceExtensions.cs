@@ -1,9 +1,10 @@
 ﻿using IdentityServer;
 using Logistics.IdentityServer.Entities;
 using Logistics.IdentityServer.Entities.Models;
-using Microsoft.AspNetCore.Http;
+using Logistics.IdentityServer.Services;
+using Logistics.IdentityServer.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
@@ -54,7 +55,7 @@ namespace Logistics.IdentityServer.Extensions
                 });
             });
 
-        public static void ConfigureAuthentication(this IServiceCollection services)
+        public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddIdentity<User, IdentityRole>(config =>
             {
@@ -68,7 +69,7 @@ namespace Logistics.IdentityServer.Extensions
             services.AddIdentityServer()
                 .AddAspNetIdentity<User>()
                 .AddInMemoryApiResources(IdentityConfiguration.ApiResources)
-                .AddInMemoryClients(IdentityConfiguration.Clients)
+                .AddInMemoryClients(IdentityConfiguration.BuildClients(configuration))
                 .AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
                 .AddInMemoryApiScopes(IdentityConfiguration.ApiScopes)
                 .AddDeveloperSigningCredential();
@@ -76,9 +77,15 @@ namespace Logistics.IdentityServer.Extensions
             services.ConfigureApplicationCookie(config =>
             {
                 config.Cookie.Name = "Logistics.Identity.Cookie";
-                config.LoginPath = "/Auth/Login";
-                config.LogoutPath = "/Auth/Logout";
+                config.LoginPath = "/Authentication/Login";
             });
+        }
+
+        public static void ConfigureServices(this IServiceCollection services)
+        {
+            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IAccountService, AccountService>();
         }
     }
 }

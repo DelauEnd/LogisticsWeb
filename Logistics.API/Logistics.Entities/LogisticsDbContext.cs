@@ -28,7 +28,7 @@ namespace Logistics.Entities
 
         private void ApplyConfigurations(ModelBuilder modelBuilder)
         {
-            
+
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             modelBuilder.ApplyConfiguration(new TransportConfiguration());
             modelBuilder.ApplyConfiguration(new CargoCategoryConfiguration());
