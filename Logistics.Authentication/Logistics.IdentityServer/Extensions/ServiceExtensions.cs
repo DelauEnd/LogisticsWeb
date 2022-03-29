@@ -40,7 +40,6 @@ namespace Logistics.IdentityServer.Extensions
 
                 setup.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {
-
                     {
                         new OpenApiSecurityScheme
                         { Reference = new OpenApiReference

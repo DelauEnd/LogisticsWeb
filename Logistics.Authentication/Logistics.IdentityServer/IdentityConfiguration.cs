@@ -9,6 +9,7 @@ namespace IdentityServer
     public static class IdentityConfiguration
     {
         public static string ScopeAPI => "Logistics.API";
+        public static string ScopeRoles => "roles";
 
         public static IEnumerable<Client> BuildClients(IConfiguration configuration)
         {
@@ -20,6 +21,7 @@ namespace IdentityServer
                     ClientSecrets = {
                         new Secret("API_super_secert".ToSha256())
                     },
+                    RequireClientSecret = false,
 
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                     AllowedScopes =
@@ -38,11 +40,17 @@ namespace IdentityServer
                     AllowedScopes =
                     {
                         ScopeAPI,
+                        ScopeRoles,
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
                     },
+
+                     AllowAccessTokensViaBrowser = true,
+                     AlwaysSendClientClaims = true,
+                     AlwaysIncludeUserClaimsInIdToken = true,
+
                     RedirectUris = { configuration.GetSection("MVCBaseUrl").Value + "/signin-oidc"},
-                    PostLogoutRedirectUris = { configuration.GetSection("MVCBaseUrl").Value },
+                    PostLogoutRedirectUris = { configuration.GetSection("MVCBaseUrl").Value },  
                     RequireConsent = false,
                 }
             };
@@ -52,15 +60,16 @@ namespace IdentityServer
         {
             return new List<ApiResource>
             {
-                new ApiResource("Logistics.API", new []{JwtClaimTypes.Name,  JwtClaimTypes.Role})
+                new ApiResource(ScopeAPI, new []{JwtClaimTypes.Name,  JwtClaimTypes.Role})
                 {
                     Scopes =
                     {
-                        "Logistics.API",
+                        ScopeAPI,
+                        ScopeRoles,
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
                     },
-
+                    
                 }
               };
         }
@@ -71,6 +80,7 @@ namespace IdentityServer
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResource {Name = ScopeRoles, UserClaims={JwtClaimTypes.Role} },
             };
         }
 
@@ -78,7 +88,7 @@ namespace IdentityServer
         { 
             return new List<ApiScope>
             {
-                new ApiScope("Logistics.API")
+                new ApiScope(ScopeAPI)
             };
         }
     }

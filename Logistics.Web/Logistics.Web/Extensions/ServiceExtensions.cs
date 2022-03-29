@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RequestHandler.Interfaces;
 using RequestHandler.ModelHandlers;
@@ -30,9 +31,19 @@ namespace CargoTransportation.Extensions
                     config.Authority = _configuration.GetSection("IdentityServerBaseUrl").Value;
                     config.ClientId = "MVCClient";
                     config.ClientSecret = "MVC_super_secert";
-                    config.SaveTokens = true;
+
                     config.ResponseType = "code";
+                    config.SaveTokens = true;
+
                     config.GetClaimsFromUserInfoEndpoint = true;
+
+                    config.Scope.Clear();
+                    config.Scope.Add("openid");
+                    config.Scope.Add("profile");
+                    config.Scope.Add("roles");
+
+                    config.ClaimActions.MapJsonKey("role","role","role");
+                    config.TokenValidationParameters.RoleClaimType = "role";
                 });
         }
 

@@ -6,6 +6,7 @@ using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.ResponseDTO;
 using Logistics.Models.WebModels;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -95,17 +96,19 @@ namespace Logistics.IdentityServer.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult AddRole()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddRole(AddRoleDto roleToAdd)
+        [Authorize]
+        public async Task<IActionResult> AddRole(AddRoleDto roleToAdd)
         {
             try
             {
-                _accountService.AddRoleToUser(roleToAdd.UserName, roleToAdd.Role);
+                await _accountService.AddRoleToUser(roleToAdd.UserName, roleToAdd.Role);
             }
             catch
             {
