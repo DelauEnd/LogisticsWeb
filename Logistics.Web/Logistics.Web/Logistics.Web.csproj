@@ -9,6 +9,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\CargoCategories\Create.cshtml" />
+    <None Include="Views\CargoCategories\Edit.cshtml" />
+    <None Include="Views\CargoCategories\Index.cshtml" />
+    <None Include="Views\Customers\Create.cshtml" />
+    <None Include="Views\Customers\Edit.cshtml" />
+    <None Include="Views\Customers\Index.cshtml" />
+    <None Include="Views\Orders\Cargoes.cshtml" />
+    <None Include="Views\Orders\Create.cshtml" />
+    <None Include="Views\Orders\Edit.cshtml" />
+    <None Include="Views\Orders\Index.cshtml" />
+    <None Include="Views\Routes\AssignCargoes.cshtml" />
+    <None Include="Views\Routes\Cargoes.cshtml" />
+    <None Include="Views\Routes\Create.cshtml" />
+    <None Include="Views\Routes\Edit.cshtml" />
+    <None Include="Views\Routes\Index.cshtml" />
+    <None Include="Views\Transport\Create.cshtml" />
+    <None Include="Views\Transport\Details.cshtml" />
+    <None Include="Views\Transport\Edit.cshtml" />
+    <None Include="Views\Transport\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="Logistics.Models" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.1" />

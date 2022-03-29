@@ -3,4 +3,11 @@
 @using Logistics.Models.ResponseDTO;
 @using Logistics.Models.WebModels;
 @using Logistics.Models.OwnedModels;
+@using Logistics.Models.Enums;
+@using Microsoft.AspNetCore.Http;
+@using Logistics.Web.Extensions;
+@using System.Security.Claims;
+
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@inject IHttpContextAccessor httpContext;

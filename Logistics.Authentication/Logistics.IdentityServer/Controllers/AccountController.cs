@@ -1,60 +1,129 @@
-﻿using Logistics.IdentityServer.Services.Interfaces;
-using Logistics.Models.Enums;
+﻿using IdentityModel.Client;
+using IdentityServer4;
+using Logistics.IdentityServer.Entities.Models;
+using Logistics.IdentityServer.Services.Interfaces;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.ResponseDTO;
-using Microsoft.AspNetCore.Authorization;
+using Logistics.Models.WebModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Logistics.IdentityServer.Controllers
 {
-    [Route("api/Authentication")]
-    [ApiController]
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
+        private readonly SignInManager<User> _signInManager;
+        private readonly IConfiguration _configuration;
+        private readonly IHttpClientFactory _clientFactory;
+        private string ReturnUrl
+        {
+            get
+            {
+                return _returnUrl != null ?
+                    _returnUrl :
+                    _configuration.GetSection("MVCBaseUrl").Value + "/authentication/login";
+            }
+        }
+        private string _returnUrl;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService,
+            SignInManager<User> signInManager, IConfiguration configuration, IHttpClientFactory clientFactory)
         {
             _accountService = accountService;
+            _signInManager = signInManager;
+            _configuration = configuration;
+            _clientFactory = clientFactory;
+    }
+
+        public async Task<IActionResult> Logout(string returnUrl)
+        {
+            _returnUrl = returnUrl;
+            await HttpContext.SignOutAsync();
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            await HttpContext.SignOutAsync(IdentityServerConstants.DefaultCookieAuthenticationScheme);
+            return Redirect(ReturnUrl);
         }
 
-        /// <summary>
-        /// Creates a new user
-        /// </summary>
-        /// <param name="userForCreation"></param>
+        [HttpGet]
+        public IActionResult Login(string returnUrl)
+        {
+            _returnUrl = returnUrl;
+            return View();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> RegisterUser([FromBody] UserForCreationDto userForCreation)
+        public async Task<IActionResult> Login(UserForAuthenticationDto authUser)
         {
-            await _accountService.CreateUser(userForCreation);
-            return Ok();
+            var signInResult = await _signInManager.PasswordSignInAsync(authUser.UserName, authUser.Password, false, false);
+            if (signInResult.Succeeded)
+            {
+                return Redirect(ReturnUrl);
+            }
+            else
+            {
+                ViewBag.loginFailed = true;
+                return View();
+            }
         }
 
-        /// <summary>
-        /// Add role to user
-        /// | Required role: Administrator
-        /// </summary>
-        /// <param name="login"></param>
-        /// <param name="role"></param>
+        [HttpGet]
+        public IActionResult Registration()
+        {
+            return View();
+        }
+
         [HttpPost]
-        [Route("AddRole")]
-        [Authorize(Roles = nameof(UserRole.Administrator))]
-        public async Task<IActionResult> AddRoleToUser([FromQuery] string login, [FromQuery] string role)
+        public async Task<IActionResult> Registration(UserForCreationDto userForCreation)
         {
-            await _accountService.AddRoleToUser(login, role);
-            return Ok();
+            try
+            {
+                await _accountService.CreateUser(userForCreation);
+            }
+            catch
+            {
+                ViewBag.registrationFailed = true;
+                return View();
+            }
+            return Redirect(ReturnUrl);
         }
 
-        /// <summary>
-        /// Authenticate user by username and password
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns>Returns access token for authenticated user</returns>
-        [HttpPost("login")]
-        public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
+        [HttpGet]
+        public IActionResult AddRole()
         {
-            var userInfo = await _accountService.AuthenticateUser(user);
-            return Ok(userInfo);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddRole(AddRoleDto roleToAdd)
+        {
+            try
+            {
+                _accountService.AddRoleToUser(roleToAdd.UserName, roleToAdd.Role);
+            }
+            catch
+            {
+                ViewBag.addingFailed = true;
+                return View();
+            }
+            return Redirect(ReturnUrl);
+        }
+
+        public string GetBaseUrl()
+        {
+            var request = HttpContext.Request;
+
+            var host = request.Host.ToUriComponent();
+
+            var pathBase = request.PathBase.ToUriComponent();
+
+            return $"{request.Scheme}://{host}{pathBase}";
         }
     }
 }

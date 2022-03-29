@@ -8,12 +8,11 @@ namespace IdentityServer
 {
     public static class IdentityConfiguration
     {
-        public static string ScopeAPI
-            => "Logistics.API";
+        public static string ScopeAPI => "Logistics.API";
 
         public static IEnumerable<Client> BuildClients(IConfiguration configuration)
         {
-            var toReturn = new List<Client>
+            return new List<Client>
             {
                 new Client
                 {
@@ -43,14 +42,15 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.Profile
                     },
                     RedirectUris = { configuration.GetSection("MVCBaseUrl").Value + "/signin-oidc"},
+                    PostLogoutRedirectUris = { configuration.GetSection("MVCBaseUrl").Value },
                     RequireConsent = false,
                 }
             };
-            return toReturn;
         }
 
-        public static IEnumerable<ApiResource> ApiResources
-            => new List<ApiResource>
+        public static IEnumerable<ApiResource> BuildApiResources()
+        {
+            return new List<ApiResource>
             {
                 new ApiResource("Logistics.API", new []{JwtClaimTypes.Name,  JwtClaimTypes.Role})
                 {
@@ -62,19 +62,24 @@ namespace IdentityServer
                     },
 
                 }
-            };
+              };
+        }
 
-        public static IEnumerable<IdentityResource> IdentityResources
-            => new List<IdentityResource>
+        public static IEnumerable<IdentityResource> BuildIdentityResources()
+        {
+            return new List<IdentityResource>
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
             };
+        }
 
-        public static IEnumerable<ApiScope> ApiScopes
-            => new List<ApiScope>
+        public static IEnumerable<ApiScope> BuildApiScopes()
+        { 
+            return new List<ApiScope>
             {
                 new ApiScope("Logistics.API")
             };
+        }
     }
 }

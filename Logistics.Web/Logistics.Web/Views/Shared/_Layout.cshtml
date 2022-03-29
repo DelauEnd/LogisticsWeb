@@ -24,8 +24,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
+                        @if (((ClaimsIdentity)User.Identity).UserInRole(nameof(UserRole.Administrator)))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-justify" href="@Url.Action("AddRole", "Authentication")">Add role to user</a>
+                            </li>
+                        }
                     </ul>
                 </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div align="right" class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <input type="button" class="btn btn-dark" value="Logout" onclick="@("window.location.href='" + @Url.Action("Logout", "Authentication") + "'");" />
+                    </div>
+                }
             </div>
         </nav>
     </header>

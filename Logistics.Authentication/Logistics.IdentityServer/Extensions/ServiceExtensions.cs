@@ -68,16 +68,16 @@ namespace Logistics.IdentityServer.Extensions
 
             services.AddIdentityServer()
                 .AddAspNetIdentity<User>()
-                .AddInMemoryApiResources(IdentityConfiguration.ApiResources)
+                .AddInMemoryApiResources(IdentityConfiguration.BuildApiResources())
                 .AddInMemoryClients(IdentityConfiguration.BuildClients(configuration))
-                .AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
-                .AddInMemoryApiScopes(IdentityConfiguration.ApiScopes)
+                .AddInMemoryIdentityResources(IdentityConfiguration.BuildIdentityResources())
+                .AddInMemoryApiScopes(IdentityConfiguration.BuildApiScopes())
                 .AddDeveloperSigningCredential();
 
             services.ConfigureApplicationCookie(config =>
             {
                 config.Cookie.Name = "Logistics.Identity.Cookie";
-                config.LoginPath = "/Authentication/Login";
+                config.LoginPath = "/Account/Login";
             });
         }
 

@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using RequestHandler.Interfaces;
-using RequestHandler.Utils;
+﻿using RequestHandler.Interfaces;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -10,19 +8,40 @@ namespace RequestHandler.ModelHandlers
     {
         private readonly string controllerUrl = "/api/Cargoes";
 
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IConfiguration _configuration;
-        public CargoRequestHandler(IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        private readonly IHttpClientFactoryHandler _httpClientHandler;
+        public CargoRequestHandler(IHttpClientFactoryHandler httpClientHandler)
         {
-            _httpClientFactory = httpClientFactory;
-            _configuration = configuration;
+            _httpClientHandler = httpClientHandler;
         }
 
         public async Task<HttpResponseMessage> GetAllCargoes()
         {
-            
-            using HttpClient client = await HttpClientFactoryHandler.BuildClient(_httpClientFactory, _configuration);
+            using HttpClient client = await _httpClientHandler.GetAPIClient();
             return await client.GetAsync(controllerUrl);
+        }
+
+        public async Task<HttpResponseMessage> GetUnassignedCargoes()
+        {
+            using HttpClient client = await _httpClientHandler.GetAPIClient();
+            return await client.GetAsync(controllerUrl + "/Unassigned");
+        }
+
+        public async Task<HttpResponseMessage> GetCargoById(int cargoId)
+        {
+            using HttpClient client = await _httpClientHandler.GetAPIClient();
+            return await client.GetAsync(controllerUrl + $"/{cargoId}");
+        }
+
+        public async Task<HttpResponseMessage> DeleteCargoById(int cargoId)
+        {
+            using HttpClient client = await _httpClientHandler.GetAPIClient();
+            return await client.DeleteAsync(controllerUrl + $"/{cargoId}");
+        }
+
+        public async Task<HttpResponseMessage> PatchCargoById(int cargoId, HttpContent content)
+        {
+            using HttpClient client = await _httpClientHandler.GetAPIClient();
+            return await client.PatchAsync(controllerUrl + $"/{cargoId}", content);
         }
     }
 }

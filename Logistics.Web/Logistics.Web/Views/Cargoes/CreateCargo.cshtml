@@ -1,0 +1,72 @@
+﻿@model CargoForCreationDto
+
+@{
+    ViewData["Title"] = "Create cargo";
+}
+
+@section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
+
+<h1>Create cargo</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateCargo" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <br>@Html.DropDownList("CategoryId", new SelectList(ViewBag.categories as IEnumerable<CargoCategoryDto>, "Id", "Title") as SelectList, new { @class = "form-control form-select" })
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartureDate" class="control-label"></label>
+                <input asp-for="DepartureDate" class="form-control" />
+                <span asp-validation-for="DepartureDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArrivalDate" class="control-label"></label>
+                <input asp-for="ArrivalDate" class="form-control" />
+                <span asp-validation-for="ArrivalDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Weight" class="control-label"></label>
+                <input asp-for="Weight" class="form-control" />
+                <span asp-validation-for="Weight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dimensions.Height" class="control-label"></label>
+                <input asp-for="Dimensions.Height" class="form-control" />
+                <span asp-validation-for="Dimensions.Height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dimensions.Length" class="control-label"></label>
+                <input asp-for="Dimensions.Length" class="form-control" />
+                <span asp-validation-for="Dimensions.Length" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dimensions.Width" class="control-label"></label>
+                <input asp-for="Dimensions.Width" class="form-control" />
+                <span asp-validation-for="Dimensions.Width" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Image</label>
+                <br><input name="addedImage" type="file"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

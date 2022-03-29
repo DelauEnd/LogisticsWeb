@@ -5,7 +5,6 @@ using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.ResponseDTO;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Logistics.IdentityServer.Services
@@ -15,7 +14,7 @@ namespace Logistics.IdentityServer.Services
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IAuthenticationManager _authManager;
-        private readonly IMapper _mapper;       
+        private readonly IMapper _mapper;
 
         public AccountService(UserManager<User> userManager, IMapper mapper, RoleManager<IdentityRole> roleManager, IAuthenticationManager authManager)
         {

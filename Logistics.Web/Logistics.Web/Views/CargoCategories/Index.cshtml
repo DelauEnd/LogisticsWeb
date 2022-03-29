@@ -1,0 +1,45 @@
+﻿@model IEnumerable<CargoCategoryDto>
+
+@{
+    ViewData["Title"] = "Cargoes";
+}
+
+@section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
+
+<h1>Cargo categories</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })                  
+                        <a href = "#" onclick = "SubmitRedirect('CargoCategories', 'Delete', '@item.Id', 'Are you sure you want to delete?')" > Delete </a>
+                </td>
+
+            </tr>
+        }
+</tbody>
+</table>

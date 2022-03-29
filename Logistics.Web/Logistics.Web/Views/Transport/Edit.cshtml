@@ -1,0 +1,61 @@
+﻿@model TransportForUpdateDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+@section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
+
+<h1>Edit</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RegistrationNumber" class="control-label"></label>
+                <input asp-for="RegistrationNumber" class="form-control" />
+                <span asp-validation-for="RegistrationNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LoadCapacity" class="control-label"></label>
+                <input asp-for="LoadCapacity" class="form-control" />
+                <span asp-validation-for="LoadCapacity" class="text-danger"></span>
+            </div>
+
+            <h4>Driver</h4>
+            <div class="form-group">
+                <label asp-for="Driver.Name" class="control-label"></label>
+                <input asp-for="Driver.Name" class="form-control" />
+                <span asp-validation-for="Driver.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Driver.Surname" class="control-label"></label>
+                <input asp-for="Driver.Surname" class="form-control" />
+                <span asp-validation-for="Driver.Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Driver.Patronymic" class="control-label"></label>
+                <input asp-for="Driver.Patronymic" class="form-control" />
+                <span asp-validation-for="Driver.Patronymic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Driver.PhoneNumber" class="control-label"></label>
+                <input asp-for="Driver.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Driver.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

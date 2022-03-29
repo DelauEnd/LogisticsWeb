@@ -21,10 +21,10 @@
                 <input asp-for="Role" class="form-control" />
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
-            @*@if (ViewBag.addingFailed != null && ViewBag.addingFailed == true)
+            @if (ViewBag?.addingFailed == true)
             {
                 <p class="text-danger">Incorrect username or role</p>
-            }*@
+            }
             <div class="form-group">
                 <input type="submit" value="Add role" class="btn btn-primary" />
             </div>

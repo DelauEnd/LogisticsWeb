@@ -41,10 +41,10 @@
                 <input asp-for="PhoneNumber" class="form-control" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            @*@if(ViewBag?.registrationFailed == true)
+            @if(ViewBag?.registrationFailed == true)
             {
                 <p class="text-danger">Registration failed</p>
-            }*@
+            }
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

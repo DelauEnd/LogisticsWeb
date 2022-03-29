@@ -5,18 +5,19 @@
     <div class="text-center">
         <h1 class="display-4">Welcome</h1>
         @{
-            //if (!request.HttpClient.Authenticated)
-            //{
+            if (!User.Identity.IsAuthenticated)
+            {
                 <p>
                     <input class="btn btn-primary" style="width:200px" type="button" value="Login" onclick="@("window.location.href='" + @Url.Action("login", "authentication") + "'");" />
                 </p>
-                @*<p>
+                <p>
                     <input class="btn btn-primary" style="width:200px" type="button" value="Register" onclick="@("window.location.href='" + @Url.Action("registration", "authentication") + "'");" />
                 </p>
             }
             else
             {
                 @section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
-            }*@
-        }
+            }
+
+         }
     </div>

@@ -1,9 +1,12 @@
 using CargoTransportation.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RequestHandler.Interfaces;
+using RequestHandler.Utils;
 
 namespace CargoTransportation
 {
@@ -21,7 +24,11 @@ namespace CargoTransportation
         {
             services.ConfigureAuthentication(_configuration);
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IHttpClientFactoryHandler, HttpClientFactoryHandler>();
+
             services.AddHttpClient();
+
 
             services.ConfigureRequestManagers();
             services.ConfigureActionAttributes();

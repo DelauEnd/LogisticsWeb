@@ -1,0 +1,34 @@
+﻿@model RouteForCreationDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
+
+<h1>Create</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TransportRegistrationNumber" class="control-label"></label>
+                <br> @Html.DropDownList("TransportRegistrationNumber", new SelectList(ViewBag.transport as IEnumerable<TransportDto>, "RegistrationNumber", "RegistrationNumber") as SelectList, new { @class = "form-control form-select" })
+                <span asp-validation-for="TransportRegistrationNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
