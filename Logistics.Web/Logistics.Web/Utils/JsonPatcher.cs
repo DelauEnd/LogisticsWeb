@@ -22,21 +22,18 @@ namespace CargoTransportation.Utils
             var origNames = orig.Properties().Select(x => x.Name).ToArray();
             var modNames = mod.Properties().Select(x => x.Name).ToArray();
 
-            // Names removed in modified
             foreach (var k in origNames.Except(modNames))
             {
                 var prop = orig.Property(k);
                 patch.Remove(path + prop.Name);
             }
 
-            // Names added in modified
             foreach (var k in modNames.Except(origNames))
             {
                 var prop = mod.Property(k);
                 patch.Add(path + prop.Name, prop.Value);
             }
 
-            // Present in both
             foreach (var k in origNames.Intersect(modNames))
             {
                 var origProp = orig.Property(k);

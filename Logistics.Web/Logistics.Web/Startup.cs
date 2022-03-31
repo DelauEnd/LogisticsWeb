@@ -29,7 +29,7 @@ namespace CargoTransportation
 
             services.AddHttpClient();
 
-
+            services.AddScoped<PermissionsHelper>();
             services.ConfigureRequestManagers();
             services.ConfigureActionAttributes();
 

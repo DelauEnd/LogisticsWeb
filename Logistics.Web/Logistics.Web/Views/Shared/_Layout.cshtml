@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject PermissionsHelper _permissionHelper
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,7 +26,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
-                        @if (((ClaimsIdentity)User.Identity).UserInRole(nameof(UserRole.Administrator)))
+                        @if (_permissionHelper.IsAdmin())
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-justify" href="@Url.Action("AddRole", "Authentication")">Add role to user</a>
