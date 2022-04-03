@@ -33,6 +33,8 @@ namespace CargoTransportation
             services.ConfigureRequestManagers();
             services.ConfigureActionAttributes();
 
+            services.ConfigureMassTransit(_configuration);
+
             services.AddControllersWithViews();
         }
 

@@ -4,6 +4,7 @@ using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.RequestDTO.UpdateDTO;
 using Logistics.Models.ResponseDTO;
 using Logistics.Web.Utils;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -23,10 +24,12 @@ namespace CargoTransportation.Controllers
 
         private readonly IOrderRequestHandler _orderHandler;
         private readonly ICustomerRequestHandler _customerHandler;
-        public OrdersController(IOrderRequestHandler orderHandler, ICustomerRequestHandler customerHandler)
+        private readonly IPublishEndpoint _publishEndpoint;
+        public OrdersController(IOrderRequestHandler orderHandler, ICustomerRequestHandler customerHandler, IPublishEndpoint publishEndpoint)
         {
             _customerHandler = customerHandler;
             _orderHandler = orderHandler;
+            _publishEndpoint = publishEndpoint;
         }
 
         [HttpGet]
@@ -87,6 +90,8 @@ namespace CargoTransportation.Controllers
 
             if (!response.IsSuccessStatusCode)
                 return new StatusCodeResult((int)response.StatusCode);
+
+            await _publishEndpoint.Publish(order);
 
             return RedirectToAction(nameof(Index));
         }
