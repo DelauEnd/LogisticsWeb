@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Logistics.PDFService.MassTransit
 {
-    public class AppOrderCreatedConsumer : IConsumer<OrderForCreationDto>
+    public class AppOrderCreatedConsumer : IConsumer<OrderDto>
     {
-        public Task Consume(ConsumeContext<OrderForCreationDto> context)
+        public Task Consume(ConsumeContext<OrderDto> context)
         {
 
 

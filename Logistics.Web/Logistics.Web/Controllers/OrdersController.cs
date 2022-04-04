@@ -40,8 +40,7 @@ namespace CargoTransportation.Controllers
             if (!response.IsSuccessStatusCode)
                 return new StatusCodeResult((int)response.StatusCode);
 
-            var strContent = await response.Content.ReadAsStringAsync();
-            var orders = JsonConvert.DeserializeObject<IEnumerable<OrderDto>>(strContent);
+            var orders = JsonConvert.DeserializeObject<IEnumerable<OrderDto>>(await response.Content.ReadAsStringAsync());
             return View(orders);
         }
 
@@ -91,7 +90,8 @@ namespace CargoTransportation.Controllers
             if (!response.IsSuccessStatusCode)
                 return new StatusCodeResult((int)response.StatusCode);
 
-            await _publishEndpoint.Publish(order);
+            var createdOrder = JsonConvert.DeserializeObject<OrderDto>(await response.Content.ReadAsStringAsync());
+            await _publishEndpoint.Publish(createdOrder);
 
             return RedirectToAction(nameof(Index));
         }
