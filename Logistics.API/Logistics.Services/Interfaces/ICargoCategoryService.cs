@@ -9,8 +9,8 @@ namespace Logistics.Services.Interfaces
     public interface ICargoCategoryService
     {
         public Task<IEnumerable<CargoCategoryDto>> GetAllCategories();
-        public Task AddCategory(CategoryForCreationDto category);
+        public Task<CargoCategoryDto> AddCategory(CategoryForCreationDto category);
         public Task DeleteCategoryById(int categoryId);
-        public Task UpdateCargoCategoryById(int categoryId, CargoCategoryForUpdateDto category);
+        public Task<CargoCategoryDto> UpdateCargoCategoryById(int categoryId, CargoCategoryForUpdateDto category);
     }
 }

@@ -46,11 +46,11 @@ namespace Logistics.API.Controllers.v1
         /// | Required role: Manager
         /// </summary>
         /// <param name="route"></param>
+        /// <returns>Returns added route</returns>
         [HttpPost, Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<IActionResult> AddRoute([FromBody] RouteForCreationDto route)
         {
-            await _routeService.AddRoute(route);
-            return Ok();
+            return Ok(await _routeService.AddRoute(route));
         }
 
         /// <summary>
@@ -71,11 +71,11 @@ namespace Logistics.API.Controllers.v1
         /// </summary>
         /// <param name="routeId"></param>
         /// <param name="route"></param>
+        /// <returns>Returns updated route</returns>
         [HttpPut("{routeId}"), Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<IActionResult> UpdateRouteById(int routeId, RouteForUpdateDto route)
         {
-            await _routeService.UpdateRouteById(routeId, route);
-            return Ok();
+            return Ok(await _routeService.UpdateRouteById(routeId, route));
         }
 
         /// <summary>

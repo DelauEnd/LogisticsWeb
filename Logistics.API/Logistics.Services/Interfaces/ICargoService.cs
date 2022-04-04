@@ -12,6 +12,6 @@ namespace Logistics.Services.Interfaces
         public Task<IEnumerable<CargoDto>> GetUnassignedCargoes();
         public Task<CargoDto> GetCargoById(int cargoId);
         public Task DeleteCargoById(int cargoId);
-        public Task PatchCargoById(int cargoId, JsonPatchDocument<CargoForUpdateDto> patchDoc);
+        public Task<CargoDto> PatchCargoById(int cargoId, JsonPatchDocument<CargoForUpdateDto> patchDoc);
     }
 }

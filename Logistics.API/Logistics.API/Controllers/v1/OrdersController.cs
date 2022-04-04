@@ -46,11 +46,11 @@ namespace Logistics.API.Controllers.v1
         /// | Required role: Manager
         /// </summary>
         /// <param name="orderToAdd"></param>
+        /// <returns>Returns added route</returns>
         [HttpPost, Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<IActionResult> AddOrder([FromBody] OrderForCreationDto orderToAdd)
         {
-            await _orderService.AddOrder(orderToAdd);
-            return Ok();
+            return Ok(await _orderService.AddOrder(orderToAdd));
         }
 
         /// <summary>
@@ -95,6 +95,7 @@ namespace Logistics.API.Controllers.v1
         /// </summary>
         /// <param name="orderId"></param>
         /// <param name="patchDoc"></param>
+        /// <returns>Returns updated order</returns>
         [HttpPatch("{orderId}"), Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<IActionResult> PartiallyUpdateOrderById(int orderId, [FromBody] JsonPatchDocument<OrderForUpdateDto> patchDoc)
         {

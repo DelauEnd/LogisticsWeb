@@ -10,10 +10,10 @@ namespace Logistics.Services.Interfaces
     {
         public Task<IEnumerable<RouteDto>> GetAllRoutes();
         public Task<RouteDto> GetRouteById(int routeId);
-        public Task AddRoute(RouteForCreationDto route);
+        public Task<RouteDto> AddRoute(RouteForCreationDto route);
         public Task<IEnumerable<CargoDto>> GetCargoesByRouteId(int routeId);
         public Task AssignCargoesToRoute(List<int> ids, int routeId);
         public Task DeleteRouteById(int routeId);
-        public Task UpdateRouteById(int orderId, RouteForUpdateDto route);
+        public Task<RouteDto> UpdateRouteById(int orderId, RouteForUpdateDto route);
     }
 }

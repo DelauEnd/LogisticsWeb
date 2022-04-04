@@ -21,11 +21,13 @@ namespace Logistics.Services.Services
             _repository = repository;
         }
 
-        public async Task AddCustomer(CustomerForCreationDto customerToAdd)
+        public async Task<CustomerDto> AddCustomer(CustomerForCreationDto customerToAdd)
         {
             var customer = _mapper.Map<Customer>(customerToAdd);
             _repository.Customers.CreateCustomer(customer);
             await _repository.SaveAsync();
+
+            return _mapper.Map<CustomerDto>(customer);
         }
 
         public async Task DeleteCustomerById(int customerId)
@@ -51,7 +53,7 @@ namespace Logistics.Services.Services
             return customerDto;
         }
 
-        public async Task PatchCustomerById(int customerId, JsonPatchDocument<CustomerForUpdateDto> patchDoc)
+        public async Task<CustomerDto> PatchCustomerById(int customerId, JsonPatchDocument<CustomerForUpdateDto> patchDoc)
         {
             var customer = await _repository.Customers.GetCustomerByIdAsync(customerId, false);
 
@@ -61,6 +63,8 @@ namespace Logistics.Services.Services
             _mapper.Map(customerToPatch, customer);
 
             await _repository.SaveAsync();
+
+            return _mapper.Map<CustomerDto>(customer);
         }
     }
 }

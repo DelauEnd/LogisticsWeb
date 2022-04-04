@@ -30,11 +30,14 @@ namespace Logistics.Services.Services
             await _repository.SaveAsync();
         }
 
-        public async Task AddOrder(OrderForCreationDto orderToAdd)
+        public async Task<OrderDto> AddOrder(OrderForCreationDto orderToAdd)
         {
             var order = _mapper.Map<Order>(orderToAdd);
             _repository.Orders.CreateOrder(order);
             await _repository.SaveAsync();
+
+            var orderWithIncludes = await _repository.Orders.GetOrderByIdAsync(order.Id, false);
+            return _mapper.Map<OrderDto>(orderWithIncludes);
         }
 
         public async Task DeleteOrderById(int orderId)
@@ -67,7 +70,7 @@ namespace Logistics.Services.Services
             return orderDto;
         }
 
-        public async Task PatchOrderById(int orderId, JsonPatchDocument<OrderForUpdateDto> patchDoc)
+        public async Task<OrderDto> PatchOrderById(int orderId, JsonPatchDocument<OrderForUpdateDto> patchDoc)
         {
             var order = await _repository.Orders.GetOrderByIdAsync(orderId, false);
 
@@ -77,6 +80,9 @@ namespace Logistics.Services.Services
             _mapper.Map(orderToPatch, order);
 
             await _repository.SaveAsync();
+
+            var orderWithIncludes = await _repository.Orders.GetOrderByIdAsync(order.Id, false);
+            return _mapper.Map<OrderDto>(orderWithIncludes); 
         }
     }
 }

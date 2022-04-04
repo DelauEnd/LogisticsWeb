@@ -11,10 +11,10 @@ namespace Logistics.Services.Interfaces
     {
         public Task<IEnumerable<OrderDto>> GetAllOrders();
         public Task<OrderDto> GetOrderById(int orderId);
-        public Task AddOrder(OrderForCreationDto order);
+        public Task<OrderDto> AddOrder(OrderForCreationDto order);
         public Task<IEnumerable<CargoDto>> GetCargoesByOrderId(int orderId);
         public Task AddCargoesToOrder(IEnumerable<CargoForCreationDto> cargoes, int orderId);
         public Task DeleteOrderById(int orderId);
-        public Task PatchOrderById(int orderId, JsonPatchDocument<OrderForUpdateDto> patchDoc);
+        public Task<OrderDto> PatchOrderById(int orderId, JsonPatchDocument<OrderForUpdateDto> patchDoc);
     }
 }

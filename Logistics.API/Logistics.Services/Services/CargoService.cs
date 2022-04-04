@@ -48,7 +48,7 @@ namespace Logistics.Services.Services
             return cargoesDto;
         }
 
-        public async Task PatchCargoById(int cargoId, JsonPatchDocument<CargoForUpdateDto> patchDoc)
+        public async Task<CargoDto> PatchCargoById(int cargoId, JsonPatchDocument<CargoForUpdateDto> patchDoc)
         {
             var cargo = await _repository.Cargoes.GetCargoByIdAsync(cargoId, false);
             var cargoToPatch = _mapper.Map<CargoForUpdateDto>(cargo);
@@ -56,6 +56,9 @@ namespace Logistics.Services.Services
             _mapper.Map(cargoToPatch, cargo);
 
             await _repository.SaveAsync();
+
+            var cargoWithIncludes = _repository.Cargoes.GetCargoByIdAsync(cargoId, false);
+            return _mapper.Map<CargoDto>(cargoWithIncludes);
         }
     }
 }

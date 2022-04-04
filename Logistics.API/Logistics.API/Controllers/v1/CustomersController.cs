@@ -46,12 +46,11 @@ namespace Logistics.API.Controllers.v1
         /// | Required role: Manager
         /// </summary>
         /// <param name="customer"></param>
-        /// <returns>Returns created customer</returns>
+        /// <returns>Returns added customer</returns>
         [HttpPost, Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<IActionResult> AddCustomer([FromBody] CustomerForCreationDto customer)
         {
-            await _customerService.AddCustomer(customer);
-            return Ok();
+            return Ok(await _customerService.AddCustomer(customer));
         }
 
         /// <summary>
@@ -72,11 +71,11 @@ namespace Logistics.API.Controllers.v1
         /// </summary>
         /// <param name="customerId"></param>
         /// <param name="patchDoc"></param>
+        /// <returns>Returns updated customer</returns>
         [HttpPatch("{customerId}"), Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<IActionResult> PartiallyUpdateCustomerById(int customerId, [FromBody] JsonPatchDocument<CustomerForUpdateDto> patchDoc)
         {
-            await _customerService.PatchCustomerById(customerId, patchDoc);
-            return Ok();
+            return Ok(await _customerService.PatchCustomerById(customerId, patchDoc));
         }
     }
 }

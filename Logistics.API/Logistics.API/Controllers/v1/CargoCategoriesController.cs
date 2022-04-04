@@ -33,12 +33,11 @@ namespace Logistics.API.Controllers.v1
         /// | Required role: Administrator
         /// </summary>
         /// <param name="category"></param>
-        /// <returns>Returns requested category</returns>
+        /// <returns>Returns added category</returns>
         [HttpPost, Authorize(Roles = nameof(UserRole.Administrator))]
         public async Task<IActionResult> AddCategory([FromBody] CategoryForCreationDto category)
         {
-            await _cargoCategoryService.AddCategory(category);
-            return Ok();
+            return Ok(await _cargoCategoryService.AddCategory(category));
         }
 
         /// <summary>
@@ -59,11 +58,11 @@ namespace Logistics.API.Controllers.v1
         /// </summary>
         /// <param name="categoryId"></param>
         /// <param name="category"></param>
+        /// <returns>Returns updated category</returns>
         [HttpPut("{categoryId}"), Authorize(Roles = nameof(UserRole.Administrator))]
         public async Task<IActionResult> UpdateCargoCategoryById(int categoryId, CargoCategoryForUpdateDto category)
         {
-            await _cargoCategoryService.UpdateCargoCategoryById(categoryId, category);
-            return Ok();
+            return Ok(await _cargoCategoryService.UpdateCargoCategoryById(categoryId, category));
         }
     }
 }

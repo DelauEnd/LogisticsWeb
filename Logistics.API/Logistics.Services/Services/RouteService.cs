@@ -20,7 +20,7 @@ namespace Logistics.Services.Services
             _repository = repository;
         }
 
-        public async Task AddRoute(RouteForCreationDto routeToAdd)
+        public async Task<RouteDto> AddRoute(RouteForCreationDto routeToAdd)
         {
             var transport = await _repository.Transport.GetTransportByRegistrationNumberAsync(routeToAdd.TransportRegistrationNumber, false);
 
@@ -31,6 +31,9 @@ namespace Logistics.Services.Services
 
             _repository.Routes.CreateRoute(route);
             await _repository.SaveAsync();
+
+            route.Transport = transport;
+            return _mapper.Map<RouteDto>(route);
         }
 
         public async Task AssignCargoesToRoute(List<int> ids, int routeId)
@@ -76,13 +79,16 @@ namespace Logistics.Services.Services
             return routeDto;
         }
 
-        public async Task UpdateRouteById(int routeId, RouteForUpdateDto route)
+        public async Task<RouteDto> UpdateRouteById(int routeId, RouteForUpdateDto route)
         {
             var routeToUpdate = await _repository.Routes.GetRouteByIdAsync(routeId, false);
 
             var transport = await _repository.Transport.GetTransportByRegistrationNumberAsync(route.TransportRegistrationNumber, false); ;
             routeToUpdate.TransportId = transport.Id;
             await _repository.SaveAsync();
+
+            routeToUpdate.Transport = transport;
+            return _mapper.Map<RouteDto>(routeToUpdate);
         }
     }
 }

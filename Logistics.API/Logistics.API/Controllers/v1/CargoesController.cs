@@ -70,11 +70,11 @@ namespace Logistics.API.Controllers.v1
         /// </summary>
         /// <param name="cargoId"></param>
         /// <param name="patchDoc"></param>
+        /// <returns>Returns updated cargo</returns>
         [HttpPatch("{cargoId}"), Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<IActionResult> PartiallyUpdateCargoById(int cargoId, [FromBody] JsonPatchDocument<CargoForUpdateDto> patchDoc)
         {
-            await _cargoService.PatchCargoById(cargoId, patchDoc);
-            return Ok();
+            return Ok(await _cargoService.PatchCargoById(cargoId, patchDoc));
         }
     }
 }

@@ -11,8 +11,8 @@ namespace Logistics.Services.Interfaces
     {
         public Task<IEnumerable<TransportDto>> GetAllTransport();
         public Task<TransportDto> GetTransportById(int transportId);
-        public Task AddTransport(TransportForCreationDto transport);
+        public Task<TransportDto> AddTransport(TransportForCreationDto transport);
         public Task DeleteTransportById(int transportId);
-        public Task PatchTransportById(int transportId, JsonPatchDocument<TransportForUpdateDto> patchDoc);
+        public Task<TransportDto> PatchTransportById(int transportId, JsonPatchDocument<TransportForUpdateDto> patchDoc);
     }
 }

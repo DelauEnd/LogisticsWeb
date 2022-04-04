@@ -21,11 +21,13 @@ namespace Logistics.Services.Services
             _repository = repository;
         }
 
-        public async Task AddCategory(CategoryForCreationDto categoryToCreate)
+        public async Task<CargoCategoryDto> AddCategory(CategoryForCreationDto categoryToCreate)
         {
             CargoCategory category = _mapper.Map<CargoCategory>(categoryToCreate);
             _repository.CargoCategories.CreateCategory(category);
             await _repository.SaveAsync();
+           
+            return _mapper.Map<CargoCategoryDto>(category);
         }
 
         public async Task DeleteCategoryById(int categoryId)
@@ -42,11 +44,13 @@ namespace Logistics.Services.Services
             return categoriesDto;
         }
 
-        public async Task UpdateCargoCategoryById(int categoryId, CargoCategoryForUpdateDto category)
+        public async Task<CargoCategoryDto> UpdateCargoCategoryById(int categoryId, CargoCategoryForUpdateDto category)
         {
             var categoryToUpdate = await _repository.CargoCategories.GetCategoryByIdAsync(categoryId, false);
             _mapper.Map(category, categoryToUpdate);
             await _repository.SaveAsync();
+
+            return _mapper.Map<CargoCategoryDto>(category); ;
         }
     }
 }

@@ -46,11 +46,11 @@ namespace Logistics.API.Controllers.v1
         /// | Required role: Administrator
         /// </summary>
         /// <param name="transport"></param>
+        /// <returns>Returns added transport</returns>
         [HttpPost, Authorize(Roles = nameof(UserRole.Administrator))]
         public async Task<IActionResult> AddTransport([FromBody] TransportForCreationDto transport)
         {
-            await _transportService.AddTransport(transport);
-            return Ok();
+            return Ok(await _transportService.AddTransport(transport));
         }
 
         /// <summary>
@@ -71,11 +71,11 @@ namespace Logistics.API.Controllers.v1
         /// </summary>
         /// <param name="transportId"></param>
         /// <param name="patchDoc"></param>
+        /// <returns>Returns updated transport</returns>
         [HttpPatch("{transportId}"), Authorize(Roles = nameof(UserRole.Administrator))]
         public async Task<IActionResult> PartiallyUpdateTransportById(int transportId, [FromBody] JsonPatchDocument<TransportForUpdateDto> patchDoc)
         {
-            await _transportService.PatchTransportById(transportId, patchDoc);
-            return Ok();
+            return Ok(await _transportService.PatchTransportById(transportId, patchDoc));
         }
     }
 }
