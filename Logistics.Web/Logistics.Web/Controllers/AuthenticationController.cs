@@ -21,6 +21,7 @@ namespace CargoTransportation.Controllers
             return Redirect(GetBaseUrl());
         }
 
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync("Cookie");
@@ -31,6 +32,7 @@ namespace CargoTransportation.Controllers
             return Redirect(_configuration.GetSection("IdentityServerBaseUrl").Value + $"/connect/endsession?id_token_hint={token}&post_logout_redirect_uri={GetBaseUrl()}");
         }
 
+        [Authorize]
         public ActionResult AddRole()
         {
             return Redirect(_configuration.GetSection("IdentityServerBaseUrl").Value + $"/account/addrole");

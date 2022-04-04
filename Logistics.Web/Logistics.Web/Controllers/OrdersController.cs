@@ -36,12 +36,12 @@ namespace CargoTransportation.Controllers
         public async Task<ActionResult> Index()
         {
             var response = await _orderHandler.GetAllOrders();
-            IEnumerable<OrderDto> orders;
 
             if (!response.IsSuccessStatusCode)
                 return new StatusCodeResult((int)response.StatusCode);
 
-            orders = JsonConvert.DeserializeObject<IEnumerable<OrderDto>>(await response.Content.ReadAsStringAsync());
+            var strContent = await response.Content.ReadAsStringAsync();
+            var orders = JsonConvert.DeserializeObject<IEnumerable<OrderDto>>(strContent);
             return View(orders);
         }
 

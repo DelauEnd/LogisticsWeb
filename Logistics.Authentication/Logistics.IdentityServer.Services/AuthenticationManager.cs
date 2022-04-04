@@ -12,16 +12,14 @@ namespace Logistics.IdentityServer.Services
     public class AuthenticationManager : IAuthenticationManager
     {
         private readonly UserManager<User> _userManager;
-        private readonly IConfiguration _configuration;
         private readonly SignInManager<User> _signInManager;
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public AuthenticationManager(UserManager<User> userManager, IConfiguration configuration, SignInManager<User> signInManager, IHttpClientFactory httpClientFactory)
+        public AuthenticationManager(UserManager<User> userManager, SignInManager<User> signInManager, IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
             _signInManager = signInManager;
             _userManager = userManager;
-            _configuration = configuration;
         }
 
         public async Task<User> ReturnUserIfValid(UserForAuthenticationDto userForAuth)
