@@ -17,7 +17,7 @@ namespace Logistics.PDFService.MassTransit
 
         public async Task Consume(ConsumeContext<OrderDto> context)
         {
-            await _orderPDFGen.GenOrderPDF(context.Message);
+           var res = await Task.Run(() => _orderPDFGen.GenOrderPDF(context.Message));
         }
     }
 }

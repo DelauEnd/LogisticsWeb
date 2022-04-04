@@ -5,6 +5,6 @@ namespace Logistics.PDFService.Interfaces
 {
     public interface IOrderPDFGen
     {
-        public Task GenOrderPDF(OrderDto order);
+        public string GenOrderPDF(OrderDto order);
     }
 }
