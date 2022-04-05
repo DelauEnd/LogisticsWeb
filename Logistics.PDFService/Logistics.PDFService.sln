@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logistics.PdfService.Models
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logistics.PdfService.Services", "Logistics.PdfService.Services\Logistics.PdfService.Services.csproj", "{000A446F-DEE6-4A76-B9F0-29172E639A96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logistics.PdfService.Repositories", "Logistics.PdfService.Repositories\Logistics.PdfService.Repositories.csproj", "{4CFCD4FC-395F-44EE-AE7B-C5C5ABCE1F77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logistics.PdfService.Repositories", "Logistics.PdfService.Repositories\Logistics.PdfService.Repositories.csproj", "{4CFCD4FC-395F-44EE-AE7B-C5C5ABCE1F77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Logistics.PDFService
+namespace Logistics.PdfService
 {
     public class Program
     {

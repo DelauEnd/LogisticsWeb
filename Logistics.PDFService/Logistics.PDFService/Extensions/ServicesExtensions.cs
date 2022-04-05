@@ -1,4 +1,4 @@
-﻿using Logistics.PDFService.MassTransit;
+﻿using Logistics.PdfService.MassTransit;
 using MassTransit;
 using MassTransit.Definition;
 using MassTransit.MultiBus;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Logistics.PDFService.Extensions
+namespace Logistics.PdfService.Extensions
 {
     public static class ServicesExtensions
     {

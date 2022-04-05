@@ -1,6 +1,6 @@
 ﻿using MassTransit.Definition;
 
-namespace Logistics.PDFService.MassTransit
+namespace Logistics.PdfService.MassTransit
 {
     public class AppOrderCreatedConsumerDefinitions : ConsumerDefinition<AppOrderCreatedConsumer>
     {

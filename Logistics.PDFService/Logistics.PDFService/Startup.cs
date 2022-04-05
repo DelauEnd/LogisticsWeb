@@ -1,8 +1,7 @@
 using Logistics.PdfService.Services.Interfaces;
-using Logistics.PDFService.Extensions;
-using Logistics.PDFService.Repositories;
-using Logistics.PDFService.Services;
-using Logistics.PDFService.Services.Interfaces;
+using Logistics.PdfService.Extensions;
+using Logistics.PdfService.Repositories;
+using Logistics.PdfService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Logistics.PDFService
+namespace Logistics.PdfService
 {
     public class Startup
     {
@@ -23,8 +22,10 @@ namespace Logistics.PDFService
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<PdfLogsContext>();
+            services.AddScoped<IPdfLogRepository, PdfLogRepository>();
             services.AddScoped<IOrderPdfRepository, OrderPdfRepository>();
-            services.AddScoped<IOrderPdfGen, OrderPdfGen>();
+            services.AddScoped<IOrderPdfBuilder, OrderPdfBuilder>();
             services.ConfigureMassTransit(_configuration);
         }
 

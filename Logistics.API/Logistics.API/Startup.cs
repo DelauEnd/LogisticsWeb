@@ -31,7 +31,7 @@ namespace Logistics
             => Directory.GetCurrentDirectory() + "/nLog.config";
 
         public void ConfigureServices(IServiceCollection services)
-        {
+        {   
             services.ConfigureCors();
             services.Configure<IISOptions>(options =>
             { });
@@ -57,7 +57,6 @@ namespace Logistics
             }).ConfigureFormatters();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

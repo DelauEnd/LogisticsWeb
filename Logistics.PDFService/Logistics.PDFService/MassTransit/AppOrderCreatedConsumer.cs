@@ -1,37 +1,33 @@
 ﻿using Logistics.Models.ResponseDTO;
 using Logistics.PdfService.Services.Interfaces;
-using Logistics.PDFService.Services.Interfaces;
 using MassTransit;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace Logistics.PDFService.MassTransit
+namespace Logistics.PdfService.MassTransit
 {
     public class AppOrderCreatedConsumer : IConsumer<OrderDto>
     {
-        private readonly IOrderPdfGen _orderPDFGen;
-        private readonly IOrderPdfRepository _orderPdfService;
+        private readonly IOrderPdfBuilder _orderPDFBuilder;
+        private readonly IOrderPdfRepository _orderPdfRepository;
+        private readonly IPdfLogRepository _pdfLogRepository;
 
-        public AppOrderCreatedConsumer(IOrderPdfGen orderPDFGen, IOrderPdfRepository orderPdfService) : base()
+        public AppOrderCreatedConsumer(IOrderPdfBuilder orderPDFBuilder, IOrderPdfRepository orderPdfRepository, IPdfLogRepository pdfLogRepository)
         {
-            _orderPdfService = orderPdfService;
-            _orderPDFGen = orderPDFGen;
+            _pdfLogRepository = pdfLogRepository;
+            _orderPdfRepository = orderPdfRepository;
+            _orderPDFBuilder = orderPDFBuilder;
         }
 
         public async Task Consume(ConsumeContext<OrderDto> context)
         {
-            await Task.Run(() => _orderPDFGen.GenOrderPdf(context.Message));
-            var pdf = _orderPdfService.GetAllOrderPdfs().Result.FirstOrDefault();
-
-            var res = BuildByteStr(pdf);
-        }
-
-        private static string BuildByteStr(Models.OrderPdf pdf)
-        {
-            var res = "";
-            foreach (var num in pdf.PdfFile)
-                res += num + ", ";
-            return res;
+            var createdPdf = await _orderPDFBuilder.BuildOrderPdf(context.Message);
+            await _orderPdfRepository.AddOrderPdf(createdPdf);
+            await _pdfLogRepository.AddPdfLog(new Models.PdfLog
+            {
+                DocumentId = createdPdf.Id.ToString(),
+                LogDate = System.DateTime.Now,
+                OperationType = Models.Enum.OperationType.Added
+            });
         }
     }
 }

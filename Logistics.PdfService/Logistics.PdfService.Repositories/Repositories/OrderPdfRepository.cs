@@ -1,11 +1,11 @@
 ﻿using Logistics.PdfService.Services.Interfaces;
-using Logistics.PDFService.Models;
+using Logistics.PdfService.Models;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Logistics.PDFService.Repositories
+namespace Logistics.PdfService.Repositories
 {
     public class OrderPdfRepository : IOrderPdfRepository
     {
@@ -42,12 +42,12 @@ namespace Logistics.PDFService.Repositories
 
         public async Task<OrderPdf> GetOrderPdfById(string id)
         {
-            return await _orderPdfCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            return await _orderPdfCollection.Find(x => x.Id.ToString() == id).FirstOrDefaultAsync();
         }
 
         public async Task UpdateOrderPdf(string id, OrderPdf orderPdf)
         {
-            await _orderPdfCollection.ReplaceOneAsync(x => x.Id == id, orderPdf);
+            await _orderPdfCollection.ReplaceOneAsync(x => x.Id.ToString() == id, orderPdf);
         }
     }
 }

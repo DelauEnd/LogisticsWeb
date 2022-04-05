@@ -2,6 +2,7 @@
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.RequestDTO.UpdateDTO;
 using Logistics.Services.Interfaces;
+using MassTransit.RabbitMqTransport.Integration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,11 @@ namespace Logistics.API.Controllers.v1
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;
-        public OrdersController(IOrderService orderService)
+        private readonly IPublisher _publisher;
+        public OrdersController(IOrderService orderService, IPublisher publisher)
         {
             _orderService = orderService;
+            _publisher = publisher;
         }
 
         /// <summary>
