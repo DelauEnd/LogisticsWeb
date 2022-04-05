@@ -18,11 +18,11 @@ namespace Logistics
 {
     public class Startup
     {
-        private readonly IConfiguration configuration;
+        private readonly IConfiguration _configuration;
 
         public Startup(IConfiguration configuration)
         {
-            this.configuration = configuration;
+            this._configuration = configuration;
 
             LogManager.LoadConfiguration(GetNlogConfigPath());
         }
@@ -37,16 +37,18 @@ namespace Logistics
             { });
 
             services.AddDbContext<LogisticsDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
+                options.UseSqlServer(_configuration.GetConnectionString("sqlConnection")));
 
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.ConfigureServices();
             services.AddAutoMapper(typeof(MappingProfile));
+            services.ConfigureMassTransit(_configuration);
+
 
             services.ConfigureVersioning();
             services.ConfigureSwagger();
 
-            services.ConfigureJWT(configuration);
+            services.ConfigureJWT(_configuration);
 
             services.AddControllers(config =>
             {

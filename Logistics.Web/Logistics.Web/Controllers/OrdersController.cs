@@ -24,12 +24,10 @@ namespace CargoTransportation.Controllers
 
         private readonly IOrderRequestHandler _orderHandler;
         private readonly ICustomerRequestHandler _customerHandler;
-        private readonly IPublishEndpoint _publishEndpoint;
         public OrdersController(IOrderRequestHandler orderHandler, ICustomerRequestHandler customerHandler, IPublishEndpoint publishEndpoint)
         {
             _customerHandler = customerHandler;
             _orderHandler = orderHandler;
-            _publishEndpoint = publishEndpoint;
         }
 
         [HttpGet]
@@ -89,9 +87,6 @@ namespace CargoTransportation.Controllers
 
             if (!response.IsSuccessStatusCode)
                 return new StatusCodeResult((int)response.StatusCode);
-
-            var createdOrder = JsonConvert.DeserializeObject<OrderDto>(await response.Content.ReadAsStringAsync());
-            await _publishEndpoint.Publish(createdOrder);
 
             return RedirectToAction(nameof(Index));
         }

@@ -5,6 +5,7 @@ using Logistics.Models.RequestDTO.UpdateDTO;
 using Logistics.Models.ResponseDTO;
 using Logistics.Repository.Interfaces;
 using Logistics.Services.Interfaces;
+using MassTransit;
 using Microsoft.AspNetCore.JsonPatch;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,12 +14,14 @@ namespace Logistics.Services.Services
 {
     public class OrderService : IOrderService
     {
-        readonly IRepositoryManager _repository;
-        readonly IMapper _mapper;
-        public OrderService(IRepositoryManager repository, IMapper mapper)
+        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly IRepositoryManager _repository;
+        private readonly IMapper _mapper;
+        public OrderService(IRepositoryManager repository, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             _mapper = mapper;
             _repository = repository;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task AddCargoesToOrder(IEnumerable<CargoForCreationDto> cargoes, int orderId)
@@ -37,6 +40,8 @@ namespace Logistics.Services.Services
             await _repository.SaveAsync();
 
             var orderWithIncludes = await _repository.Orders.GetOrderByIdAsync(order.Id, false);
+
+            await _publishEndpoint.Publish(orderWithIncludes);
             return _mapper.Map<OrderDto>(orderWithIncludes);
         }
 
