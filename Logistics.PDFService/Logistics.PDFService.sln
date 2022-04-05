@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29926.136
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logistics.PDFService", "Logistics.PDFService\Logistics.PDFService.csproj", "{06215BA3-8C91-4EA5-8D32-8A19964AA100}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logistics.PdfService", "Logistics.PdfService\Logistics.PdfService.csproj", "{06215BA3-8C91-4EA5-8D32-8A19964AA100}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logistics.PdfService.Models", "Logistics.PdfService.Models\Logistics.PdfService.Models.csproj", "{A87F00AC-AEE7-4007-ACE7-2CB114734C1F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logistics.PdfService.Services", "Logistics.PdfService.Services\Logistics.PdfService.Services.csproj", "{000A446F-DEE6-4A76-B9F0-29172E639A96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logistics.PdfService.Repositories", "Logistics.PdfService.Repositories\Logistics.PdfService.Repositories.csproj", "{4CFCD4FC-395F-44EE-AE7B-C5C5ABCE1F77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{06215BA3-8C91-4EA5-8D32-8A19964AA100}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06215BA3-8C91-4EA5-8D32-8A19964AA100}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06215BA3-8C91-4EA5-8D32-8A19964AA100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A87F00AC-AEE7-4007-ACE7-2CB114734C1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A87F00AC-AEE7-4007-ACE7-2CB114734C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A87F00AC-AEE7-4007-ACE7-2CB114734C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A87F00AC-AEE7-4007-ACE7-2CB114734C1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{000A446F-DEE6-4A76-B9F0-29172E639A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{000A446F-DEE6-4A76-B9F0-29172E639A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{000A446F-DEE6-4A76-B9F0-29172E639A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{000A446F-DEE6-4A76-B9F0-29172E639A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CFCD4FC-395F-44EE-AE7B-C5C5ABCE1F77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CFCD4FC-395F-44EE-AE7B-C5C5ABCE1F77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CFCD4FC-395F-44EE-AE7B-C5C5ABCE1F77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CFCD4FC-395F-44EE-AE7B-C5C5ABCE1F77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

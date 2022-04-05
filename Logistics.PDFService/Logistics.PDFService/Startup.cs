@@ -1,6 +1,8 @@
+using Logistics.PdfService.Services.Interfaces;
 using Logistics.PDFService.Extensions;
-using Logistics.PDFService.Interfaces;
+using Logistics.PDFService.Repositories;
 using Logistics.PDFService.Services;
+using Logistics.PDFService.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +23,8 @@ namespace Logistics.PDFService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IOrderPDFGen, OrderPDFGen>();
+            services.AddScoped<IOrderPdfRepository, OrderPdfRepository>();
+            services.AddScoped<IOrderPdfGen, OrderPdfGen>();
             services.ConfigureMassTransit(_configuration);
         }
 

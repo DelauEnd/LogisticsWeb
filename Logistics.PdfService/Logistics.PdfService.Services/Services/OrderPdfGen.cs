@@ -4,14 +4,22 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using Logistics.Models.ResponseDTO;
-using Logistics.PDFService.Interfaces;
+using Logistics.PdfService.Services.Interfaces;
+using Logistics.PDFService.Models;
+using Logistics.PDFService.Services.Interfaces;
 using System.Threading.Tasks;
 
 namespace Logistics.PDFService.Services
 {
-    public class OrderPDFGen : IOrderPDFGen
+    public class OrderPdfGen : IOrderPdfGen
     {
-        public string GenOrderPDF(OrderDto order)
+        private readonly IOrderPdfRepository _orderPdfService;
+        public OrderPdfGen(IOrderPdfRepository orderPdfService)
+        {
+            _orderPdfService = orderPdfService;
+        }
+
+        public async Task GenOrderPdf(OrderDto order)
         {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
@@ -26,12 +34,14 @@ namespace Logistics.PDFService.Services
             document.Close();
 
             var bytes = baos.ToArray();
-            var res = "";
 
-            foreach (var num in bytes)
-                res += num + ", ";
+            var orderPdf = new OrderPdf
+            {
+                CreationDate = System.DateTime.Now,
+                PdfFile = bytes
+            };
 
-            return res;
+            await _orderPdfService.AddOrderPdf(orderPdf);
         }
     }
 }

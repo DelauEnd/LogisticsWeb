@@ -1,11 +1,4 @@
-﻿using Logistics.Models.ResponseDTO;
-using MassTransit;
-using MassTransit.ConsumeConfigurators;
-using MassTransit.Definition;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MassTransit.Definition;
 
 namespace Logistics.PDFService.MassTransit
 {

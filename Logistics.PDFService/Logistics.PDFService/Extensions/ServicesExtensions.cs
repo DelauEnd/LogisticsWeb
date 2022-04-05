@@ -18,7 +18,7 @@ namespace Logistics.PDFService.Extensions
             var userName = massTransitSection.GetValue<string>("UserName");
             var password = massTransitSection.GetValue<string>("Password");
             var queueName = massTransitSection.GetValue<string>("QueueName");
-            
+
             if (massTransitSection == null || url == null || host == null)
             {
                 throw new Exception("Section 'mass-transit' configuration settings are not found in appSettings.json");

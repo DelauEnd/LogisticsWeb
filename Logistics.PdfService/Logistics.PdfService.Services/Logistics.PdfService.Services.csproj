@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Logistics.Models" Version="1.0.1" />
+	  <PackageReference Include="itext7" Version="7.2.1" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Logistics.PDFService.Models\Logistics.PdfService.Models.csproj" />
+    <ProjectReference Include="..\Logistics.PdfService.Repositories\Logistics.PdfService.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>
