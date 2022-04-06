@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
 using System;
+using System.Linq;
 
 namespace Logistics.PdfService.Repositories
 {
@@ -21,19 +22,23 @@ namespace Logistics.PdfService.Repositories
             await con.QueryAsync($"Insert into PdfLogs (logdate, documentid, operationtype) Values (@LogDate, @DocumentId, '{pdfLog.OperationType}')", new { pdfLog.LogDate, pdfLog.DocumentId });
         }
 
-        public Task DeletePdfLog(int id)
+        public async Task DeletePdfLog(int id)
         {
-            throw new System.NotImplementedException();
+            using var con = _pdfLogsContext.CreateConnection();
+            await con.QueryAsync($"Delete from PdfLogs where logid = {id}");
         }
 
-        public Task<IEnumerable<PdfLog>> GetAllPdfLogs()
+        public async Task<IEnumerable<PdfLog>> GetAllPdfLogs()
         {
-            throw new System.NotImplementedException();
+            using var con = _pdfLogsContext.CreateConnection();
+            return await con.QueryAsync<PdfLog>($"Select * from PdfLogs");
         }
 
-        public Task<PdfLog> GetPdfLogById(int id)
+        public  async Task<PdfLog> GetPdfLogById(int id)
         {
-            throw new System.NotImplementedException();
+            using var con = _pdfLogsContext.CreateConnection();
+            var logs = await con.QueryAsync<PdfLog>($"Select * from PdfLogs where logid = {id}");
+            return logs.FirstOrDefault();
         }
     }
 }
