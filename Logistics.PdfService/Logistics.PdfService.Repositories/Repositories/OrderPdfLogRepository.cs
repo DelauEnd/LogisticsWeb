@@ -4,41 +4,62 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
 using System.Linq;
+using System.Data;
 
 namespace Logistics.PdfService.Repositories
 {
     public class OrderPdfLogRepository : IOrderPdfLogRepository
     {
-        private readonly PdfLogsContext _pdfLogsContext;
-        public OrderPdfLogRepository(PdfLogsContext pdfLogsContext)
+        private readonly IDbConnection _connection;
+        public OrderPdfLogRepository(IDbConnection connection)
         {
-            _pdfLogsContext = pdfLogsContext;
+            _connection = connection;
         }
 
         public async Task AddPdfLog(OrderPdfLog pdfLog)
         {
-            using var con = _pdfLogsContext.CreateConnection();
-            await con.QueryAsync(@$"Insert into PdfLogs (logdate, documentid, orderid, ordersendersurname, ordersenderaddress, orderrecieversurname, orderrecieveraddress, operationtype) 
-                Values (@LogDate, @DocumentId, @OrderId, @OrderSenderSurname, @OrderSenderAddress, @OrderRecieverSurname, @OrderRecieverAddress, '{pdfLog.OperationType}')",
-                new { pdfLog.LogDate, pdfLog.DocumentId, pdfLog.OrderId, pdfLog.OrderSenderSurname, pdfLog.OrderSenderAddress, pdfLog.OrderRecieverSurname, pdfLog.OrderRecieverAddress });
+            var query = $@"
+                        INSERT INTO
+                            PdfLogs (logdate, documentid, orderid, ordersendersurname, ordersenderaddress, orderrecieversurname, orderrecieveraddress, operationtype) 
+                        VALUES 
+                            (@LogDate, @DocumentId, @OrderId, @OrderSenderSurname, @OrderSenderAddress, @OrderRecieverSurname, @OrderRecieverAddress, '{pdfLog.OperationType}')";
+
+            await _connection.QueryAsync(query, new { pdfLog.LogDate, pdfLog.DocumentId, pdfLog.OrderId, pdfLog.OrderSenderSurname, pdfLog.OrderSenderAddress, pdfLog.OrderRecieverSurname, pdfLog.OrderRecieverAddress });
         }
 
         public async Task DeletePdfLog(int id)
         {
-            using var con = _pdfLogsContext.CreateConnection();
-            await con.QueryAsync($"Delete from PdfLogs where logid = {id}");
+            var query = $@"
+                        DELETE FROM
+                            PdfLogs
+                        WHERE
+                            logid = {id}";
+
+            await _connection.QueryAsync(query);
         }
 
         public async Task<IEnumerable<OrderPdfLog>> GetAllPdfLogs()
         {
-            using var con = _pdfLogsContext.CreateConnection();
-            return await con.QueryAsync<OrderPdfLog>($"Select * from PdfLogs");
+            var query = $@"
+                        SELECT
+                            *
+                        FROM
+                            PdfLogs";
+
+            return await _connection.QueryAsync<OrderPdfLog>(query);
         }
 
-        public  async Task<OrderPdfLog> GetPdfLogById(int id)
+        public async Task<OrderPdfLog> GetPdfLogById(int id)
         {
-            using var con = _pdfLogsContext.CreateConnection();
-            var logs = await con.QueryAsync<OrderPdfLog>($"Select * from PdfLogs where logid = {id}");
+            var query = @$"
+                        SELECT 
+                            *
+                        FROM
+                            PdfLogs
+                        WHERE
+                            logid = {id}";
+
+            var logs = await _connection.QueryAsync<OrderPdfLog>(query);
             return logs.FirstOrDefault();
         }
     }

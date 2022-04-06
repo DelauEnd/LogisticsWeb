@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Data;
+using Npgsql;
 
 namespace Logistics.PdfService
 {
@@ -22,7 +24,7 @@ namespace Logistics.PdfService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<PdfLogsContext>();
+            services.AddTransient<IDbConnection>(_ => new NpgsqlConnection(_configuration.GetSection("npgsqlConnection").Value));
             services.AddScoped<IPdfLogService, PdfLogService>();
             services.AddScoped<IOrderPdfLogRepository, OrderPdfLogRepository>();
             services.AddScoped<IOrderPdfRepository, OrderPdfRepository>();
@@ -34,7 +36,7 @@ namespace Logistics.PdfService
         {
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseHttpsRedirection();
