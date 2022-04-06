@@ -1,6 +1,6 @@
 ﻿using IdentityModel.Client;
-using Logistics.IdentityServer.Entities.Models;
 using Logistics.IdentityServer.Services.Interfaces;
+using Logistics.Models.IdentityModels;
 using Logistics.Models.ResponseDTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;

@@ -1,8 +1,8 @@
 ﻿using IdentityServer;
 using Logistics.IdentityServer.Entities;
-using Logistics.IdentityServer.Entities.Models;
 using Logistics.IdentityServer.Services;
 using Logistics.IdentityServer.Services.Interfaces;
+using Logistics.Models.IdentityModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

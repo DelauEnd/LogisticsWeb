@@ -4,17 +4,16 @@ using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
-using Logistics.Models.ResponseDTO;
 using Logistics.PdfService.Services.Interfaces;
 using Logistics.PdfService.Models;
-using System;
 using System.Threading.Tasks;
+using Logistics.Models.BrokerModels;
 
 namespace Logistics.PdfService.Services
 {
     public class OrderPdfBuilder : IOrderPdfBuilder
     {
-        public async Task<OrderPdf> BuildOrderPdf(OrderDto order)
+        public async Task<OrderPdf> BuildOrderPdf(CreatedOrderMessage order)
         {
             ByteArrayOutputStream baos = await Task.Run(() => CreateDocument(order));      
             var bytes = baos.ToArray();
@@ -26,7 +25,7 @@ namespace Logistics.PdfService.Services
             return orderPdf;
         }
 
-        private ByteArrayOutputStream CreateDocument(OrderDto order)
+        private ByteArrayOutputStream CreateDocument(CreatedOrderMessage order)
         {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));
@@ -40,12 +39,12 @@ namespace Logistics.PdfService.Services
 
             LineSeparator separatorLine = new LineSeparator(new SolidLine());          
 
-            Paragraph senderText = new Paragraph($"Sender address: {order.Sender}")
+            Paragraph senderText = new Paragraph($"Sender address: {order.SenderAddress}")
                .SetTextAlignment(TextAlignment.LEFT)
                .SetFontSize(16)
                .SetMarginBottom(5);
 
-            Paragraph destinationText = new Paragraph($"Destination address: {order.Destination}")
+            Paragraph destinationText = new Paragraph($"Destination address: {order.DestinationAddress}")
                 .SetTextAlignment(TextAlignment.LEFT)
                 .SetFontSize(16)
                 .SetMarginBottom(10);

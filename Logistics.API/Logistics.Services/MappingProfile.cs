@@ -4,6 +4,7 @@ using Logistics.Entities.Models;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.RequestDTO.UpdateDTO;
 using Logistics.Models.ResponseDTO;
+using Logistics.Models.BrokerModels;
 using System;
 
 namespace Logistics.Services
@@ -52,6 +53,8 @@ namespace Logistics.Services
             CreateMap<CargoForUpdateDto, Cargo>().ReverseMap();
 
             CreateMap<CargoForCreationDto, Cargo>();
+
+            CreateMap<Cargo, CargoForOrderMessage>();
         }
 
         private void CreateRouteMaps()
@@ -83,6 +86,18 @@ namespace Logistics.Services
                 .ReverseMap()
                 .ForMember(updateOrder => updateOrder.Status, option =>
                 option.MapFrom(order => order.Status.ToString()));
+
+            CreateMap<Order, CreatedOrderMessage>()
+                .ForMember(orderMessage => orderMessage.SenderAddress, option =>
+                option.MapFrom(order => order.Sender.Address))
+                .ForMember(orderMessage => orderMessage.Sender, option =>
+                option.MapFrom(order=>order.Sender.ContactPerson))
+                .ForMember(orderMessage => orderMessage.DestinationAddress, option =>
+                option.MapFrom(order => order.Destination.Address))
+                .ForMember(orderMessage => orderMessage.Destination, option =>
+                option.MapFrom(order => order.Destination.ContactPerson))
+                .ForMember(orderMessage => orderMessage.Cargoes, option =>
+                option.MapFrom(order => order.Cargoes));
         }
 
         private void CreateCustomerMaps()

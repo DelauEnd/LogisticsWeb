@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Logistics.Entities.Models;
+using Logistics.Models.BrokerModels;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.RequestDTO.UpdateDTO;
 using Logistics.Models.ResponseDTO;
@@ -41,9 +42,10 @@ namespace Logistics.Services.Services
 
             var orderWithIncludes = await _repository.Orders.GetOrderByIdAsync(order.Id, false);
 
-            var orderToReturn = _mapper.Map<OrderDto>(orderWithIncludes);
-            await _publishEndpoint.Publish(orderToReturn);
-            return orderToReturn;
+            var orderMessage = _mapper.Map<CreatedOrderMessage>(orderWithIncludes);
+            await _publishEndpoint.Publish(orderMessage);
+
+            return _mapper.Map<OrderDto>(orderWithIncludes);
         }
 
         public async Task DeleteOrderById(int orderId)

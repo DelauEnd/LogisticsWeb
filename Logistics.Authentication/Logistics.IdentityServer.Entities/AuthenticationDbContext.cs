@@ -1,5 +1,5 @@
 ﻿using Logistics.IdentityServer.Entities.Configuration;
-using Logistics.IdentityServer.Entities.Models;
+using Logistics.Models.IdentityModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

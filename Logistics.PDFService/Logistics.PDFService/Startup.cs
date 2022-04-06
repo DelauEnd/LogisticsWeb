@@ -23,7 +23,8 @@ namespace Logistics.PdfService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<PdfLogsContext>();
-            services.AddScoped<IPdfLogRepository, PdfLogRepository>();
+            services.AddScoped<IPdfLogService, PdfLogService>();
+            services.AddScoped<IOrderPdfLogRepository, OrderPdfLogRepository>();
             services.AddScoped<IOrderPdfRepository, OrderPdfRepository>();
             services.AddScoped<IOrderPdfBuilder, OrderPdfBuilder>();
             services.ConfigureMassTransit(_configuration);

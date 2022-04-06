@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Logistics.IdentityServer.Entities.Models;
+using Logistics.Models.IdentityModels;
 using Logistics.Models.RequestDTO.CreateDTO;
 
 namespace Logistics.Services

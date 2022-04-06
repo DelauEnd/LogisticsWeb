@@ -1,7 +1,6 @@
-﻿using IdentityModel.Client;
-using IdentityServer4;
-using Logistics.IdentityServer.Entities.Models;
+﻿using IdentityServer4;
 using Logistics.IdentityServer.Services.Interfaces;
+using Logistics.Models.IdentityModels;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.ResponseDTO;
 using Logistics.Models.WebModels;

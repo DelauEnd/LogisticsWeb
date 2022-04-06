@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Logistics.IdentityServer.Entities.Models;
 using Logistics.IdentityServer.Services.Interfaces;
+using Logistics.Models.IdentityModels;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.ResponseDTO;
 using Microsoft.AspNetCore.Identity;

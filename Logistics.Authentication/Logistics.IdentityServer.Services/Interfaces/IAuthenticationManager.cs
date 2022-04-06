@@ -1,4 +1,4 @@
-﻿using Logistics.IdentityServer.Entities.Models;
+﻿using Logistics.Models.IdentityModels;
 using Logistics.Models.ResponseDTO;
 using System.Threading.Tasks;
 

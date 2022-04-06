@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Logistics.IdentityServer.Entities.Models
+namespace Logistics.Models.IdentityModels
 {
     public class User : IdentityUser
     {
