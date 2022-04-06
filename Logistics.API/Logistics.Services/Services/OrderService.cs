@@ -41,8 +41,9 @@ namespace Logistics.Services.Services
 
             var orderWithIncludes = await _repository.Orders.GetOrderByIdAsync(order.Id, false);
 
-            await _publishEndpoint.Publish(orderWithIncludes);
-            return _mapper.Map<OrderDto>(orderWithIncludes);
+            var orderToReturn = _mapper.Map<OrderDto>(orderWithIncludes);
+            await _publishEndpoint.Publish(orderToReturn);
+            return orderToReturn;
         }
 
         public async Task DeleteOrderById(int orderId)

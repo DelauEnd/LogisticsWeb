@@ -38,11 +38,11 @@ namespace Logistics
 
             services.AddDbContext<LogisticsDbContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString("sqlConnection")));
-
+            
+            services.ConfigureMassTransit(_configuration);
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.ConfigureServices();
             services.AddAutoMapper(typeof(MappingProfile));
-            services.ConfigureMassTransit(_configuration);
 
 
             services.ConfigureVersioning();

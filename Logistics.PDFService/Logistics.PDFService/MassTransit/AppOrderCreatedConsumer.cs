@@ -22,12 +22,15 @@ namespace Logistics.PdfService.MassTransit
         {
             var createdPdf = await _orderPDFBuilder.BuildOrderPdf(context.Message);
             await _orderPdfRepository.AddOrderPdf(createdPdf);
-            await _pdfLogRepository.AddPdfLog(new Models.PdfLog
+
+            var log = new Models.PdfLog
             {
                 DocumentId = createdPdf.Id.ToString(),
                 LogDate = System.DateTime.Now,
                 OperationType = Models.Enum.OperationType.Added
-            });
+            };
+
+            await _pdfLogRepository.AddPdfLog(log);
         }
     }
 }

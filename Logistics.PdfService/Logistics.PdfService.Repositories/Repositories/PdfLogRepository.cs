@@ -3,6 +3,7 @@ using Logistics.PdfService.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
+using System;
 
 namespace Logistics.PdfService.Repositories
 {
@@ -17,7 +18,7 @@ namespace Logistics.PdfService.Repositories
         public async Task AddPdfLog(PdfLog pdfLog)
         {
             using var con = _pdfLogsContext.CreateConnection();
-            await con.QueryAsync(@"Insert into PdfLogs Values @LogDate, @DocumentId, @OperationType", new { pdfLog.LogDate, pdfLog.DocumentId, OperationType = nameof(pdfLog.OperationType)});
+            await con.QueryAsync($"Insert into PdfLogs (logdate, documentid, operationtype) Values (@LogDate, @DocumentId, '{pdfLog.OperationType}')", new { pdfLog.LogDate, pdfLog.DocumentId });
         }
 
         public Task DeletePdfLog(int id)

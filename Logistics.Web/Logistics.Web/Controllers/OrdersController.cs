@@ -37,7 +37,8 @@ namespace CargoTransportation.Controllers
             if (!response.IsSuccessStatusCode)
                 return new StatusCodeResult((int)response.StatusCode);
 
-            var orders = JsonConvert.DeserializeObject<IEnumerable<OrderDto>>(await response.Content.ReadAsStringAsync());
+            var strContent = await response.Content.ReadAsStringAsync();
+            var orders = JsonConvert.DeserializeObject<IEnumerable<OrderDto>>(strContent);
             return View(orders);
         }
 

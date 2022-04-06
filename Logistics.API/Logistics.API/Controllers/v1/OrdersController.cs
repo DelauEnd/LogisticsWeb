@@ -16,11 +16,9 @@ namespace Logistics.API.Controllers.v1
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;
-        private readonly IPublisher _publisher;
-        public OrdersController(IOrderService orderService, IPublisher publisher)
+        public OrdersController(IOrderService orderService)
         {
             _orderService = orderService;
-            _publisher = publisher;
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Npgsql;
+using System;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace Logistics.PdfService.Repositories
 {
@@ -12,7 +13,11 @@ namespace Logistics.PdfService.Repositories
             _configuration = configuration;
         }
 
-        public IDbConnection CreateConnection() 
-            => new SqlConnection(_configuration.GetConnectionString("npgsqlConnection"));
+        public IDbConnection CreateConnection()
+        {
+            var con = new NpgsqlConnection(_configuration.GetSection("npgsqlConnection").Value);
+            con.Open();
+            return con;
+        }
     }
 }
