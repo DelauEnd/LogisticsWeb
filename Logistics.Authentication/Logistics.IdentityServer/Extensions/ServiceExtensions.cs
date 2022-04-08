@@ -83,7 +83,6 @@ namespace Logistics.IdentityServer.Extensions
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IAccountService, AccountService>();
         }
     }

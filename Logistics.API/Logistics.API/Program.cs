@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace Logistics
@@ -13,6 +14,14 @@ namespace Logistics
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                }).ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config
+                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                        .AddJsonFile("appsettings.json", true, true)
+                        .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
+                        .AddJsonFile($"ocelotConfig.{hostingContext.HostingEnvironment.EnvironmentName}.json")
+                        .AddEnvironmentVariables();
                 });
     }
 }

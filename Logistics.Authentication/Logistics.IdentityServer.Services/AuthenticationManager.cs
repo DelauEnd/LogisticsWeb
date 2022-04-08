@@ -42,7 +42,7 @@ namespace Logistics.IdentityServer.Services
             {
                 Address = "https://localhost:44320/connect/token",
                 ClientId = "APIClient",
-                Scope = "Logistics.API",
+                Scope = "Logistics.API offline_access",
                 UserName = user.UserName,
                 Password = user.Password,
             };

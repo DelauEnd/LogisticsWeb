@@ -18,16 +18,16 @@ namespace IdentityServer
                 new Client
                 {
                     ClientId = "APIClient",
-                    ClientSecrets = {
-                        new Secret("API_super_secert".ToSha256())
-                    },
                     RequireClientSecret = false,
 
-                    AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     AllowedScopes =
                     {
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
                         ScopeAPI,
                     },
+
+                    AllowOfflineAccess = true,
                 },
                 new Client
                 {
@@ -45,9 +45,11 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.Profile,
                     },
 
-                     AllowAccessTokensViaBrowser = true,
-                     AlwaysSendClientClaims = true,
-                     AlwaysIncludeUserClaimsInIdToken = true,
+                    AllowAccessTokensViaBrowser = true,
+                    AlwaysSendClientClaims = true,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+
+                    AllowOfflineAccess = true,
 
                     RedirectUris = { configuration.GetSection("MVCBaseUrl").Value + "/signin-oidc"},
                     PostLogoutRedirectUris = { configuration.GetSection("MVCBaseUrl").Value },  
@@ -67,6 +69,7 @@ namespace IdentityServer
                         ScopeAPI,
                         ScopeRoles,
                         IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
                         IdentityServerConstants.StandardScopes.Profile,
                     },
                     

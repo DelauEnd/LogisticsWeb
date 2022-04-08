@@ -26,7 +26,7 @@ namespace Logistics.API.Extensions
                     .AllowAnyHeader());
             });
 
-        public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication(opt =>
             {

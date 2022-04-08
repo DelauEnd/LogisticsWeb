@@ -1,0 +1,62 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Authentication",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44320
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Authentication/Registration",
+      "UpstreamHttpMethod": [ "POST" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "10s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Authentication/Login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44320
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Authentication/login",
+      "UpstreamHttpMethod": [ "POST" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Authentication/AddRole",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44320
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/api/Authentication/AddRole",
+      "UpstreamHttpMethod": [ "POST" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      }
+    }
+  ]
+}

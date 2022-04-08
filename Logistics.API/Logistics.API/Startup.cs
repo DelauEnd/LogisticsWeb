@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 using System.IO;
 
 namespace Logistics
@@ -36,6 +38,8 @@ namespace Logistics
             services.Configure<IISOptions>(options =>
             { });
 
+            services.AddOcelot();
+
             services.AddDbContext<LogisticsDbContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString("sqlConnection")));
             
@@ -47,8 +51,7 @@ namespace Logistics
 
             services.ConfigureVersioning();
             services.ConfigureSwagger();
-
-            services.ConfigureJWT(_configuration);
+            services.ConfigureAuthentication(_configuration);
 
             services.AddControllers(config =>
             {
@@ -98,6 +101,8 @@ namespace Logistics
             {
                 endpoints.MapControllers();
             });
+
+            app.UseOcelot().Wait();
         }
     }
 }
