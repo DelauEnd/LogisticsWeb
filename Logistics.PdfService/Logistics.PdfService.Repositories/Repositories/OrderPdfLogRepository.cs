@@ -20,11 +20,38 @@ namespace Logistics.PdfService.Repositories
         {
             var query = $@"
                         INSERT INTO
-                            PdfLogs (logdate, documentid, orderid, ordersendersurname, ordersenderaddress, orderrecieversurname, orderrecieveraddress, operationtype) 
+                            PdfLogs (
+                                logdate,
+                                documentid,
+                                orderid,
+                                ordersendersurname,
+                                ordersenderaddress,
+                                orderrecieversurname,
+                                orderrecieveraddress,
+                                operationtype) 
                         VALUES 
-                            (@LogDate, @DocumentId, @OrderId, @OrderSenderSurname, @OrderSenderAddress, @OrderRecieverSurname, @OrderRecieverAddress, '{pdfLog.OperationType}')";
+                            (
+                            @LogDate,
+                            @DocumentId,
+                            @OrderId,
+                            @OrderSenderSurname,
+                            @OrderSenderAddress,
+                            @OrderRecieverSurname,
+                            @OrderRecieverAddress,
+                            @OperationType)";
 
-            await _connection.QueryAsync(query, new { pdfLog.LogDate, pdfLog.DocumentId, pdfLog.OrderId, pdfLog.OrderSenderSurname, pdfLog.OrderSenderAddress, pdfLog.OrderRecieverSurname, pdfLog.OrderRecieverAddress });
+            var param = new { 
+                pdfLog.LogDate, 
+                pdfLog.DocumentId, 
+                pdfLog.OrderId, 
+                pdfLog.OrderSenderSurname, 
+                pdfLog.OrderSenderAddress, 
+                pdfLog.OrderRecieverSurname, 
+                pdfLog.OrderRecieverAddress, 
+                OperationType = (int)pdfLog.OperationType 
+            };
+
+            await _connection.QueryAsync(query, param);
         }
 
         public async Task DeletePdfLog(int id)

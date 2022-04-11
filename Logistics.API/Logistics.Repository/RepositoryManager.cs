@@ -11,7 +11,6 @@ namespace Logistics.Repository
         private ICargoCategoryRepository cargoCategoryRepository;
         private ICargoRepository cargoRepository;
         private ICustomerRepository customerRepository;
-        private IOrderRepository orderRepository;
         private IRouteRepository routeRepository;
         private ITransportRepository transportRepository;
 
@@ -46,15 +45,6 @@ namespace Logistics.Repository
                 if (customerRepository == null)
                     customerRepository = new CustomerRepository(repositoryContext);
                 return customerRepository;
-            }
-        }
-        public IOrderRepository Orders
-        {
-            get
-            {
-                if (orderRepository == null)
-                    orderRepository = new OrderRepository(repositoryContext);
-                return orderRepository;
             }
         }
         public IRouteRepository Routes

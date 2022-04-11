@@ -28,7 +28,6 @@ namespace CargoTransportation.Controllers
             await HttpContext.SignOutAsync("oidc");
 
             var token = await HttpContext.GetTokenAsync("id_token");
-            var token2 = await HttpContext.GetTokenAsync("refresh_token");
 
             return Redirect(_configuration.GetSection("IdentityServerBaseUrl").Value + $"/connect/endsession?id_token_hint={token}&post_logout_redirect_uri={GetBaseUrl()}");
         }

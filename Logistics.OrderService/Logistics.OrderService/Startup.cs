@@ -11,12 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NLog;
-using Ocelot.DependencyInjection;
-using Ocelot.Middleware;
-using System.IO;
 
-namespace Logistics
+namespace Logistics.OrderService
 {
     public class Startup
     {
@@ -24,32 +20,19 @@ namespace Logistics
 
         public Startup(IConfiguration configuration)
         {
-            this._configuration = configuration;
-
-            LogManager.LoadConfiguration(GetNlogConfigPath());
+            _configuration = configuration;
         }
 
-        private string GetNlogConfigPath()
-            => Directory.GetCurrentDirectory() + "/nLog.config";
-
         public void ConfigureServices(IServiceCollection services)
-        {   
-            services.ConfigureCors();
-            services.Configure<IISOptions>(options =>
-            { });
-
-            services.AddOcelot();
-
+        {
             services.AddDbContext<LogisticsDbContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString("sqlConnection")));
-            
+
+            services.ConfigureMassTransit(_configuration);
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.ConfigureServices();
             services.AddAutoMapper(typeof(MappingProfile));
 
-
-            services.ConfigureVersioning();
-            services.ConfigureSwagger();
             services.ConfigureAuthentication(_configuration);
 
             services.AddControllers(config =>
@@ -70,15 +53,6 @@ namespace Logistics
             {
                 app.UseHsts();
             }
-
-            app.UseSwagger();
-            app.UseSwaggerUI(setup =>
-            {
-                setup.SwaggerEndpoint("/swagger/v1/swagger.json", "Cargo Transportation Api v1");
-                setup.SwaggerEndpoint("/swagger/v2/swagger.json", "Cargo Transportation Api v2");
-
-                setup.RoutePrefix = "";
-            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -101,7 +75,10 @@ namespace Logistics
                 endpoints.MapControllers();
             });
 
-            app.UseOcelot().Wait();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace Logistics.Services.Services
 {
-    public class OrderService : IOrderService
+    public class OrderrService : IOrderService
     {
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly IRepositoryManager _repository;
         private readonly IMapper _mapper;
-        public OrderService(IRepositoryManager repository, IMapper mapper, IPublishEndpoint publishEndpoint)
+        public OrderrService(IRepositoryManager repository, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             _mapper = mapper;
             _repository = repository;
@@ -90,7 +90,7 @@ namespace Logistics.Services.Services
             await _repository.SaveAsync();
 
             var orderWithIncludes = await _repository.Orders.GetOrderByIdAsync(order.Id, false);
-            return _mapper.Map<OrderDto>(orderWithIncludes); 
+            return _mapper.Map<OrderDto>(orderWithIncludes);
         }
     }
 }
