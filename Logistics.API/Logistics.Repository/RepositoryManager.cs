@@ -8,9 +8,6 @@ namespace Logistics.Repository
     public class RepositoryManager : IRepositoryManager
     {
         private readonly LogisticsDbContext repositoryContext;
-        private ICargoCategoryRepository cargoCategoryRepository;
-        private ICargoRepository cargoRepository;
-        private ICustomerRepository customerRepository;
         private IRouteRepository routeRepository;
         private ITransportRepository transportRepository;
 
@@ -18,35 +15,7 @@ namespace Logistics.Repository
         {
             this.repositoryContext = repositoryContext;
         }
-
-        public ICargoCategoryRepository CargoCategories
-        {
-            get
-            {
-                if (cargoCategoryRepository == null)
-                    cargoCategoryRepository = new CargoCategoryRepository(repositoryContext);
-                return cargoCategoryRepository;
-            }
-        }
-        public ICargoRepository Cargoes
-        {
-            get
-            {
-                if (cargoRepository == null)
-                    cargoRepository = new CargoRepository(repositoryContext);
-                return cargoRepository;
-            }
-        }
-
-        public ICustomerRepository Customers
-        {
-            get
-            {
-                if (customerRepository == null)
-                    customerRepository = new CustomerRepository(repositoryContext);
-                return customerRepository;
-            }
-        }
+    
         public IRouteRepository Routes
         {
             get

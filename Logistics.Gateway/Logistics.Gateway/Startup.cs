@@ -1,18 +1,17 @@
 using Logistics.API.Extensions;
 using Logistics.API.Middleware;
-using Logistics.Entities;
-using Logistics.Repository;
-using Logistics.Repository.Interfaces;
-using Logistics.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NLog;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
+using System.IO;
 
-namespace Logistics.OrderService
+namespace Logistics
 {
     public class Startup
     {
@@ -20,30 +19,25 @@ namespace Logistics.OrderService
 
         public Startup(IConfiguration configuration)
         {
-            _configuration = configuration;
+            this._configuration = configuration;
+
+            LogManager.LoadConfiguration(GetNlogConfigPath());
         }
 
+        private string GetNlogConfigPath()
+            => Directory.GetCurrentDirectory() + "/nLog.config";
+
         public void ConfigureServices(IServiceCollection services)
-        {
+        {   
             services.ConfigureCors();
             services.Configure<IISOptions>(options =>
             { });
 
-            services.AddDbContext<LogisticsDbContext>(options =>
-                options.UseSqlServer(_configuration.GetConnectionString("sqlConnection")));
-
-            services.ConfigureMassTransit(_configuration);
-            services.AddScoped<IRepositoryManager, RepositoryManager>();
-            services.ConfigureServices();
-            services.AddAutoMapper(typeof(MappingProfile));
-
+            services.AddOcelot();
+           
             services.ConfigureAuthentication(_configuration);
 
-            services.AddControllers(config =>
-            {
-                config.RespectBrowserAcceptHeader = true;
-                config.ReturnHttpNotAcceptable = true;
-            }).ConfigureFormatters();
+            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -68,7 +62,6 @@ namespace Logistics.OrderService
                 ForwardedHeaders = ForwardedHeaders.All
             });
 
-
             app.UseRouting();
 
             app.UseAuthentication();
@@ -79,10 +72,7 @@ namespace Logistics.OrderService
                 endpoints.MapControllers();
             });
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseOcelot().Wait();
         }
     }
 }

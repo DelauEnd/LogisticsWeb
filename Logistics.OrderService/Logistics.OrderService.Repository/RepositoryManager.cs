@@ -10,6 +10,8 @@ namespace Logistics.Repository
         private readonly LogisticsDbContext repositoryContext;
         private ICargoRepository cargoRepository;
         private IOrderRepository orderRepository;
+        private ICargoCategoryRepository cargoCategoryRepository;
+        private ICustomerRepository customerRepository;
 
         public RepositoryManager(LogisticsDbContext repositoryContext)
         {
@@ -33,6 +35,26 @@ namespace Logistics.Repository
                 if (orderRepository == null)
                     orderRepository = new OrderRepository(repositoryContext);
                 return orderRepository;
+            }
+        }
+
+        public ICargoCategoryRepository CargoCategories
+        {
+            get
+            {
+                if (cargoCategoryRepository == null)
+                    cargoCategoryRepository = new CargoCategoryRepository(repositoryContext);
+                return cargoCategoryRepository;
+            }
+        }
+
+        public ICustomerRepository Customers
+        {
+            get
+            {
+                if (customerRepository == null)
+                    customerRepository = new CustomerRepository(repositoryContext);
+                return customerRepository;
             }
         }
 

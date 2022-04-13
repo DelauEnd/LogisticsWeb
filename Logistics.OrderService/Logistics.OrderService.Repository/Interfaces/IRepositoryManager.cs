@@ -6,6 +6,8 @@ namespace Logistics.Repository.Interfaces
     {
         ICargoRepository Cargoes { get; }
         IOrderRepository Orders { get; }
+        ICargoCategoryRepository CargoCategories { get; }
+        ICustomerRepository Customers { get; }
         Task SaveAsync();
     }
 }

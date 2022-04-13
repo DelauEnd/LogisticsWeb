@@ -104,9 +104,6 @@ namespace Logistics.API.Extensions
 
         public static void ConfigureServices(this IServiceCollection services)
         {
-            services.AddScoped<ICargoCategoryService, CargoCategoryService>();
-            services.AddScoped<ICargoService, CargoService>();
-            services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IRouteService, RouteService>();
             services.AddScoped<ITransportService, TransportService>();
         }      

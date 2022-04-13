@@ -77,29 +77,5 @@ namespace Logistics.API.Controllers.v1
         {
             return Ok(await _routeService.UpdateRouteById(routeId, route));
         }
-
-        /// <summary>
-        /// Get cargoes by requested route id
-        /// </summary>
-        /// <param name="routeId"></param>
-        /// <returns>Returns cargoes by requested order id</returns>
-        [HttpGet("{routeId}/Cargoes")]
-        public async Task<IActionResult> GetCargoesByRouteId(int routeId)
-        {
-            return Ok(await _routeService.GetCargoesByRouteId(routeId));
-        }
-
-        /// <summary>
-        /// Mark cargo by requested id to route by requested id
-        /// | Required role: Manager
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <param name="routeId"></param>
-        [HttpPost("{routeId}/Cargoes"), Authorize(Roles = nameof(UserRole.Manager))]
-        public async Task<IActionResult> AssignCargoesToRoute([FromBody] List<int> ids, int routeId)
-        {
-            await _routeService.AssignCargoesToRoute(ids, routeId);
-            return Ok();
-        }
     }
 }

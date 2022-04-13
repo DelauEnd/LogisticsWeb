@@ -16,6 +16,26 @@ namespace Logistics.Services
             CreateCargoMaps();
             CreateOrderMaps();
             CreateOwnedModelsMaps();
+            CreateCustomerMaps();
+            CreateCargoCategoryMaps();
+        }
+
+        private void CreateCargoCategoryMaps()
+        {
+            CreateMap<CargoCategory, CargoCategoryDto>();
+
+            CreateMap<CategoryForCreationDto, CargoCategory>();
+
+            CreateMap<CargoCategoryForUpdateDto, CargoCategory>().ReverseMap();
+        }
+
+        private void CreateCustomerMaps()
+        {
+            CreateMap<Customer, CustomerDto>();
+
+            CreateMap<CustomerForCreationDto, Customer>();
+
+            CreateMap<CustomerForUpdateDto, Customer>().ReverseMap();
         }
 
         private void CreateOwnedModelsMaps()

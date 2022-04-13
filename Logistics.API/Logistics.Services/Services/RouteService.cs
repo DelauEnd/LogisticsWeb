@@ -36,19 +36,6 @@ namespace Logistics.Services.Services
             return _mapper.Map<RouteDto>(route);
         }
 
-        public async Task AssignCargoesToRoute(List<int> ids, int routeId)
-        {
-            var route = await _repository.Routes.GetRouteByIdAsync(routeId, false);
-
-            foreach (var id in ids)
-            {
-                if (await _repository.Cargoes.GetCargoByIdAsync(id, false) == null)
-                    return;
-                await _repository.Cargoes.AssignCargoToRoute(id, route.Id);
-            }
-            await _repository.SaveAsync();
-        }
-
         public async Task DeleteRouteById(int routeId)
         {
             var route = await _repository.Routes.GetRouteByIdAsync(routeId, false);
@@ -61,15 +48,6 @@ namespace Logistics.Services.Services
             var route = await _repository.Routes.GetAllRoutesAsync(false);
             var routesDto = _mapper.Map<IEnumerable<RouteDto>>(route);
             return routesDto;
-        }
-
-        public async Task<IEnumerable<CargoDto>> GetCargoesByRouteId(int routeId)
-        {
-            var route = await _repository.Routes.GetRouteByIdAsync(routeId, false);
-            var cargoes = await _repository.Cargoes.GetCargoesByRouteIdAsync(route.Id, false);
-
-            var cargoesDto = _mapper.Map<IEnumerable<CargoDto>>(cargoes);
-            return cargoesDto;
         }
 
         public async Task<RouteDto> GetRouteById(int routeId)

@@ -14,11 +14,8 @@ namespace Logistics.Services
         public MappingProfile()
         {
             CreateTransportMaps();
-            CreateCargoMaps();
             CreateRouteMaps();
             CreateOrderMaps();
-            CreateCustomerMaps();
-            CreateCargoCategoryMaps();
             CreateUserMaps();
             CreateOwnedModelsMaps();
         }
@@ -41,20 +38,6 @@ namespace Logistics.Services
             CreateMap<TransportForCreationDto, Transport>();
 
             CreateMap<TransportForUpdateDto, Transport>().ReverseMap();
-        }
-
-        private void CreateCargoMaps()
-        {
-            CreateMap<Cargo, CargoDto>()
-                .ForMember(cargoDto => cargoDto.Category, option =>
-                option.MapFrom(cargo =>
-                cargo.Category.Title));
-
-            CreateMap<CargoForUpdateDto, Cargo>().ReverseMap();
-
-            CreateMap<CargoForCreationDto, Cargo>();
-
-            CreateMap<Cargo, CargoForOrderMessage>();
         }
 
         private void CreateRouteMaps()
@@ -98,24 +81,6 @@ namespace Logistics.Services
                 option.MapFrom(order => order.Destination.ContactPerson))
                 .ForMember(orderMessage => orderMessage.Cargoes, option =>
                 option.MapFrom(order => order.Cargoes));
-        }
-
-        private void CreateCustomerMaps()
-        {
-            CreateMap<Customer, CustomerDto>();
-
-            CreateMap<CustomerForCreationDto, Customer>();
-
-            CreateMap<CustomerForUpdateDto, Customer>().ReverseMap();
-        }
-
-        private void CreateCargoCategoryMaps()
-        {
-            CreateMap<CargoCategory, CargoCategoryDto>();
-
-            CreateMap<CategoryForCreationDto, CargoCategory>();
-
-            CreateMap<CargoCategoryForUpdateDto, CargoCategory>().ReverseMap();
         }
     }
 }
