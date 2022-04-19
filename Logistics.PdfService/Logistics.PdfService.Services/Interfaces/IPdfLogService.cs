@@ -1,5 +1,5 @@
 ﻿using Logistics.Models.BrokerModels;
-using Logistics.PdfService.Models;
+using Logistics.PdfService.Models.Models;
 
 namespace Logistics.PdfService.Services.Interfaces
 {

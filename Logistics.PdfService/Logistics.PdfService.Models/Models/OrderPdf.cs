@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Logistics.PdfService.Models
+namespace Logistics.PdfService.Models.Models
 {
     public class OrderPdf
     {

@@ -1,8 +1,8 @@
 ﻿using Logistics.Models.BrokerModels;
-using Logistics.PdfService.Models;
+using Logistics.PdfService.Models.Models;
 using Logistics.PdfService.Services.Interfaces;
 
-namespace Logistics.PdfService.Services
+namespace Logistics.PdfService.Services.Services
 {
     public class PdfLogService : IPdfLogService
     {

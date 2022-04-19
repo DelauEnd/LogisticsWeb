@@ -1,8 +1,8 @@
-﻿using Logistics.PdfService.Models;
+﻿using Logistics.PdfService.Models.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Logistics.PdfService.Services.Interfaces
+namespace Logistics.PdfService.Repositories.Interfaces
 {
     public interface IOrderPdfLogRepository
     {
