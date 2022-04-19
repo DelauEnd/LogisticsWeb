@@ -1,16 +1,8 @@
-﻿using IdentityModel.Client;
-using IdentityServer4;
-using Logistics.IdentityServer.Services.Interfaces;
+﻿using Logistics.IdentityServer.Services.Interfaces;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.ResponseDTO;
-using Logistics.Models.WebModels;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Logistics.IdentityServer.Controllers

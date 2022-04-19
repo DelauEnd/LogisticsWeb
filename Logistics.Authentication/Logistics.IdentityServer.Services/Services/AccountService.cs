@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
 
-namespace Logistics.IdentityServer.Services
+namespace Logistics.IdentityServer.Services.Services
 {
     public class AccountService : IAccountService
     {

@@ -4,7 +4,7 @@ using IdentityServer4.Models;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
-namespace IdentityServer
+namespace Logistics.IdentityServer
 {
     public static class IdentityConfiguration
     {
@@ -52,7 +52,7 @@ namespace IdentityServer
                     AllowOfflineAccess = true,
 
                     RedirectUris = { configuration.GetSection("MVCBaseUrl").Value + "/signin-oidc"},
-                    PostLogoutRedirectUris = { configuration.GetSection("MVCBaseUrl").Value },  
+                    PostLogoutRedirectUris = { configuration.GetSection("MVCBaseUrl").Value },
                     RequireConsent = false,
                 }
             };
@@ -72,7 +72,7 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.OfflineAccess,
                         IdentityServerConstants.StandardScopes.Profile,
                     },
-                    
+
                 }
               };
         }
@@ -88,7 +88,7 @@ namespace IdentityServer
         }
 
         public static IEnumerable<ApiScope> BuildApiScopes()
-        { 
+        {
             return new List<ApiScope>
             {
                 new ApiScope(ScopeAPI)

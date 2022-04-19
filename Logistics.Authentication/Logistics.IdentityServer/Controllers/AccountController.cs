@@ -38,7 +38,7 @@ namespace Logistics.IdentityServer.Controllers
             _signInManager = signInManager;
             _configuration = configuration;
             _clientFactory = clientFactory;
-    }
+        }
 
         public async Task<IActionResult> Logout(string returnUrl)
         {

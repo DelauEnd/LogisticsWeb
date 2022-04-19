@@ -2,7 +2,7 @@
 using Logistics.Models.IdentityModels;
 using Logistics.Models.RequestDTO.CreateDTO;
 
-namespace Logistics.Services
+namespace Logistics.IdentityServer.Services
 {
     public class MappingProfile : Profile
     {

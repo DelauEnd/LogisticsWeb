@@ -3,7 +3,6 @@ using Logistics.IdentityServer.Services.Interfaces;
 using Logistics.Models.IdentityModels;
 using Logistics.Models.ResponseDTO;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
 

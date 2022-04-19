@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace IdentityServer
+namespace Logistics.IdentityServer
 {
     public class Program
     {
