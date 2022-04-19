@@ -1,11 +1,10 @@
 ﻿using Logistics.Models.BrokerModels;
 using Logistics.PdfService.Models.Models;
-using System.Threading.Tasks;
 
 namespace Logistics.PdfService.Services.Interfaces
 {
-    public interface IOrderPdfBuilder
+    public interface IPdfLogService
     {
-        public Task<OrderPdf> BuildOrderPdf(CreatedOrderMessage order);
+        public OrderPdfLog CreatePdfLog(CreatedOrderMessage createdOrderMessage, OrderPdf orderPdf);
     }
 }

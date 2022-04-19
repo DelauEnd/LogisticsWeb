@@ -1,15 +1,16 @@
-using Logistics.PdfService.Services.Interfaces;
 using Logistics.PdfService.Extensions;
-using Logistics.PdfService.Repositories;
-using Logistics.PdfService.Services;
+using Logistics.PdfService.Repositories.Interfaces;
+using Logistics.PdfService.Repositories.Repositories;
+using Logistics.PdfService.Services.Interfaces;
+using Logistics.PdfService.Services.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Data;
 using Npgsql;
+using System.Data;
 
 namespace Logistics.PdfService
 {

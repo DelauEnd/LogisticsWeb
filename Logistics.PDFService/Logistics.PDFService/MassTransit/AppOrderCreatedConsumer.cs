@@ -1,8 +1,7 @@
 ﻿using Logistics.Models.BrokerModels;
-using Logistics.Models.ResponseDTO;
+using Logistics.PdfService.Repositories.Interfaces;
 using Logistics.PdfService.Services.Interfaces;
 using MassTransit;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Logistics.PdfService.MassTransit

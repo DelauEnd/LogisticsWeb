@@ -1,12 +1,12 @@
-﻿using Logistics.PdfService.Services.Interfaces;
-using Logistics.PdfService.Models;
+﻿using Dapper;
+using Logistics.PdfService.Models.Models;
+using Logistics.PdfService.Repositories.Interfaces;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Dapper;
-using System.Linq;
 using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Logistics.PdfService.Repositories
+namespace Logistics.PdfService.Repositories.Repositories
 {
     public class OrderPdfLogRepository : IOrderPdfLogRepository
     {
@@ -27,8 +27,7 @@ namespace Logistics.PdfService.Repositories
                                 ordersendersurname,
                                 ordersenderaddress,
                                 orderrecieversurname,
-                                orderrecieveraddress,
-                                operationtype) 
+                                orderrecieveraddress) 
                         VALUES 
                             (
                             @LogDate,
@@ -37,18 +36,17 @@ namespace Logistics.PdfService.Repositories
                             @OrderSenderSurname,
                             @OrderSenderAddress,
                             @OrderRecieverSurname,
-                            @OrderRecieverAddress,
-                            @OperationType)";
+                            @OrderRecieverAddress)";
 
-            var param = new { 
-                pdfLog.LogDate, 
-                pdfLog.DocumentId, 
-                pdfLog.OrderId, 
-                pdfLog.OrderSenderSurname, 
-                pdfLog.OrderSenderAddress, 
-                pdfLog.OrderRecieverSurname, 
-                pdfLog.OrderRecieverAddress, 
-                OperationType = (int)pdfLog.OperationType 
+            var param = new
+            {
+                pdfLog.LogDate,
+                pdfLog.DocumentId,
+                pdfLog.OrderId,
+                pdfLog.OrderSenderSurname,
+                pdfLog.OrderSenderAddress,
+                pdfLog.OrderRecieverSurname,
+                pdfLog.OrderRecieverAddress
             };
 
             await _connection.QueryAsync(query, param);

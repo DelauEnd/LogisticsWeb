@@ -1,11 +1,11 @@
-﻿using Logistics.PdfService.Services.Interfaces;
-using Logistics.PdfService.Models;
+﻿using Logistics.PdfService.Models.Models;
+using Logistics.PdfService.Repositories.Interfaces;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Logistics.PdfService.Repositories
+namespace Logistics.PdfService.Repositories.Repositories
 {
     public class OrderPdfRepository : IOrderPdfRepository
     {

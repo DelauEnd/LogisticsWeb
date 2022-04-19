@@ -4,18 +4,18 @@ using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
-using Logistics.PdfService.Services.Interfaces;
-using Logistics.PdfService.Models;
-using System.Threading.Tasks;
 using Logistics.Models.BrokerModels;
+using Logistics.PdfService.Models.Models;
+using Logistics.PdfService.Services.Interfaces;
+using System.Threading.Tasks;
 
-namespace Logistics.PdfService.Services
+namespace Logistics.PdfService.Services.Services
 {
     public class OrderPdfBuilder : IOrderPdfBuilder
     {
         public async Task<OrderPdf> BuildOrderPdf(CreatedOrderMessage order)
         {
-            ByteArrayOutputStream baos = await Task.Run(() => CreateDocument(order));      
+            ByteArrayOutputStream baos = await Task.Run(() => CreateDocument(order));
             var bytes = baos.ToArray();
 
             var orderPdf = new OrderPdf
@@ -37,7 +37,7 @@ namespace Logistics.PdfService.Services
                 .SetFontSize(20)
                 .SetMarginBottom(10);
 
-            LineSeparator separatorLine = new LineSeparator(new SolidLine());          
+            LineSeparator separatorLine = new LineSeparator(new SolidLine());
 
             Paragraph senderText = new Paragraph($"Sender address: {order.SenderAddress}")
                .SetTextAlignment(TextAlignment.LEFT)

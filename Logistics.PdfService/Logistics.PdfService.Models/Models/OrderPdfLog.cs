@@ -1,7 +1,6 @@
-﻿using Logistics.PdfService.Models.Enum;
-using System;
+﻿using System;
 
-namespace Logistics.PdfService.Models
+namespace Logistics.PdfService.Models.Models
 {
     public class OrderPdfLog
     {
@@ -13,6 +12,5 @@ namespace Logistics.PdfService.Models
         public string OrderSenderAddress { get; set; }
         public string OrderRecieverSurname { get; set; }
         public string OrderRecieverAddress { get; set; }
-        public OperationType OperationType { get; set; }
     }
 }
