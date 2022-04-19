@@ -16,8 +16,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logistics.Repository", "Log
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logistics.Entities", "Logistics.Entities\Logistics.Entities.csproj", "{D57CF13E-7C8C-4D9F-BCB8-6F2294842EE0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logistics.API.Tests", "Logistics.API.Tests\Logistics.API.Tests.csproj", "{D26598E5-1A1F-4CA7-BB9B-2099A9B7413F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,10 +38,6 @@ Global
 		{D57CF13E-7C8C-4D9F-BCB8-6F2294842EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D57CF13E-7C8C-4D9F-BCB8-6F2294842EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D57CF13E-7C8C-4D9F-BCB8-6F2294842EE0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D26598E5-1A1F-4CA7-BB9B-2099A9B7413F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D26598E5-1A1F-4CA7-BB9B-2099A9B7413F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D26598E5-1A1F-4CA7-BB9B-2099A9B7413F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D26598E5-1A1F-4CA7-BB9B-2099A9B7413F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

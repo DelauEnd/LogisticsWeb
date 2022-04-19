@@ -1,7 +1,9 @@
 ﻿using Logistics.Models.Enums;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.RequestDTO.UpdateDTO;
-using Logistics.Services.Interfaces;
+using Logistics.Services.Mediatr.Commands;
+using Logistics.Services.Mediatr.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +15,11 @@ namespace Logistics.API.Controllers.v1
     [ApiController]
     public class TransportController : ControllerBase
     {
-        private readonly ITransportService _transportService;
+        private readonly IMediator _mediator;
 
-        public TransportController(ITransportService transportService)
+        public TransportController(IMediator mediator)
         {
-            _transportService = transportService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -27,7 +29,9 @@ namespace Logistics.API.Controllers.v1
         [HttpGet]
         public async Task<IActionResult> GetAllTransport()
         {
-            return Ok(await _transportService.GetAllTransport());
+            var query = new GetAllTransportQuery();
+
+            return Ok(await _mediator.Send(query));
         }
 
         /// <summary>
@@ -38,7 +42,9 @@ namespace Logistics.API.Controllers.v1
         [HttpGet("{transportId}", Name = "GetTransportById")]
         public async Task<IActionResult> GetTransportById(int transportId)
         {
-            return Ok(await _transportService.GetTransportById(transportId));
+            var query = new GetTransportByIdQuery(transportId);
+
+            return Ok(await _mediator.Send(query));
         }
 
         /// <summary>
@@ -50,7 +56,9 @@ namespace Logistics.API.Controllers.v1
         [HttpPost, Authorize(Roles = nameof(UserRole.Administrator))]
         public async Task<IActionResult> AddTransport([FromBody] TransportForCreationDto transport)
         {
-            return Ok(await _transportService.AddTransport(transport));
+            var command = new AddTransportCommand(transport);
+
+            return Ok(await _mediator.Send(command));
         }
 
         /// <summary>
@@ -61,7 +69,9 @@ namespace Logistics.API.Controllers.v1
         [HttpDelete("{transportId}"), Authorize(Roles = nameof(UserRole.Administrator))]
         public async Task<IActionResult> DeleteTransportById(int transportId)
         {
-            await _transportService.DeleteTransportById(transportId);
+            var command = new DeleteTransportByIdCommand(transportId);
+            await _mediator.Send(command);
+
             return Ok();
         }
 
@@ -75,7 +85,9 @@ namespace Logistics.API.Controllers.v1
         [HttpPatch("{transportId}"), Authorize(Roles = nameof(UserRole.Administrator))]
         public async Task<IActionResult> PartiallyUpdateTransportById(int transportId, [FromBody] JsonPatchDocument<TransportForUpdateDto> patchDoc)
         {
-            return Ok(await _transportService.PatchTransportById(transportId, patchDoc));
+            var command = new UpdateTransportByIdCommand(transportId, patchDoc);
+
+            return Ok(await _mediator.Send(command));
         }
     }
 }

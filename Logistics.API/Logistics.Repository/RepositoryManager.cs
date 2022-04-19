@@ -1,5 +1,6 @@
 ﻿using Logistics.Entities;
 using Logistics.Repository.Interfaces;
+using Logistics.Repository.Interfaces.Repositories;
 using Logistics.Repository.Repositories;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace Logistics.Repository
         {
             this.repositoryContext = repositoryContext;
         }
-    
+
         public IRouteRepository Routes
         {
             get

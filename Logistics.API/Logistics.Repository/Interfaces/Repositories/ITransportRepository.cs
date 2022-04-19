@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Logistics.Repository.Interfaces
+namespace Logistics.Repository.Interfaces.Repositories
 {
     public interface ITransportRepository
     {

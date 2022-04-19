@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Logistics.Entities.Enums;
 using Logistics.Entities.Models;
+using Logistics.Entities.Models.OwnedModels;
+using Logistics.Models.BrokerModels;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.RequestDTO.UpdateDTO;
 using Logistics.Models.ResponseDTO;
-using Logistics.Models.BrokerModels;
 using System;
 
 namespace Logistics.Services
@@ -74,7 +75,7 @@ namespace Logistics.Services
                 .ForMember(orderMessage => orderMessage.SenderAddress, option =>
                 option.MapFrom(order => order.Sender.Address))
                 .ForMember(orderMessage => orderMessage.Sender, option =>
-                option.MapFrom(order=>order.Sender.ContactPerson))
+                option.MapFrom(order => order.Sender.ContactPerson))
                 .ForMember(orderMessage => orderMessage.DestinationAddress, option =>
                 option.MapFrom(order => order.Destination.Address))
                 .ForMember(orderMessage => orderMessage.Destination, option =>

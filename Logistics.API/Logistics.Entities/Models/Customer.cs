@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Logistics.Entities.Models.OwnedModels;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

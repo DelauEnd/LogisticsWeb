@@ -1,6 +1,4 @@
-﻿using Logistics.Services.Interfaces;
-using Logistics.Services.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -101,11 +99,5 @@ namespace Logistics.API.Extensions
                     }
                 });
             });
-
-        public static void ConfigureServices(this IServiceCollection services)
-        {
-            services.AddScoped<IRouteService, RouteService>();
-            services.AddScoped<ITransportService, TransportService>();
-        }      
     }
 }

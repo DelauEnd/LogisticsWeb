@@ -1,10 +1,11 @@
 ﻿using Logistics.Models.Enums;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.RequestDTO.UpdateDTO;
-using Logistics.Services.Interfaces;
+using Logistics.Services.Mediatr.Commands;
+using Logistics.Services.Mediatr.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Logistics.API.Controllers.v1
@@ -13,11 +14,11 @@ namespace Logistics.API.Controllers.v1
     [ApiController]
     public class RoutesController : ControllerBase
     {
-        private readonly IRouteService _routeService;
+        private readonly IMediator _mediator;
 
-        public RoutesController(IRouteService routeService)
+        public RoutesController(IMediator mediator)
         {
-            _routeService = routeService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -27,7 +28,9 @@ namespace Logistics.API.Controllers.v1
         [HttpGet]
         public async Task<IActionResult> GetAllRoutes()
         {
-            return Ok(await _routeService.GetAllRoutes());
+            var query = new GetAllRoutesQuery();
+
+            return Ok(await _mediator.Send(query));
         }
 
         /// <summary>
@@ -38,7 +41,9 @@ namespace Logistics.API.Controllers.v1
         [HttpGet("{routeId}", Name = "GetRouteById")]
         public async Task<IActionResult> GetRouteById(int routeId)
         {
-            return Ok(await _routeService.GetRouteById(routeId));
+            var query = new GetRouteByIdQuery(routeId);
+
+            return Ok(await _mediator.Send(query));
         }
 
         /// <summary>
@@ -50,7 +55,9 @@ namespace Logistics.API.Controllers.v1
         [HttpPost, Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<IActionResult> AddRoute([FromBody] RouteForCreationDto route)
         {
-            return Ok(await _routeService.AddRoute(route));
+            var command = new AddRouteCommand(route);
+
+            return Ok(await _mediator.Send(command));
         }
 
         /// <summary>
@@ -61,7 +68,9 @@ namespace Logistics.API.Controllers.v1
         [HttpDelete("{routeId}"), Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<IActionResult> DeleteRouteById(int routeId)
         {
-            await _routeService.DeleteRouteById(routeId);
+            var command = new DeleteRouteByIdCommand(routeId);
+            await _mediator.Send(command);
+
             return Ok();
         }
 
@@ -75,7 +84,9 @@ namespace Logistics.API.Controllers.v1
         [HttpPut("{routeId}"), Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<IActionResult> UpdateRouteById(int routeId, RouteForUpdateDto route)
         {
-            return Ok(await _routeService.UpdateRouteById(routeId, route));
+            var command = new UpdateRouteByIdCommand(route, routeId);
+
+            return Ok(await _mediator.Send(command));
         }
     }
 }

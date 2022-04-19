@@ -1,6 +1,6 @@
 ﻿using Logistics.Entities;
 using Logistics.Entities.Models;
-using Logistics.Repository.Interfaces;
+using Logistics.Repository.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;

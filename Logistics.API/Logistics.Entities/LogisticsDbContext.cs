@@ -6,12 +6,8 @@ namespace Logistics.Entities
 {
     public class LogisticsDbContext : DbContext
     {
-        public DbSet<Cargo> Cargoes { get; set; }
-        public DbSet<CargoCategory> Categories { get; set; }
-        public DbSet<Order> Orders { get; set; }
         public DbSet<Route> Routes { get; set; }
         public DbSet<Transport> Transports { get; set; }
-        public DbSet<Customer> Customers { get; set; }
 
         public LogisticsDbContext(DbContextOptions options)
             : base(options)
@@ -28,7 +24,6 @@ namespace Logistics.Entities
 
         private void ApplyConfigurations(ModelBuilder modelBuilder)
         {
-
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             modelBuilder.ApplyConfiguration(new TransportConfiguration());
             modelBuilder.ApplyConfiguration(new CargoCategoryConfiguration());
