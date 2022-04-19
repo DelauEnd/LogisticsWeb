@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using Logistics.Entities.Enums;
 using Logistics.Entities.Models;
+using Logistics.Entities.Models.OwnedModels;
 using Logistics.Models.BrokerModels;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.RequestDTO.UpdateDTO;
 using Logistics.Models.ResponseDTO;
 using System;
 
-namespace Logistics.Services
+namespace Logistics.OrderService.Services
 {
     public class MappingProfile : Profile
     {

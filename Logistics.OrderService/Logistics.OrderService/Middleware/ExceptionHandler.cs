@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 
-namespace Logistics.API.Middleware
+namespace Logistics.OrderService.Middleware
 {
     public class ExceptionHandler
     {

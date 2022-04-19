@@ -9,8 +9,6 @@ namespace Logistics.Entities
         public DbSet<Cargo> Cargoes { get; set; }
         public DbSet<CargoCategory> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Route> Routes { get; set; }
-        public DbSet<Transport> Transports { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
         public LogisticsDbContext(DbContextOptions options)

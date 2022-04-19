@@ -4,14 +4,14 @@ using Logistics.Models.BrokerModels;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.RequestDTO.UpdateDTO;
 using Logistics.Models.ResponseDTO;
-using Logistics.Repository.Interfaces;
-using Logistics.Services.Interfaces;
+using Logistics.OrderService.Repository.Interfaces;
+using Logistics.OrderService.Services.Interfaces;
 using MassTransit;
 using Microsoft.AspNetCore.JsonPatch;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Logistics.Services.Services
+namespace Logistics.OrderService.Services.Services
 {
     public class OrderrService : IOrderService
     {

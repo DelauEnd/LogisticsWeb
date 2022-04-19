@@ -1,5 +1,5 @@
-﻿using Logistics.Services.Interfaces;
-using Logistics.Services.Services;
+﻿using Logistics.OrderService.Services.Interfaces;
+using Logistics.OrderService.Services.Services;
 using MassTransit;
 using MassTransit.Definition;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace Logistics.API.Extensions
+namespace Logistics.OrderService.Extensions
 {
     public static class ServiceExtensions
     {

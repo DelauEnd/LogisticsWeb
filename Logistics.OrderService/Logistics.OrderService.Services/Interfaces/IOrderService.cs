@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Logistics.Services.Interfaces
+namespace Logistics.OrderService.Services.Interfaces
 {
     public interface IOrderService
     {

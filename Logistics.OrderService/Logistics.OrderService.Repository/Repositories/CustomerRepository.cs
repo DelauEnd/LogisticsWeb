@@ -1,12 +1,12 @@
 ﻿using Logistics.Entities;
 using Logistics.Entities.Models;
-using Logistics.Repository.Interfaces;
+using Logistics.OrderService.Repository.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Logistics.Repository.Repositories
+namespace Logistics.OrderService.Repository.Repositories
 {
     public class CustomerRepository : RepositoryBase<Customer>, ICustomerRepository
     {

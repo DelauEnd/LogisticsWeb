@@ -4,7 +4,7 @@ using Logistics.Models.ResponseDTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Logistics.Services.Interfaces
+namespace Logistics.OrderService.Services.Interfaces
 {
     public interface ICargoCategoryService
     {

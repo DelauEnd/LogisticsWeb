@@ -1,9 +1,9 @@
-using Logistics.API.Extensions;
-using Logistics.API.Middleware;
 using Logistics.Entities;
-using Logistics.Repository;
-using Logistics.Repository.Interfaces;
-using Logistics.Services;
+using Logistics.OrderService.Extensions;
+using Logistics.OrderService.Middleware;
+using Logistics.OrderService.Repository;
+using Logistics.OrderService.Repository.Interfaces;
+using Logistics.OrderService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;

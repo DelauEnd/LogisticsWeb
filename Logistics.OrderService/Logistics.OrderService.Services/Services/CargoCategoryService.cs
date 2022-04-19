@@ -3,12 +3,12 @@ using Logistics.Entities.Models;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.RequestDTO.UpdateDTO;
 using Logistics.Models.ResponseDTO;
-using Logistics.Repository.Interfaces;
-using Logistics.Services.Interfaces;
+using Logistics.OrderService.Repository.Interfaces;
+using Logistics.OrderService.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Logistics.Services.Services
+namespace Logistics.OrderService.Services.Services
 {
     public class CargoCategoryService : ICargoCategoryService
     {
@@ -26,7 +26,7 @@ namespace Logistics.Services.Services
             CargoCategory category = _mapper.Map<CargoCategory>(categoryToCreate);
             _repository.CargoCategories.CreateCategory(category);
             await _repository.SaveAsync();
-           
+
             return _mapper.Map<CargoCategoryDto>(category);
         }
 

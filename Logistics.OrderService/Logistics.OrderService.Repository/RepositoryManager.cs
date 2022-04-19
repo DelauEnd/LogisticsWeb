@@ -1,9 +1,9 @@
 ﻿using Logistics.Entities;
-using Logistics.Repository.Interfaces;
-using Logistics.Repository.Repositories;
+using Logistics.OrderService.Repository.Interfaces;
+using Logistics.OrderService.Repository.Interfaces.Repositories;
 using System.Threading.Tasks;
 
-namespace Logistics.Repository
+namespace Logistics.OrderService.Repository
 {
     public class RepositoryManager : IRepositoryManager
     {

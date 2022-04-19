@@ -1,12 +1,12 @@
 ﻿using Logistics.Models.Enums;
 using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.RequestDTO.UpdateDTO;
-using Logistics.Services.Interfaces;
+using Logistics.OrderService.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Logistics.API.Controllers.v1
+namespace Logistics.OrderService.Controllers
 {
     [Route("api/Categories"), Authorize]
     [ApiController]

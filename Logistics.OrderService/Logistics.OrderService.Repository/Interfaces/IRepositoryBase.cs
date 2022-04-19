@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Logistics.Repository.Interfaces
+namespace Logistics.OrderService.Repository.Interfaces
 {
     public interface IRepositoryBase<T>
     {

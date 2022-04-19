@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using Logistics.OrderService.Repository.Interfaces.Repositories;
+using System.Threading.Tasks;
 
-namespace Logistics.Repository.Interfaces
+namespace Logistics.OrderService.Repository.Interfaces
 {
     public interface IRepositoryManager
     {

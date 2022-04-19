@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace Logistics.Entities.Models
+namespace Logistics.Entities.Models.OwnedModels
 {
     [Owned]
     public class Person
