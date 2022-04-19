@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-namespace Logistics
+namespace Logistics.Gateway
 {
     public class Program
     {
@@ -20,13 +20,7 @@ namespace Logistics
                         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
                         .AddJsonFile("appsettings.json", true, true)
                         .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
-                        .AddJsonFile($"authenticationGatewayCfg.json")
-                        .AddJsonFile($"cargoCategoryGatewayCfg.json")
-                        .AddJsonFile($"cargoGatewayCfg.json")
-                        .AddJsonFile($"customerGatewayCfg.json")
-                        .AddJsonFile($"orderGatewayCfg.json")
-                        .AddJsonFile($"routeGatewayCfg.json")
-                        .AddJsonFile($"transportGatewayCfg.json")
+                        .AddJsonFile($"ocelotConfiguration.json")
                         .AddEnvironmentVariables();
                 });
     }

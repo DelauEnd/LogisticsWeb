@@ -1,14 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 
-namespace Logistics.API.Extensions
+namespace Logistics.Gateway.Extensions
 {
     public static class ServiceExtensions
     {

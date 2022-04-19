@@ -1,17 +1,14 @@
-using Logistics.API.Extensions;
-using Logistics.API.Middleware;
+using Logistics.Gateway.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NLog;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using System.IO;
 
-namespace Logistics
+namespace Logistics.Gateway
 {
     public class Startup
     {
@@ -19,25 +16,20 @@ namespace Logistics
 
         public Startup(IConfiguration configuration)
         {
-            this._configuration = configuration;
-
-            LogManager.LoadConfiguration(GetNlogConfigPath());
+            _configuration = configuration;
         }
 
-        private string GetNlogConfigPath()
-            => Directory.GetCurrentDirectory() + "/nLog.config";
-
         public void ConfigureServices(IServiceCollection services)
-        {   
+        {
             services.ConfigureCors();
             services.Configure<IISOptions>(options =>
             { });
 
             services.AddOcelot();
-           
+
             services.ConfigureAuthentication(_configuration);
 
-            
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -45,7 +37,6 @@ namespace Logistics
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseMiddleware<ExceptionHandler>();
             }
             else
             {
@@ -66,11 +57,6 @@ namespace Logistics
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
 
             app.UseOcelot().Wait();
         }
