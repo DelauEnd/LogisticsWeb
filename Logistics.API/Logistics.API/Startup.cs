@@ -1,6 +1,8 @@
 using Logistics.API.Extensions;
 using Logistics.API.Middleware;
 using Logistics.Entities;
+using Logistics.Repository;
+using Logistics.Repository.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +35,8 @@ namespace Logistics.API
 
             services.AddDbContext<LogisticsDbContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString("sqlConnection")));
+
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.ConfigureSwagger();
