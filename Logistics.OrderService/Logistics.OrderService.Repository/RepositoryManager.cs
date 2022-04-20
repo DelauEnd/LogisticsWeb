@@ -1,6 +1,7 @@
 ﻿using Logistics.Entities;
 using Logistics.OrderService.Repository.Interfaces;
 using Logistics.OrderService.Repository.Interfaces.Repositories;
+using Logistics.OrderService.Repository.Repositories;
 using System.Threading.Tasks;
 
 namespace Logistics.OrderService.Repository

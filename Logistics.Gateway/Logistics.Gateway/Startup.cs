@@ -28,8 +28,6 @@ namespace Logistics.Gateway
             services.AddOcelot();
 
             services.ConfigureAuthentication(_configuration);
-
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

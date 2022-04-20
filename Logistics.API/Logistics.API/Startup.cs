@@ -1,9 +1,6 @@
 using Logistics.API.Extensions;
 using Logistics.API.Middleware;
 using Logistics.Entities;
-using Logistics.Repository;
-using Logistics.Repository.Interfaces;
-using Logistics.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,10 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NLog;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using System.IO;
 
 namespace Logistics.API
 {
@@ -26,12 +21,7 @@ namespace Logistics.API
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
-
-            LogManager.LoadConfiguration(GetNlogConfigPath());
         }
-
-        private string GetNlogConfigPath()
-            => Directory.GetCurrentDirectory() + "/nLog.config";
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -43,11 +33,8 @@ namespace Logistics.API
 
             services.AddDbContext<LogisticsDbContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString("sqlConnection")));
-
-            services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddAutoMapper(typeof(MappingProfile));
 
-            services.ConfigureVersioning();
             services.ConfigureSwagger();
             services.ConfigureAuthentication(_configuration);
 
