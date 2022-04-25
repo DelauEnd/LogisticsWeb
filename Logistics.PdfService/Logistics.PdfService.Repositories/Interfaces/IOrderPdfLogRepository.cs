@@ -1,4 +1,4 @@
-﻿using Logistics.PdfService.Models.Models;
+﻿using Logistics.Models.PdfModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

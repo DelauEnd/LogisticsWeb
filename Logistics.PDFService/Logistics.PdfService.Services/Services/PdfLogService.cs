@@ -1,4 +1,5 @@
 ﻿using Logistics.Models.BrokerModels;
+using Logistics.Models.PdfModels;
 using Logistics.PdfService.Models.Models;
 using Logistics.PdfService.Services.Interfaces;
 
@@ -16,8 +17,7 @@ namespace Logistics.PdfService.Services.Services
                 OrderRecieverAddress = createdOrderMessage.DestinationAddress,
                 OrderRecieverSurname = createdOrderMessage.Destination.Surname,
                 OrderSenderAddress = createdOrderMessage.SenderAddress,
-                OrderSenderSurname = createdOrderMessage.Sender.Surname,
-                OperationType = Models.Enum.OperationType.Added
+                OrderSenderSurname = createdOrderMessage.Sender.Surname
             };
             return log;
         }

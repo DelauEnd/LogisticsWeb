@@ -1,14 +1,14 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace Logistics.PdfService.Models.Models
 {
     public class OrderPdf
     {
-        [BsonId]
+        [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
         [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId Id { get; set; }
-
+        public string Id { get; set; }
         public byte[] PdfFile { get; set; }
     }
 }
