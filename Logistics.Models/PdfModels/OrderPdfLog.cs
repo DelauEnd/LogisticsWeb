@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Logistics.PdfService.Models.Models
+namespace Logistics.Models.PdfModels
 {
     public class OrderPdfLog
     {

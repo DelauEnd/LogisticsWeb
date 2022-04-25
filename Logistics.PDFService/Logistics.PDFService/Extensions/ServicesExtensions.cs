@@ -2,6 +2,7 @@
 using MassTransit;
 using MassTransit.Definition;
 using MassTransit.MultiBus;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -10,6 +11,21 @@ namespace Logistics.PdfService.Extensions
 {
     public static class ServicesExtensions
     {
+        public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+
+            .AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = configuration.GetSection("IdentityServerBaseUrl").Value;
+                options.Audience = "Logistics.API";
+            });
+        }
+
         public static void ConfigureMassTransit(this IServiceCollection services, IConfiguration configuration)
         {
             var massTransitSection = configuration.GetSection("MassTransit");

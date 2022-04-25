@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using Logistics.PdfService.Models.Models;
+using Logistics.Models.PdfModels;
 using Logistics.PdfService.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Data;

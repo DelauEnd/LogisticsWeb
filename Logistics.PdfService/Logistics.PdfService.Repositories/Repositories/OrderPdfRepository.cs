@@ -42,7 +42,7 @@ namespace Logistics.PdfService.Repositories.Repositories
 
         public async Task<OrderPdf> GetOrderPdfById(string id)
         {
-            return await _orderPdfCollection.Find(x => x.Id.ToString() == id).FirstOrDefaultAsync();
+            return await _orderPdfCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task UpdateOrderPdf(string id, OrderPdf orderPdf)

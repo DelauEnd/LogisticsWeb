@@ -25,12 +25,20 @@ namespace Logistics.PdfService
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureAuthentication(_configuration);
+
             services.AddTransient<IDbConnection>(_ => new NpgsqlConnection(_configuration.GetSection("npgsqlConnection").Value));
             services.AddScoped<IPdfLogService, PdfLogService>();
             services.AddScoped<IOrderPdfLogRepository, OrderPdfLogRepository>();
             services.AddScoped<IOrderPdfRepository, OrderPdfRepository>();
             services.AddScoped<IOrderPdfBuilder, OrderPdfBuilder>();
             services.ConfigureMassTransit(_configuration);
+
+            services.AddControllers(config =>
+            {
+                config.RespectBrowserAcceptHeader = true;
+                config.ReturnHttpNotAcceptable = true;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,12 +52,11 @@ namespace Logistics.PdfService
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }
