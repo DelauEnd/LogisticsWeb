@@ -53,6 +53,7 @@ namespace Logistics.PdfService
             app.UseRouting();
 
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

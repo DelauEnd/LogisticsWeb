@@ -58,7 +58,7 @@
         "Limit": 1
       }
     },
-	{
+    {
       "DownstreamPathTemplate": "/api/Categories",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -69,7 +69,7 @@
       ],
       "UpstreamPathTemplate": "/api/Categories",
       "UpstreamHttpMethod": [ "POST", "GET" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -91,7 +91,7 @@
       ],
       "UpstreamPathTemplate": "/api/Categories/{categoryId}",
       "UpstreamHttpMethod": [ "PUT", "DELETE" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -102,7 +102,7 @@
         "Limit": 1
       }
     },
-	{
+    {
       "DownstreamPathTemplate": "/api/Cargoes",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -113,7 +113,7 @@
       ],
       "UpstreamPathTemplate": "/api/Cargoes",
       "UpstreamHttpMethod": [ "GET" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -135,7 +135,7 @@
       ],
       "UpstreamPathTemplate": "/api/Cargoes/{cargoId}",
       "UpstreamHttpMethod": [ "PATCH", "GET", "DELETE" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -157,7 +157,7 @@
       ],
       "UpstreamPathTemplate": "/api/Cargoes/Unassigned",
       "UpstreamHttpMethod": [ "GET" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -168,7 +168,7 @@
         "Limit": 1
       }
     },
-	{
+    {
       "DownstreamPathTemplate": "/api/Customers",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -179,7 +179,7 @@
       ],
       "UpstreamPathTemplate": "/api/Customers",
       "UpstreamHttpMethod": [ "POST", "GET" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -201,7 +201,7 @@
       ],
       "UpstreamPathTemplate": "/api/Customers/{customerId}",
       "UpstreamHttpMethod": [ "PATCH", "GET", "DELETE" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -212,7 +212,7 @@
         "Limit": 1
       }
     },
-	{
+    {
       "DownstreamPathTemplate": "/api/Orders",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -223,7 +223,7 @@
       ],
       "UpstreamPathTemplate": "/api/Orders",
       "UpstreamHttpMethod": [ "POST", "GET" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -245,7 +245,7 @@
       ],
       "UpstreamPathTemplate": "/api/Orders/{orderId}",
       "UpstreamHttpMethod": [ "PATCH", "GET", "DELETE" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -267,7 +267,7 @@
       ],
       "UpstreamPathTemplate": "/api/Orders/{orderId}/Cargoes",
       "UpstreamHttpMethod": [ "POST", "GET" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -278,7 +278,7 @@
         "Limit": 1
       }
     },
-	{
+    {
       "DownstreamPathTemplate": "/api/Routes",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -289,7 +289,7 @@
       ],
       "UpstreamPathTemplate": "/api/Routes",
       "UpstreamHttpMethod": [ "POST", "GET" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -311,7 +311,7 @@
       ],
       "UpstreamPathTemplate": "/api/Routes/{routeId}",
       "UpstreamHttpMethod": [ "PUT", "DELETE", "GET" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -322,7 +322,7 @@
         "Limit": 1
       }
     },
-	{
+    {
       "DownstreamPathTemplate": "/api/Transport",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -333,7 +333,7 @@
       ],
       "UpstreamPathTemplate": "/api/Transport",
       "UpstreamHttpMethod": [ "POST", "GET" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
@@ -355,7 +355,51 @@
       ],
       "UpstreamPathTemplate": "/api/Transport/{transportId}",
       "UpstreamHttpMethod": [ "PATCH", "DELETE", "GET" ],
-	  "AuthenticationOptions": {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/PdfReports",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 6661
+        }
+      ],
+      "UpstreamPathTemplate": "/api/PdfReports",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/PdfReports/{documentId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 6661
+        }
+      ],
+      "UpstreamPathTemplate": "/api/PdfReports/{documentId}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },

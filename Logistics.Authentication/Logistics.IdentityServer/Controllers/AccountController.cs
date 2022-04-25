@@ -1,8 +1,8 @@
 ﻿using IdentityServer4;
 using Logistics.IdentityServer.Services.Interfaces;
 using Logistics.Models.IdentityModels;
+using Logistics.Models.RequestDTO;
 using Logistics.Models.RequestDTO.CreateDTO;
-using Logistics.Models.ResponseDTO;
 using Logistics.Models.WebModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -24,9 +24,7 @@ namespace Logistics.IdentityServer.Controllers
         {
             get
             {
-                return _returnUrl != null ?
-                    _returnUrl :
-                    _configuration.GetSection("MVCBaseUrl").Value + "/authentication/login";
+                return _returnUrl ?? _configuration.GetSection("MVCBaseUrl").Value + "/authentication/login";
             }
         }
         private string _returnUrl;

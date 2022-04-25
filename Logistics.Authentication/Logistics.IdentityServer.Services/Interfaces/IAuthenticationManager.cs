@@ -1,5 +1,5 @@
 ﻿using Logistics.Models.IdentityModels;
-using Logistics.Models.ResponseDTO;
+using Logistics.Models.RequestDTO;
 using System.Threading.Tasks;
 
 namespace Logistics.IdentityServer.Services.Interfaces

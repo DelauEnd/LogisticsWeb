@@ -1,6 +1,6 @@
 ﻿using Logistics.IdentityServer.Services.Interfaces;
+using Logistics.Models.RequestDTO;
 using Logistics.Models.RequestDTO.CreateDTO;
-using Logistics.Models.ResponseDTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -11,7 +11,7 @@ namespace Logistics.IdentityServer.Controllers
     [ApiController]
     public class AuthenticationController : Controller
     {
-        private readonly Services.Interfaces.IAccountService _authenticationService;
+        private readonly IAccountService _authenticationService;
 
         public AuthenticationController(IAccountService authenticationService)
         {

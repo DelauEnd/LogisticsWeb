@@ -1,7 +1,7 @@
 ﻿using IdentityModel.Client;
 using Logistics.IdentityServer.Services.Interfaces;
 using Logistics.Models.IdentityModels;
-using Logistics.Models.ResponseDTO;
+using Logistics.Models.RequestDTO;
 using Microsoft.AspNetCore.Identity;
 using System.Net.Http;
 using System.Threading.Tasks;

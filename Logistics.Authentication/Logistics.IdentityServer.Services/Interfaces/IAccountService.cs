@@ -1,4 +1,5 @@
-﻿using Logistics.Models.RequestDTO.CreateDTO;
+﻿using Logistics.Models.RequestDTO;
+using Logistics.Models.RequestDTO.CreateDTO;
 using Logistics.Models.ResponseDTO;
 using System.Threading.Tasks;
 

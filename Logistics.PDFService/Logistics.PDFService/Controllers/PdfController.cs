@@ -1,10 +1,11 @@
 ﻿using Logistics.PdfService.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Logistics.PdfService.Controllers
 {
-    [Route("api/PdfReports")]
+    [Route("api/PdfReports"), Authorize]
     [ApiController]
     public class PdfController : Controller
     {
@@ -23,10 +24,10 @@ namespace Logistics.PdfService.Controllers
             return Ok(await _logRepository.GetAllPdfLogs());
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetPdfByDocumentId(string id)
+        [HttpGet("{documentId}")]
+        public async Task<IActionResult> GetPdfByDocumentId(string documentId)
         {
-            var pdf = await _orderPdfRepository.GetOrderPdfById(id);
+            var pdf = await _orderPdfRepository.GetOrderPdfById(documentId);
             return Ok(pdf.PdfFile);
         }
     }
