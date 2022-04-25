@@ -16,6 +16,7 @@ namespace CargoTransportation.Extensions
             services.AddSingleton<IOrderRequestHandler, OrderRequestHandler>();
             services.AddSingleton<ITransportRequestHandler, TransportRequestHandler>();
             services.AddSingleton<ICustomerRequestHandler, CustomerRequestHandler>();
+            services.AddSingleton<IPdfReportHandler, PdfReportHandler>();
             services.AddSingleton<IRouteRequestHandler, RouteRequestHandler>();
         }
 
@@ -46,10 +47,6 @@ namespace CargoTransportation.Extensions
                     config.ClaimActions.MapJsonKey("role","role","role");
                     config.TokenValidationParameters.RoleClaimType = "role";
                 });
-        }
-
-        public static void ConfigureActionAttributes(this IServiceCollection services)
-        {
         }
     }
 }

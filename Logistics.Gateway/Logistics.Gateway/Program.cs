@@ -20,7 +20,7 @@ namespace Logistics.Gateway
                         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
                         .AddJsonFile("appsettings.json", true, true)
                         .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
-                        .AddJsonFile($"ocelotConfiguration.json")
+                        .AddJsonFile($"ocelotConfiguration.json", true, true)
                         .AddEnvironmentVariables();
                 });
     }

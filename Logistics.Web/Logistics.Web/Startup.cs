@@ -31,7 +31,6 @@ namespace CargoTransportation
 
             services.AddScoped<PermissionsHelper>();
             services.ConfigureRequestManagers();
-            services.ConfigureActionAttributes();
 
             services.AddControllersWithViews();
         }

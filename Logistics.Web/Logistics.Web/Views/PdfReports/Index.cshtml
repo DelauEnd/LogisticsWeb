@@ -1,0 +1,51 @@
+﻿@using Logistics.Models.PdfModels;
+@model IEnumerable<OrderPdfLog>
+
+
+@{
+    ViewData["Title"] = "Pdf reports";
+}
+
+@section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
+
+<h1>Order reports</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LogId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LogDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderSenderSurname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderRecieverSurname)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LogId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LogDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderSenderSurname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderRecieverSurname)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Open document", "GetDocumentById", new { documentId = item.DocumentId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

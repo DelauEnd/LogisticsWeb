@@ -23,7 +23,7 @@ namespace RequestHandler.ModelHandlers
         public async Task<HttpResponseMessage> GetPdfDocumentById(string documentId)
         {
             using HttpClient client = await _httpClientHandler.GetAPIClient();
-            return await client.PatchAsync(controllerUrl + $"/{documentId}", new StringContent(string.Empty));
+            return await client.GetAsync(controllerUrl + $"/{documentId}");
         }
     }
 }
