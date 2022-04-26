@@ -78,11 +78,6 @@ namespace Logistics.OrderService
             {
                 endpoints.MapControllers();
             });
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
         }
     }
 }
