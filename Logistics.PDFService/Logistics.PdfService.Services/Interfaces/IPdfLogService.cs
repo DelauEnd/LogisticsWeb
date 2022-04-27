@@ -6,6 +6,6 @@ namespace Logistics.PdfService.Services.Interfaces
 {
     public interface IPdfLogService
     {
-        public OrderPdfLog CreatePdfLog(CreatedOrderMessage createdOrderMessage, OrderPdf orderPdf);
+        public OrderPdfLog CreatePdfLog(OrderMessageBase orderMessage, OrderPdf orderPdf);
     }
 }
