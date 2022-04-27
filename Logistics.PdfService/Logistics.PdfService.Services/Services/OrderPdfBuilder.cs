@@ -18,7 +18,7 @@ namespace Logistics.PdfService.Services.Services
 {
     public class OrderPdfBuilder : IOrderPdfBuilder
     {
-        public async Task<OrderPdf> BuildOrderPdf(CreatedOrderMessage order)
+        public async Task<OrderPdf> BuildOrderPdf(OrderMessageBase order)
         {
             var documentBytes = await Task.Run(() => CreateDocument(order));
 
@@ -27,10 +27,20 @@ namespace Logistics.PdfService.Services.Services
                 PdfFile = documentBytes
             };
 
+            OutputToFile(orderPdf);
+
             return orderPdf;
         }
 
-        private byte[] CreateDocument(CreatedOrderMessage order)
+        private static void OutputToFile(OrderPdf orderPdf)
+        {
+            var outPath = $"{Directory.GetCurrentDirectory()}\\PdfDocuments\\{DateTime.UtcNow.Ticks}.pdf";
+
+            using var stream = new FileStream(outPath, FileMode.CreateNew);
+            stream.Write(orderPdf.PdfFile, 0, orderPdf.PdfFile.Length);
+        }
+
+        private byte[] CreateDocument(OrderMessageBase order)
         {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(baos));

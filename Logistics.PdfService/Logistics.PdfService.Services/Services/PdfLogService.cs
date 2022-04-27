@@ -7,7 +7,7 @@ namespace Logistics.PdfService.Services.Services
 {
     public class PdfLogService : IPdfLogService
     {
-        public OrderPdfLog CreatePdfLog(CreatedOrderMessage createdOrderMessage, OrderPdf orderPdf)
+        public OrderPdfLog CreatePdfLog(OrderMessageBase createdOrderMessage, OrderPdf orderPdf)
         {
             var log = new OrderPdfLog
             {
@@ -17,7 +17,8 @@ namespace Logistics.PdfService.Services.Services
                 OrderRecieverAddress = createdOrderMessage.DestinationAddress,
                 OrderRecieverSurname = createdOrderMessage.Destination.Surname,
                 OrderSenderAddress = createdOrderMessage.SenderAddress,
-                OrderSenderSurname = createdOrderMessage.Sender.Surname
+                OrderSenderSurname = createdOrderMessage.Sender.Surname,
+
             };
             return log;
         }

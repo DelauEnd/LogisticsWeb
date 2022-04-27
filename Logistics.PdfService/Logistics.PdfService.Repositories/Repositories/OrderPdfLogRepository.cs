@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Logistics.Models.PdfModels;
 using Logistics.PdfService.Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -19,24 +20,26 @@ namespace Logistics.PdfService.Repositories.Repositories
         public async Task AddPdfLog(OrderPdfLog pdfLog)
         {
             var query = $@"
-                        INSERT INTO
-                            PdfLogs (
-                                logdate,
-                                documentid,
-                                orderid,
-                                ordersendersurname,
-                                ordersenderaddress,
-                                orderrecieversurname,
-                                orderrecieveraddress) 
-                        VALUES 
-                            (
-                            @LogDate,
-                            @DocumentId,
-                            @OrderId,
-                            @OrderSenderSurname,
-                            @OrderSenderAddress,
-                            @OrderRecieverSurname,
-                            @OrderRecieverAddress)";
+                    INSERT INTO
+                        PdfLogs (
+                            logdate,
+                            documentid,
+                            orderid,
+                            ordersendersurname,
+                            ordersenderaddress,
+                            orderrecieversurname,
+                            orderrecieveraddress,
+                            operationtype) 
+                    VALUES 
+                        (
+                        @LogDate,
+                        @DocumentId,
+                        @OrderId,
+                        @OrderSenderSurname,
+                        @OrderSenderAddress,
+                        @OrderRecieverSurname,
+                        @OrderRecieverAddress,
+                        '{pdfLog.OperationType}')";
 
             var param = new
             {
@@ -74,7 +77,7 @@ namespace Logistics.PdfService.Repositories.Repositories
             return await _connection.QueryAsync<OrderPdfLog>(query);
         }
 
-        public async Task<OrderPdfLog> GetPdfLogById(int id)
+        public async Task<OrderPdfLog> GetPdfLogByOrderId(int id)
         {
             var query = @$"
                         SELECT 
@@ -82,7 +85,7 @@ namespace Logistics.PdfService.Repositories.Repositories
                         FROM
                             PdfLogs
                         WHERE
-                            logid = {id}";
+                            OrderId = {id}";
 
             var logs = await _connection.QueryAsync<OrderPdfLog>(query);
             return logs.FirstOrDefault();

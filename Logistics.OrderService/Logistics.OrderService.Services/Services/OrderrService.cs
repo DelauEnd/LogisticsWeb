@@ -34,6 +34,20 @@ namespace Logistics.OrderService.Services.Services
             foreach (var cargo in addableCargoes)
                 _repository.Cargoes.CreateCargoForOrder(cargo, orderId);
             await _repository.SaveAsync();
+
+            var orderWithIncludes = await _repository.Orders.GetOrderByIdAsync(orderId, false);
+
+            var orderMessage = _mapper.Map<UpdatedOrderMessage>(orderWithIncludes);
+
+            using (var tokenSrc = new CancellationTokenSource())
+            {
+                tokenSrc.CancelAfter(5000);
+                try
+                {
+                    await _publishEndpoint.Publish(orderMessage, tokenSrc.Token);
+                }
+                catch { }
+            }
         }
 
         public async Task<OrderDto> AddOrder(OrderForCreationDto orderToAdd)
@@ -45,7 +59,6 @@ namespace Logistics.OrderService.Services.Services
             var orderWithIncludes = await _repository.Orders.GetOrderByIdAsync(order.Id, false);         
 
             var orderMessage = _mapper.Map<CreatedOrderMessage>(orderWithIncludes);
-
             using (var tokenSrc = new CancellationTokenSource())
             {
                 tokenSrc.CancelAfter(5000);
@@ -101,6 +114,17 @@ namespace Logistics.OrderService.Services.Services
             await _repository.SaveAsync();
 
             var orderWithIncludes = await _repository.Orders.GetOrderByIdAsync(order.Id, false);
+            var orderMessage = _mapper.Map<UpdatedOrderMessage>(orderWithIncludes);
+            using (var tokenSrc = new CancellationTokenSource())
+            {
+                tokenSrc.CancelAfter(5000);
+                try
+                {
+                    await _publishEndpoint.Publish(orderMessage, tokenSrc.Token);
+                }
+                catch { }
+            }
+
             return _mapper.Map<OrderDto>(orderWithIncludes);
         }
     }

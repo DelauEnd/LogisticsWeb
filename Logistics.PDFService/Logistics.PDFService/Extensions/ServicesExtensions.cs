@@ -61,6 +61,7 @@ namespace Logistics.PdfService.Extensions
                 });
 
                 x.AddConsumer<AppOrderCreatedConsumer>();
+                x.AddConsumer<AppOrderUpdatedConsumer>();
             });
 
             services.AddMassTransitHostedService();

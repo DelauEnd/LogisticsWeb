@@ -339,3 +339,4 @@ healthchecksdb
 
 # Xml documentation
 CargoTransportationAPI.xml
+*.pdf

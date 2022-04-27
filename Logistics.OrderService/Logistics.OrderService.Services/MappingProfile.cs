@@ -92,6 +92,18 @@ namespace Logistics.OrderService.Services
                 option.MapFrom(order => order.Destination.ContactPerson))
                 .ForMember(orderMessage => orderMessage.Cargoes, option =>
                 option.MapFrom(order => order.Cargoes));
+
+            CreateMap<Order, UpdatedOrderMessage>()
+                .ForMember(orderMessage => orderMessage.SenderAddress, option =>
+                option.MapFrom(order => order.Sender.Address))
+                .ForMember(orderMessage => orderMessage.Sender, option =>
+                option.MapFrom(order => order.Sender.ContactPerson))
+                .ForMember(orderMessage => orderMessage.DestinationAddress, option =>
+                option.MapFrom(order => order.Destination.Address))
+                .ForMember(orderMessage => orderMessage.Destination, option =>
+                option.MapFrom(order => order.Destination.ContactPerson))
+                .ForMember(orderMessage => orderMessage.Cargoes, option =>
+                option.MapFrom(order => order.Cargoes));
         }
     }
 }

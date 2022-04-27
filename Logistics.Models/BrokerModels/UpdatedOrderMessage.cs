@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Logistics.Models.BrokerModels
 {
-    public class CreatedOrderMessage : OrderMessageBase
+    public class UpdatedOrderMessage : OrderMessageBase
     {
     }
 }

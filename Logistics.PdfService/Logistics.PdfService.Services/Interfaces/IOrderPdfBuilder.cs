@@ -6,6 +6,6 @@ namespace Logistics.PdfService.Services.Interfaces
 {
     public interface IOrderPdfBuilder
     {
-        public Task<OrderPdf> BuildOrderPdf(CreatedOrderMessage order);
+        public Task<OrderPdf> BuildOrderPdf(OrderMessageBase order);
     }
 }

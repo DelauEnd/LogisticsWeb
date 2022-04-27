@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logistics.Models.Enums;
+using System;
 
 namespace Logistics.Models.PdfModels
 {
@@ -12,5 +13,6 @@ namespace Logistics.Models.PdfModels
         public string OrderSenderAddress { get; set; }
         public string OrderRecieverSurname { get; set; }
         public string OrderRecieverAddress { get; set; }
+        public OperationType OperationType { get; set; }
     }
 }

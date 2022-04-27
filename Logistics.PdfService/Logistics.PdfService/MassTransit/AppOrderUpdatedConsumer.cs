@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Logistics.PdfService.MassTransit
 {
-    public class AppOrderCreatedConsumer : IConsumer<CreatedOrderMessage>
+    public class AppOrderUpdatedConsumer : IConsumer<UpdatedOrderMessage>
     {
         private readonly IOrderPdfBuilder _orderPDFBuilder;
         private readonly IOrderPdfRepository _orderPdfRepository;
         private readonly IOrderPdfLogRepository _pdfLogRepository;
         private readonly IPdfLogService _pdfLogService;
 
-        public AppOrderCreatedConsumer(IOrderPdfBuilder orderPDFBuilder, IOrderPdfRepository orderPdfRepository, IOrderPdfLogRepository pdfLogRepository, IPdfLogService pdfLogService)
+        public AppOrderUpdatedConsumer(IOrderPdfBuilder orderPDFBuilder, IOrderPdfRepository orderPdfRepository, IOrderPdfLogRepository pdfLogRepository, IPdfLogService pdfLogService)
         {
             _pdfLogRepository = pdfLogRepository;
             _orderPdfRepository = orderPdfRepository;
@@ -22,14 +22,20 @@ namespace Logistics.PdfService.MassTransit
             _pdfLogService = pdfLogService;
         }
 
-        public async Task Consume(ConsumeContext<CreatedOrderMessage> context)
+        public async Task Consume(ConsumeContext<UpdatedOrderMessage> context)
         {
             var orderMessage = context.Message;
+            
+            var oldPdf = await _pdfLogRepository.GetPdfLogByOrderId(orderMessage.Id);
+            var newPdf = await  _orderPDFBuilder.BuildOrderPdf(orderMessage);
 
-            var createdPdf = await _orderPDFBuilder.BuildOrderPdf(orderMessage);
-            await _orderPdfRepository.AddOrderPdf(createdPdf);
-            var log = _pdfLogService.CreatePdfLog(orderMessage, createdPdf);
-            log.OperationType = OperationType.Created;
+            if(oldPdf == null)
+                await _orderPdfRepository.AddOrderPdf(newPdf);
+            else 
+                await _orderPdfRepository.UpdateOrderPdf(oldPdf.DocumentId, newPdf);
+
+            var log = _pdfLogService.CreatePdfLog(orderMessage, newPdf);
+            log.OperationType = OperationType.Updated;
             await _pdfLogRepository.AddPdfLog(log);
         }
     }
