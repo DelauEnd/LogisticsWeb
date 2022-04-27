@@ -36,7 +36,8 @@ namespace Logistics.OrderService
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.ConfigureServices();
             services.AddAutoMapper(typeof(MappingProfile));
-
+            
+            services.ConfigureSwagger();
             services.ConfigureAuthentication(_configuration);
 
             services.AddControllers(config =>
@@ -57,6 +58,15 @@ namespace Logistics.OrderService
             {
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(setup =>
+            {
+                setup.SwaggerEndpoint("/swagger/v1/swagger.json", "Cargo Transportation Api v1");
+                setup.SwaggerEndpoint("/swagger/v2/swagger.json", "Cargo Transportation Api v2");
+
+                setup.RoutePrefix = "";
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

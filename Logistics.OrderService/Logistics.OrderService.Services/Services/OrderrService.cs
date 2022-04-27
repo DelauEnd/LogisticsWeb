@@ -8,7 +8,9 @@ using Logistics.OrderService.Repository.Interfaces;
 using Logistics.OrderService.Services.Interfaces;
 using MassTransit;
 using Microsoft.AspNetCore.JsonPatch;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Logistics.OrderService.Services.Services
@@ -40,10 +42,19 @@ namespace Logistics.OrderService.Services.Services
             _repository.Orders.CreateOrder(order);
             await _repository.SaveAsync();
 
-            var orderWithIncludes = await _repository.Orders.GetOrderByIdAsync(order.Id, false);
+            var orderWithIncludes = await _repository.Orders.GetOrderByIdAsync(order.Id, false);         
 
             var orderMessage = _mapper.Map<CreatedOrderMessage>(orderWithIncludes);
-            await _publishEndpoint.Publish(orderMessage);
+
+            using (var tokenSrc = new CancellationTokenSource())
+            {
+                tokenSrc.CancelAfter(5000);
+                try
+                {
+                    await _publishEndpoint.Publish(orderMessage, tokenSrc.Token);
+                }
+                catch { }
+            }
 
             return _mapper.Map<OrderDto>(orderWithIncludes);
         }
