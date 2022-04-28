@@ -36,6 +36,8 @@ namespace CargoTransportation.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
+            ViewBag.SelectedTab = "Cargoes";
+
             var response = await _cargoesHandler.GetAllCargoes();
 
             var cargoes = JsonConvert.DeserializeObject<IEnumerable<CargoDto>>(await response.Content.ReadAsStringAsync());
@@ -46,6 +48,8 @@ namespace CargoTransportation.Controllers
         [Route("Cargoes/{id}/Details")]
         public async Task<ActionResult> Details(int id)
         {
+            ViewBag.SelectedTab = "Cargoes";
+
             var response = await _cargoesHandler.GetCargoById(id);
 
             if (!response.IsSuccessStatusCode)
@@ -62,6 +66,8 @@ namespace CargoTransportation.Controllers
         [Route("Orders/{orderId}/CreateCargo")]
         public async Task<ActionResult> CreateCargo(int orderId)
         {
+            ViewBag.SelectedTab = "Cargoes";
+
             var categoriesResponse = await _categoriesHandler.GetAllCategories();
 
             if (!categoriesResponse.IsSuccessStatusCode)
@@ -105,6 +111,8 @@ namespace CargoTransportation.Controllers
         [Route("Cargoes/{id}/Edit")]
         public async Task<ActionResult> Edit(int id)
         {
+            ViewBag.SelectedTab = "Cargoes";
+
             var response = await _cargoesHandler.GetCargoById(id);
 
             if (!response.IsSuccessStatusCode)

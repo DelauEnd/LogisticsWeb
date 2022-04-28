@@ -19,10 +19,34 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                    <ul class="navbar-nav flex-grow-1">                        
+                        @if (User.Identity.IsAuthenticated)
+                        { 
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @ViewBag.SelectedTab?.ToString()
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+
+                                        @{ var active = " active"; }
+                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Home"){@active}" value="Home" onclick="@("window.location.href='" + @Url.Action("Index", "Home") + "'");" />
+                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Orders"){@active}" value="Orders" onclick="@("window.location.href='" + @Url.Action("Index", "Orders") + "'");" />
+                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Routes"){@active}" value="Routes" onclick="@("window.location.href='" + @Url.Action("Index", "Routes") + "'");" />
+                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Cargoes"){@active}" value="Cargoes" onclick="@("window.location.href='" + @Url.Action("Index", "Cargoes") + "'");" />
+                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Customers"){@active}" value="Customers" onclick="@("window.location.href='" + @Url.Action("Index", "Customers") + "'");" />
+                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Transport"){@active}" value="Transport" onclick="@("window.location.href='" + @Url.Action("Index", "Transport") + "'");" />
+                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Categories"){@active}" value="Categories" onclick="@("window.location.href='" + @Url.Action("Index", "CargoCategories") + "'");" />
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
@@ -45,9 +69,6 @@
     </header>
 
     <div role="main" class="container-fluid mh-100">
-        <div>
-            @RenderSection("LeftMenu", required: false)
-        </div>
         <div class="container">
             @RenderBody()
         </div>

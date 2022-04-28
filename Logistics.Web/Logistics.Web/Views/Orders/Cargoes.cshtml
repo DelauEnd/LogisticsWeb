@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Cargoes";
 }
-@section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
 
 <h1>Cargoes</h1>
     @Html.ActionLink("Add", "CreateCargo", "Cargoes", new { orderId = ViewBag.OrderToEdit })

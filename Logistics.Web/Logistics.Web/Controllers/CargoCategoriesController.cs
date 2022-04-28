@@ -28,6 +28,8 @@ namespace CargoTransportation.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
+            ViewBag.SelectedTab = "Categories";
+
             var response = await _categoriesHandler.GetAllCategories();
 
             if (!response.IsSuccessStatusCode)
@@ -42,6 +44,7 @@ namespace CargoTransportation.Controllers
         [Authorize(Roles = nameof(UserRole.Administrator))]
         public ActionResult Create()
         {
+            ViewBag.SelectedTab = "Categories";
             return View();
         }
 
@@ -78,6 +81,8 @@ namespace CargoTransportation.Controllers
         [Authorize(Roles = nameof(UserRole.Administrator))]
         public async Task<ActionResult> Edit(int id)
         {
+            ViewBag.SelectedTab = "Categories";
+
             var response = await _categoriesHandler.GetAllCategories();
 
             if (!response.IsSuccessStatusCode)

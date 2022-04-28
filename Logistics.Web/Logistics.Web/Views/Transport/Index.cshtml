@@ -4,8 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-@section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
-
 <h1>Transport</h1>
     <p>
         <input type="button" class="btn btn-outline-primary" value="Add transport" onclick="@("window.location.href='" + @Url.Action("Create") + "'");" />

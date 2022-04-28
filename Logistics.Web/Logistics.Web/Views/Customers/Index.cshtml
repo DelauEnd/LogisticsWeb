@@ -6,8 +6,6 @@
 
 <h1>Customers</h1>
 
-@section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
-
     <p>
         <input type="button" class="btn btn-outline-primary" value="Add customer" onclick="@("window.location.href='" + @Url.Action("Create") + "'");" />
     </p>

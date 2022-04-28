@@ -23,6 +23,8 @@ namespace CargoTransportation.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
+            ViewBag.SelectedTab = "Orders";
+
             var response = await _pdfReportHandler.GetAllPdLogs();
 
             if (!response.IsSuccessStatusCode)

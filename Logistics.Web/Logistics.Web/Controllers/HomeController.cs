@@ -16,11 +16,13 @@ namespace CargoTransportation.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.SelectedTab = "Home";
             return View();
         }
 
         public IActionResult About()
         {
+            ViewBag.SelectedTab = "Home";
             return View();
         }
 
