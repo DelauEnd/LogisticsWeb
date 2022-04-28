@@ -75,9 +75,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -97,9 +97,31 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Cargoes/AssignToRoute/{routeId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5661
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Cargoes/AssignToRoute/{routeId}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "10s",
+        "PeriodTimespan": 1,
+        "Limit": 5
       }
     },
     {
@@ -119,9 +141,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -141,9 +163,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -163,9 +185,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -185,9 +207,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -207,9 +229,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -229,9 +251,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -251,9 +273,31 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Cargoes/OnRoute/{routeId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5661
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Routes/{routeId}/Cargoes",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "10s",
+        "PeriodTimespan": 1,
+        "Limit": 5
       }
     },
     {
@@ -273,9 +317,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -295,9 +339,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -317,9 +361,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -339,9 +383,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -361,9 +405,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -383,9 +427,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     },
     {
@@ -405,9 +449,9 @@
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
-        "Period": "5s",
+        "Period": "10s",
         "PeriodTimespan": 1,
-        "Limit": 1
+        "Limit": 5
       }
     }
   ]

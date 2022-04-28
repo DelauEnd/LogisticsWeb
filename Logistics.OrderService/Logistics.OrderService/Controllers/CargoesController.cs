@@ -4,6 +4,7 @@ using Logistics.OrderService.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Logistics.OrderService.Controllers
@@ -42,6 +43,17 @@ namespace Logistics.OrderService.Controllers
         }
 
         /// <summary>
+        /// Get cargoes by requested route id
+        /// </summary>
+        /// <param name="routeId"></param>
+        /// <returns>Returns cargoes by requested order id</returns>
+        [HttpGet("OnRoute/{routeId}")]
+        public async Task<IActionResult> GetCargoesByRouteId(int routeId)
+        {
+            return Ok(await _cargoService.GetCargoesByRouteId(routeId));
+        }
+
+        /// <summary>
         /// Get cargo by id
         /// </summary>
         /// <param name="cargoId"></param>
@@ -75,6 +87,19 @@ namespace Logistics.OrderService.Controllers
         public async Task<IActionResult> PartiallyUpdateCargoById(int cargoId, [FromBody] JsonPatchDocument<CargoForUpdateDto> patchDoc)
         {
             return Ok(await _cargoService.PatchCargoById(cargoId, patchDoc));
+        }
+
+        /// <summary>
+        /// Mark cargo by requested id to route by requested id
+        /// | Required role: Manager
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="routeId"></param>
+        [HttpPost("AssignToRoute/{routeId}"), Authorize(Roles = nameof(UserRole.Manager))]
+        public async Task<IActionResult> AssignCargoesToRoute([FromBody] List<int> ids, int routeId)
+        {
+            await _cargoService.AssignCargoesToRoute(ids, routeId);
+            return Ok();
         }
     }
 }

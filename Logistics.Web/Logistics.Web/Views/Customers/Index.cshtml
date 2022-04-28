@@ -9,7 +9,7 @@
 @section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
 
     <p>
-        <a asp-action="Create">Create New</a>
+        <input type="button" class="btn btn-outline-primary" value="Add customer" onclick="@("window.location.href='" + @Url.Action("Create") + "'");" />
     </p>
     <table class="table">
         <thead>

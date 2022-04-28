@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RequestHandler.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -184,7 +185,9 @@ namespace CargoTransportation.Controllers
         [Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<ActionResult> AssignCargoes(int[] ids, int id)
         {
-            var response = await _routeRequestHandler.AssignCargoesToRoute(id, ids);
+
+            HttpContent content = HttpContentBuilder.BuildContent(ids.ToList());
+            var response = await _cargoRequestHandler.AssignCargoesToRoute(id, content);
 
             if (!response.IsSuccessStatusCode)
                 return new StatusCodeResult((int)response.StatusCode);

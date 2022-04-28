@@ -10,5 +10,6 @@ namespace RequestHandler.Interfaces
         public Task<HttpResponseMessage> GetCargoById(int cargoId);
         public Task<HttpResponseMessage> DeleteCargoById(int cargoId);
         public Task<HttpResponseMessage> PatchCargoById(int cargoId, HttpContent content);
+        public Task<HttpResponseMessage> AssignCargoesToRoute(int id, HttpContent content);
     }
 }

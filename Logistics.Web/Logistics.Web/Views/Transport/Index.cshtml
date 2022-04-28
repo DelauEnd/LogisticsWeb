@@ -8,7 +8,7 @@
 
 <h1>Transport</h1>
     <p>
-        <a asp-action="Create">Create New</a>
+        <input type="button" class="btn btn-outline-primary" value="Add transport" onclick="@("window.location.href='" + @Url.Action("Create") + "'");" />
     </p>
 <table class="table">
     <thead>

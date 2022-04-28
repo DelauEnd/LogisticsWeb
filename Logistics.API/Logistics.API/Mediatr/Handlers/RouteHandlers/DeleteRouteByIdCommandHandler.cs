@@ -10,10 +10,8 @@ namespace Logistics.API.Mediatr.Handlers.RouteHandlers
     public class DeleteRouteByIdCommandHandler : IRequestHandler<DeleteRouteByIdCommand>
     {
         private readonly IRepositoryManager _repository;
-        private readonly IMapper _mapper;
-        public DeleteRouteByIdCommandHandler(IRepositoryManager repository, IMapper mapper)
+        public DeleteRouteByIdCommandHandler(IRepositoryManager repository)
         {
-            _mapper = mapper;
             _repository = repository;
         }
 

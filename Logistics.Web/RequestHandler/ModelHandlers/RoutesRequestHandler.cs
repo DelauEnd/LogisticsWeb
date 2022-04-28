@@ -44,19 +44,6 @@ namespace RequestHandler.ModelHandlers
             return await client.PostAsync(controllerUrl, content);
         }
 
-        public async Task<HttpResponseMessage> AssignCargoesToRoute(int routeId, int[] ids)
-        {
-            using HttpClient client = await _httpClientHandler.GetAPIClient();
-            return await client.PostAsync(controllerUrl + $"/{routeId}/Cargoes?ids=" + BuildIdsString(ids), new StringContent(""));
-        }
-
-        public string BuildIdsString(int[] ids)
-        {
-            StringBuilder str = new StringBuilder();
-            str.AppendJoin(",", ids);
-            return str.ToString();
-        }
-
         public async Task<HttpResponseMessage> GetCargoesForRoute(int routeId)
         {
             using HttpClient client = await _httpClientHandler.GetAPIClient();

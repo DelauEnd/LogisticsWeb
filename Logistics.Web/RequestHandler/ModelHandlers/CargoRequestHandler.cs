@@ -1,5 +1,6 @@
 ﻿using RequestHandler.Interfaces;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RequestHandler.ModelHandlers
@@ -18,6 +19,19 @@ namespace RequestHandler.ModelHandlers
         {
             using HttpClient client = await _httpClientHandler.GetAPIClient();
             return await client.GetAsync(controllerUrl);
+        }
+
+        public async Task<HttpResponseMessage> AssignCargoesToRoute(int routeId, HttpContent content)
+        {
+            using HttpClient client = await _httpClientHandler.GetAPIClient();
+            return await client.PostAsync(controllerUrl + $"/AssignToRoute/{routeId}", content);
+        }
+
+        public string BuildIdsString(int[] ids)
+        {
+            StringBuilder str = new StringBuilder();
+            str.AppendJoin(",", ids);
+            return str.ToString();
         }
 
         public async Task<HttpResponseMessage> GetUnassignedCargoes()

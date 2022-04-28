@@ -13,5 +13,7 @@ namespace Logistics.OrderService.Services.Interfaces
         public Task<CargoDto> GetCargoById(int cargoId);
         public Task DeleteCargoById(int cargoId);
         public Task<CargoDto> PatchCargoById(int cargoId, JsonPatchDocument<CargoForUpdateDto> patchDoc);
+        Task AssignCargoesToRoute(List<int> ids, int routeId);
+        Task<IEnumerable<CargoDto>> GetCargoesByRouteId(int routeId);
     }
 }

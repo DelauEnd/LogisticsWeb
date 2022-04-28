@@ -6,9 +6,11 @@
 
 @section LeftMenu{@{await Html.RenderPartialAsync("RedirectPanel"); } }
 
-<h1>Orders</h1>
-    <br>@Html.ActionLink("Pdf reports", "Index", "PdfReports")
-    <br><a asp-action="Create">Create New</a>
+<h3>Orders</h3>
+    <p>
+    <input type="button" class="btn btn-outline-primary" value="Create order" onclick="@("window.location.href='" + @Url.Action("Create") + "'");" />
+    <input type="button" class="btn btn-outline-primary" value="PDF Reports" onclick="@("window.location.href='" + @Url.Action("Index", "PdfReports") + "'");" />  
+    </p>
     <table class="table">
         <thead>
             <tr>
