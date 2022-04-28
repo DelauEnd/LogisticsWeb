@@ -29,8 +29,6 @@ namespace CargoTransportation.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            ViewBag.SelectedTab = "Transport";
-
             var response = await _transportRequestHandler.GetAllTransport();
 
             if (!response.IsSuccessStatusCode)
@@ -83,8 +81,6 @@ namespace CargoTransportation.Controllers
         [Authorize(Roles = nameof(UserRole.Administrator))]
         public async Task<ActionResult> Edit(int id)
         {
-            ViewBag.SelectedTab = "Transport";
-
             var response = await _transportRequestHandler.GetTransportById(id);
 
             if (!response.IsSuccessStatusCode)

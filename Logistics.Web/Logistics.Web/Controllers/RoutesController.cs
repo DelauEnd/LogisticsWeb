@@ -34,8 +34,6 @@ namespace CargoTransportation.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            ViewBag.SelectedTab = "Routes";
-
             var response = await _routeRequestHandler.GetAllRoutes();
 
             if (!response.IsSuccessStatusCode)
@@ -50,8 +48,6 @@ namespace CargoTransportation.Controllers
         [Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<ActionResult> Create()
         {
-            ViewBag.SelectedTab = "Routes";
-
             var transportResponse = await _transportRequestHandler.GetAllTransport();
 
             if (!transportResponse.IsSuccessStatusCode)
@@ -97,8 +93,6 @@ namespace CargoTransportation.Controllers
         [Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<ActionResult> Edit(int id)
         {
-            ViewBag.SelectedTab = "Routes";
-
             var response = await _routeRequestHandler.GetRouteById(id);
 
             if (!response.IsSuccessStatusCode)
@@ -139,8 +133,6 @@ namespace CargoTransportation.Controllers
         [Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<ActionResult> Cargoes(int id)
         {
-            ViewBag.SelectedTab = "Routes";
-
             var response = await _routeRequestHandler.GetCargoesForRoute(id);
 
             if (!response.IsSuccessStatusCode)
@@ -159,8 +151,6 @@ namespace CargoTransportation.Controllers
         [Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<ActionResult> UnassignCargo(int routeId, int cargoId)
         {
-            ViewBag.SelectedTab = "Routes";
-
             var jsonDiff = new JsonPatchDocument();
             jsonDiff.Remove("RouteId");
 
@@ -178,8 +168,6 @@ namespace CargoTransportation.Controllers
         [Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<ActionResult> AssignCargoes(int id)
         {
-            ViewBag.SelectedTab = "Routes";
-
             var response = await _routeRequestHandler.GetRouteById(id);
 
             if (!response.IsSuccessStatusCode)

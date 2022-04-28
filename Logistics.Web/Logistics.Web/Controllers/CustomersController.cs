@@ -29,8 +29,6 @@ namespace CargoTransportation.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
-            ViewBag.SelectedTab = "Customers";
-
             var response = await _customerHandler.GetAllCustomers();
 
             if (!response.IsSuccessStatusCode)
@@ -45,7 +43,6 @@ namespace CargoTransportation.Controllers
         [Authorize(Roles = nameof(UserRole.Manager))]
         public ActionResult Create()
         {
-            ViewBag.SelectedTab = "Customers";
             return View();
         }
 
@@ -82,8 +79,6 @@ namespace CargoTransportation.Controllers
         [Authorize(Roles = nameof(UserRole.Manager))]
         public async Task<ActionResult> Edit(int id)
         {
-            ViewBag.SelectedTab = "Customers";
-
             var response = await _customerHandler.GetCustomerById(id);
 
             if (!response.IsSuccessStatusCode)

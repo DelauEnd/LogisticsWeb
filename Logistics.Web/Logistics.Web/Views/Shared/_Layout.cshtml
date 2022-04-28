@@ -22,23 +22,31 @@
                     <ul class="navbar-nav flex-grow-1">                        
                         @if (User.Identity.IsAuthenticated)
                         { 
-                            <li class="nav-item">
-                                <div class="dropdown">
-                                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    @ViewBag.SelectedTab?.ToString()
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-
-                                        @{ var active = " active"; }
-                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Home"){@active}" value="Home" onclick="@("window.location.href='" + @Url.Action("Index", "Home") + "'");" />
-                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Orders"){@active}" value="Orders" onclick="@("window.location.href='" + @Url.Action("Index", "Orders") + "'");" />
-                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Routes"){@active}" value="Routes" onclick="@("window.location.href='" + @Url.Action("Index", "Routes") + "'");" />
-                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Cargoes"){@active}" value="Cargoes" onclick="@("window.location.href='" + @Url.Action("Index", "Cargoes") + "'");" />
-                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Customers"){@active}" value="Customers" onclick="@("window.location.href='" + @Url.Action("Index", "Customers") + "'");" />
-                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Transport"){@active}" value="Transport" onclick="@("window.location.href='" + @Url.Action("Index", "Transport") + "'");" />
-                                        <input type="button" class="dropdown-item @if(ViewBag.SelectedTab?.ToString() == "Categories"){@active}" value="Categories" onclick="@("window.location.href='" + @Url.Action("Index", "CargoCategories") + "'");" />
-                                    </div>
-                                </div>
+                            <li class="dropdown">                           
+                                <a class="nav-link dropdown-toggle" href="" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" id="Home" asp-controller="Home" asp-action="Index">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" id="Orders" asp-controller="Orders" asp-action="Index">Orders</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" id="Routes" asp-controller="Routes" asp-action="Index">Routes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" id="Cargoes" asp-controller="Cargoes" asp-action="Index">Cargoes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" id="Customers" asp-controller="Customers" asp-action="Index">Customers</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" id="Transport" asp-controller="Transport" asp-action="Index">Transport</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="" id="CargoCategories" asp-controller="CargoCategories" asp-action="Index">Categories</a>
+                                    </li>
+                                </ul>
                             </li>
                         }
                         else
@@ -48,7 +56,7 @@
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                            <a class="nav-link text-dark"  asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -83,5 +91,15 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
+    <script>
+    window.onload = function () {
+        var arr = window.location.href.split('/')
+        var controller = arr[3] != "" ? arr[3] : "Home"
+        var selectedTab = document.getElementById(controller)
+        selectedTab.classList.add('active')
+    }
+    </script>
+
 </body>
 </html>
